@@ -73,6 +73,12 @@ public class SwitchCaseHell {
         return result;
     }
 
+    /**
+     * Here one fallthrough takes place which is no clean coding since each branch should deliver
+     * one defined return via yield
+     * @param rule the switch value
+     * @return the result of the switch
+     */
     public static Integer upgradedOldSwitchCaseWithTraps(ExecRules rule) {
         Integer x = 8;
         Integer y = 12;
@@ -121,20 +127,25 @@ public class SwitchCaseHell {
     }
 
 
+    /**
+     * Here we see a switch EXPRESSION instead of a switch statement. All continuations are implicitly set
+     * @param rule the switch parameter
+     * @return the switch expression return
+     */
     public static Integer newSwitchCaseExpr(ExecRules rule) {
         Integer x = 8;
         Integer y = 12;
         Integer result = 0;
         return switch (rule) {
             case SIMPLE ->
-                    x + 3; /* es wird punktuell genau dieses Statement ausgeführt */
+                    x + 3; /*only THIS statement is executed and produces a  defined result */
             case FALLTHROUGH ->
                     y * 9;
-            case DOUBLE -> /* es wird punktuell genau dieses Statement ausgeführt */
+            case DOUBLE -> /*only THIS statement is executed and produces a  defined result */
                     result + y;
-            case TRIPLE -> /* es wird punktuell genau dieses Statement ausgeführt */
+            case TRIPLE -> /*only THIS statement is executed and produces a  defined result */
                     result + 7;
-            default -> /* es wird punktuell genau dieses Statement ausgeführt */
+            default -> /*only THIS statement is executed and produces a  defined result */
                     result + 3;
         };
     }

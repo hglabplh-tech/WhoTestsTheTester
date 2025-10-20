@@ -483,6 +483,42 @@ Here a little excursion regarding the coding style and how it can make testing o
 One important thing is to have a good style of coding doing conditional branches in the code:
 For this have a look at Java\'s different styles of the switch statement:\newline
 \subsection{At first have a look on JAVA}
+The output of the following functions is printed that way :
+The thing is printed by;
+\begin{lstlisting}
+StringBuffer buffer = new StringBuffer()
+                .append("Normal Simple: " + pureOldSwitchCase(SIMPLE))
+                .append(" ; ").append("Normal Triple: " + pureOldSwitchCase(TRIPLE))
+                .append(" ; ").append("Normal Double: " + pureOldSwitchCase(DOUBLE))
+                .append(" ; ").append("Normal Fall through: " + pureOldSwitchCase(FALLTHROUGH))
+                .append(" ; ").append("Normal default: " + pureOldSwitchCase(NONE))
+                .append("\n\n")
+                .append("With trap Simple: " + pureOldSwitchCaseWithTraps(SIMPLE))
+                .append(" ; ").append("With trap Triple: " + pureOldSwitchCaseWithTraps(TRIPLE))
+                .append(" ; ").append("With trap  Double: " + pureOldSwitchCaseWithTraps(DOUBLE))
+                .append(" ; ").append("With trap  Fall through: " + pureOldSwitchCaseWithTraps(FALLTHROUGH))
+                .append(" ; ").append("With trap  default: " + pureOldSwitchCaseWithTraps(NONE))
+                .append("\n\n")
+                .append("Upgraded Simple: " + upgradedOldSwitchCase(SIMPLE))
+                .append(" ; ").append("Upgraded Triple: " + upgradedOldSwitchCase(TRIPLE))
+                .append(" ; ").append("Upgraded Double: " + upgradedOldSwitchCase(DOUBLE))
+                .append(" ; ").append("Upgraded Fall through: " + upgradedOldSwitchCase(FALLTHROUGH))
+                .append(" ; ").append("Upgraded default: " + upgradedOldSwitchCase(NONE))
+                .append("\n\n")
+                .append("Upgraded Simple with traps: " + upgradedOldSwitchCaseWithTraps(SIMPLE))
+                .append(" ; ").append("Upgraded Triple with traps: " + upgradedOldSwitchCaseWithTraps(TRIPLE))
+                .append(" ; ").append("Upgraded Double with traps: " + upgradedOldSwitchCaseWithTraps(DOUBLE))
+                .append(" ; ").append("Upgraded Fall through really fall: " + upgradedOldSwitchCaseWithTraps(FALLTHROUGH))
+                .append(" ; ").append("Upgraded default with traps: " + upgradedOldSwitchCaseWithTraps(NONE))
+                .append("\n\n")
+                .append("new Simple Expr: " + newSwitchCaseExpr(SIMPLE))
+                .append(" ; ").append("new Triple Expr: " + newSwitchCaseExpr(TRIPLE))
+                .append(" ; ").append("new Double Expr: " + newSwitchCaseExpr(DOUBLE))
+                .append(" ; ").append("new Fall through Expr: " + newSwitchCaseExpr(FALLTHROUGH))
+                .append(" ; ").append("new default Expr: " + newSwitchCaseExpr(NONE))
+                .append("\n\n");
+        System.out.println(buffer);   
+ \end{lstlisting}
 \abbrhighcol{Let us first have a look at an old school nearly clean switch block}
 \end{flushleft}
 \begin{lstlisting}
@@ -518,15 +554,7 @@ For this have a look at Java\'s different styles of the switch statement:\newlin
     }
 \end{lstlisting}
 
-Calling it in that way:
-\begin{lstlisting}
-  	System.out.println("Normal Simple: " + pureOldSwitchCase(SIMPLE));
-        System.out.println("Normal Triple: " + pureOldSwitchCase(TRIPLE));
-        System.out.println("Normal Double: " + pureOldSwitchCase(DOUBLE));
-        System.out.println("Normal Fall through: " + pureOldSwitchCase(FALLTHROUGH));
-        System.out.println("Normal default: " + pureOldSwitchCase(NONE));
-\end{lstlisting}
-The output will be:\newline
+The output calling it with all parameters will be:\newline
 Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 324 ; Normal default: 3\newline\newline
 \abbrhighcol{Let us first have a look at an old school dirty coded switch block}
 \begin{lstlisting}
@@ -561,15 +589,9 @@ Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 
         return result;
     }
 \end{lstlisting}
-Calling it in that way:
-\begin{lstlisting}
-  System.out.println("With trap Simple: " + pureOldSwitchCaseWithTraps(SIMPLE));
-  System.out.println("With trap Triple: " + pureOldSwitchCaseWithTraps(TRIPLE));
-  System.out.println("With trap  Double: " + pureOldSwitchCaseWithTraps(DOUBLE));
-  System.out.println("With trap  Fall through: " + pureOldSwitchCaseWithTraps(FALLTHROUGH));
-  System.out.println("With trap  default: " + pureOldSwitchCaseWithTraps(NONE));\end{lstlisting}
-The output will be:\newline
-With trap Simple ???: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap  Fall through: 540 ; With trap  default: 3\newline\newline
+
+The output calling it with all parameters will be:\newline
+With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap  Fall through: 540 ; With trap  default: 3\newline\newline
 \abbrhighcol{Let us first have a look at an new  clean coded switch block}
 \begin{lstlisting}
  /**
@@ -594,5 +616,66 @@ With trap Simple ???: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With 
             default:
                 yield result + 3;
         };
-    }\end{lstlisting}
-\end{document}
+\end{lstlisting}
+
+ The output calling it with all parameters will be:\newline
+ Upgraded Simple: 11 ; Upgraded Triple: 7 ; Upgraded Double: 12 ; Upgraded Fall through: 108 ; Upgraded default: 3\newline\newline
+\abbrhighcol{Now let us have a look at an new  tricky  coded switch block}
+\begin{lstlisting}
+ /**
+     * Here one fallthrough takes place which is no clean coding since each branch should deliver
+     * one defined return via yield
+     * @param rule the switch value
+     * @return the result of the switch 
+     */
+    public static Integer upgradedOldSwitchCaseWithTraps(ExecRules rule) {
+        Integer x = 8;
+        Integer y = 12;
+        Integer result = 0;
+        return switch (rule) {
+            case SIMPLE:
+                yield x +3;
+            case FALLTHROUGH: // this is seen as ok but no good style
+                y *=9;
+                result += 2 * y;
+            case DOUBLE:
+                result *= 2;
+                yield result + y;
+            case TRIPLE:
+                yield result + 7;
+            default:
+                yield result + 3;
+        };
+
+    }
+\end{lstlisting}
+ The output calling it with all parameters will be:\newline
+ Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
+ \abbrhighcol{Now let us see how the switch expression works here the continuations are impliit and so coding wit errors is more difficult}
+\begin{lstlisting}
+   /**
+     * Here we see a switch EXPRESSION instead of a switch statement. All continuations are implicitly set
+     * @param rule the switch parameter
+     * @return the switch expression return
+     */
+    public static Integer newSwitchCaseExpr(ExecRules rule) {
+        Integer x = 8;
+        Integer y = 12;
+        Integer result = 0;
+        return switch (rule) {
+            case SIMPLE ->
+                    x + 3;   /*only THIS statement is executed and produces a  defined result */ 
+             case FALLTHROUGH ->
+                    y * 9;
+            case DOUBLE -> /*only THIS statement is executed and produces a  defined result */
+                    result + y;
+            case TRIPLE ->   /*only THIS statement is executed and produces a  defined result */
+                    result + 7;
+            default ->.  /*only THIS statement is executed and produces a  defined result */
+                    result + 3;
+        };
+    }
+\end{lstlisting}  
+The output calling it with all parameters will be:\newline
+ Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
+ \end{document}
