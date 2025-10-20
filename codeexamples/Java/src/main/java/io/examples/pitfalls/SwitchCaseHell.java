@@ -94,38 +94,13 @@ public class SwitchCaseHell {
 
     }
 
-    public static Integer dummy (Integer x) {
-        if (x < 7) {
-            System.out.println("lolly");
-            dummy (++x);
-            System.out.println("pop");
-        }
-        else
-            System.out.println("poooopel");
-        return x;
-    }
 
     /**
-     * A kind of "brain fuck" with recursion
-     * @param x input
-     * @return counter
+     * Here we see the 'new' keyword yield with which a result is given back and which also, like break, sets the continuation
+     * to go on after the switch. In this case here each branch ends with a yield so we have a clear and clean logic.
+     * @param rule the switch parameter
+     * @return the switch result
      */
-    public static Integer dummy2 (Integer x) {
-        if (x < 7) {
-            System.out.println("lolly");
-            dummy2 (++x);
-            System.out.println("pop");
-            return x;
-        }
-        else {
-            if (x < 10)
-                dummy2(++x);
-            System.out.println("poooopel");
-            return x;
-        }
-    }
-
-
     public static Integer upgradedOldSwitchCase(ExecRules rule) {
         Integer x = 8;
         Integer y = 12;
@@ -164,48 +139,82 @@ public class SwitchCaseHell {
         };
     }
 
+
+    public static Integer confusingRecur(Integer x) {
+        if (x < 7) {
+            System.out.println("lolly");
+            confusingRecur(++x);
+            System.out.println("pop");
+        }
+        else
+            System.out.println("poooopel");
+        return x;
+    }
+
+    /**
+     * A kind of "brain fuck" with recursion
+     * @param x input
+     * @return counter
+     */
+    public static Integer moreConfusingRecur(Integer x) {
+        if (x < 7) {
+            System.out.println("lolly");
+            moreConfusingRecur(++x);
+            System.out.println("pop");
+            return x;
+        }
+        else {
+            if (x < 10)
+                moreConfusingRecur(++x);
+            System.out.println("poooopel");
+            return x;
+        }
+    }
+
+    public static void main(String [] args) {
+        StringBuffer buffer = new StringBuffer()
+                .append("Normal Simple: " + pureOldSwitchCase(SIMPLE))
+                .append(" ; ").append("Normal Triple: " + pureOldSwitchCase(TRIPLE))
+                .append(" ; ").append("Normal Double: " + pureOldSwitchCase(DOUBLE))
+                .append(" ; ").append("Normal Fall through: " + pureOldSwitchCase(FALLTHROUGH))
+                .append(" ; ").append("Normal default: " + pureOldSwitchCase(NONE))
+                .append("\n\n")
+                .append("With trap Simple: " + pureOldSwitchCaseWithTraps(SIMPLE))
+                .append(" ; ").append("With trap Triple: " + pureOldSwitchCaseWithTraps(TRIPLE))
+                .append(" ; ").append("With trap  Double: " + pureOldSwitchCaseWithTraps(DOUBLE))
+                .append(" ; ").append("With trap  Fall through: " + pureOldSwitchCaseWithTraps(FALLTHROUGH))
+                .append(" ; ").append("With trap  default: " + pureOldSwitchCaseWithTraps(NONE))
+                .append("\n\n")
+                .append("Upgraded Simple: " + upgradedOldSwitchCase(SIMPLE))
+                .append(" ; ").append("Upgraded Triple: " + upgradedOldSwitchCase(TRIPLE))
+                .append(" ; ").append("Upgraded Double: " + upgradedOldSwitchCase(DOUBLE))
+                .append(" ; ").append("Upgraded Fall through: " + upgradedOldSwitchCase(FALLTHROUGH))
+                .append(" ; ").append("Upgraded default: " + upgradedOldSwitchCase(NONE))
+                .append("\n\n")
+                .append("Upgraded Simple with traps: " + upgradedOldSwitchCaseWithTraps(SIMPLE))
+                .append(" ; ").append("Upgraded Triple with traps: " + upgradedOldSwitchCaseWithTraps(TRIPLE))
+                .append(" ; ").append("Upgraded Double with traps: " + upgradedOldSwitchCaseWithTraps(DOUBLE))
+                .append(" ; ").append("Upgraded Fall through really fall: " + upgradedOldSwitchCaseWithTraps(FALLTHROUGH))
+                .append(" ; ").append("Upgraded default with traps: " + upgradedOldSwitchCaseWithTraps(NONE))
+                .append("\n\n")
+                .append("new Simple Expr: " + newSwitchCaseExpr(SIMPLE))
+                .append(" ; ").append("new Triple Expr: " + newSwitchCaseExpr(TRIPLE))
+                .append(" ; ").append("new Double Expr: " + newSwitchCaseExpr(DOUBLE))
+                .append(" ; ").append("new Fall through Expr: " + newSwitchCaseExpr(FALLTHROUGH))
+                .append(" ; ").append("new default Expr: " + newSwitchCaseExpr(NONE))
+                .append("\n\n");
+        System.out.println(buffer);
+        System.out.println(confusingRecur(5));
+        System.out.println(confusingRecur(7));
+        System.out.println(moreConfusingRecur(5));
+        System.out.println(moreConfusingRecur(7));
+    }
+
     public enum ExecRules {
         NONE,
         DOUBLE,
         SIMPLE,
         TRIPLE,
         FALLTHROUGH,;
-    }
-
-    public static void main(String [] args) {
-        System.out.println("Normal Simple ???: " + pureOldSwitchCase(SIMPLE));
-        System.out.println("Normal Triple ???: " + pureOldSwitchCase(TRIPLE));
-        System.out.println("Normal Double ???: " + pureOldSwitchCase(DOUBLE));
-        System.out.println("Normal Fall through ???: " + pureOldSwitchCase(FALLTHROUGH));
-        System.out.println("Normal default ???: " + pureOldSwitchCase(NONE));
-
-        System.out.println("With trap Simple ???: " + pureOldSwitchCaseWithTraps(SIMPLE));
-        System.out.println("With trap Triple ???: " + pureOldSwitchCaseWithTraps(TRIPLE));
-        System.out.println("With trap  Double ???: " + pureOldSwitchCaseWithTraps(DOUBLE));
-        System.out.println("With trap  Fall through ???: " + pureOldSwitchCaseWithTraps(FALLTHROUGH));
-        System.out.println("With trap  default ???: " + pureOldSwitchCaseWithTraps(NONE));
-
-        System.out.println("Upgraded Simple ???: " + upgradedOldSwitchCase(SIMPLE));
-        System.out.println("Upgraded Triple ???: " + upgradedOldSwitchCase(TRIPLE));
-        System.out.println("Upgraded Double ???: " + upgradedOldSwitchCase(DOUBLE));
-        System.out.println("Upgraded Fall through ???: " + upgradedOldSwitchCase(FALLTHROUGH));
-        System.out.println("Upgraded default ???: " + upgradedOldSwitchCase(NONE));
-
-        System.out.println("Upgraded Simple with traps???: " + upgradedOldSwitchCaseWithTraps(SIMPLE));
-        System.out.println("Upgraded Triple with traps ???: " + upgradedOldSwitchCaseWithTraps(TRIPLE));
-        System.out.println("Upgraded Double with traps ???: " + upgradedOldSwitchCaseWithTraps(DOUBLE));
-        System.out.println("Upgraded Fall through really fall ???: " + upgradedOldSwitchCaseWithTraps(FALLTHROUGH));
-        System.out.println("Upgraded default with traps ???: " + upgradedOldSwitchCaseWithTraps(NONE));
-
-
-        System.out.println("new Simple Expr ???: " + newSwitchCaseExpr(SIMPLE));
-        System.out.println("new Triple Expr ???: " + newSwitchCaseExpr(TRIPLE));
-        System.out.println("new Double Expr: " + newSwitchCaseExpr(DOUBLE));
-        System.out.println("new Fall through Expr ???: " + newSwitchCaseExpr(FALLTHROUGH));
-        System.out.println("new default ??? Expr: " + newSwitchCaseExpr(NONE));
-        System.out.println(dummy(5));
-        System.out.println(dummy(7));
-        System.out.println(dummy2(5));
-        System.out.println(dummy2(7));
     }
 }

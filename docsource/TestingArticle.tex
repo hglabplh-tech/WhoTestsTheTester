@@ -571,4 +571,28 @@ Calling it in that way:
 The output will be:\newline
 With trap Simple ???: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap  Fall through: 540 ; With trap  default: 3\newline\newline
 \abbrhighcol{Let us first have a look at an new  clean coded switch block}
+\begin{lstlisting}
+ /**
+     * Here we see the 'new' keyword yield with which a result is given back and which also, like break, sets the continuation
+     * to go on after the switch. In this case here each branch ends with a yield so we have a clear and clean logic.
+     * @param rule the switch parameter
+     * @return the switch result
+     */ public static Integer upgradedOldSwitchCase(ExecRules rule) {
+        Integer x = 8;
+        Integer y = 12;
+        Integer result = 0;
+        return switch (rule) {
+            case SIMPLE:
+                yield x +3;
+            case FALLTHROUGH:
+                yield y * 9;
+            case DOUBLE:
+                yield result + y;
+                /*yield result = result + y; marked as unreachable */
+            case TRIPLE:
+                yield result + 7;
+            default:
+                yield result + 3;
+        };
+    }\end{lstlisting}
 \end{document}
