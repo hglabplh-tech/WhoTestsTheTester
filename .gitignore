@@ -7,3 +7,5 @@ codeexamples/Java/target/test-things-0.3-SNAPSHOT.jar
 *.log
 *.aux
 *.aux
+codeexamples/Java/target/surefire-reports/TEST-io.examples.sort.QBubbleMergeTest.xml
+*.class
