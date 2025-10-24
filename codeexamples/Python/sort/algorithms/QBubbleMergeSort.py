@@ -1,7 +1,10 @@
 class QBubbleMergeSort:
 
+    def __init__(self):
+        print("blah")
 
-    def partition(self, arr, low, high):
+    @staticmethod
+    def partition(arr, low, high):
         # choose the pivot
         pivot = arr[high]
 
@@ -15,31 +18,34 @@ class QBubbleMergeSort:
         for j in range(low, high):
             if arr[j] < pivot:
                 i += 1
-                self.swap(arr, i, j)
+                QBubbleMergeSort.swap(arr, i, j)
 
         # move pivot after smaller elements and
         # return its position
-        self.swap(arr, i + 1, high)
+        QBubbleMergeSort.swap(arr, i + 1, high)
         return i + 1
 
 
     # swap function
-    def swap(self, arr, i, j):
+    @staticmethod
+    def swap(arr, i, j):
         arr[i], arr[j] = arr[j], arr[i]
 
 
     # the QuickSort function implementation
-    def quickSort(self, arr, low, high):
+    @staticmethod
+    def quickSort(arr, low, high):
         if low < high:
             # pi is the partition return index of pivot
-            pi = self.partition(self, arr, low, high)
+            pi = QBubbleMergeSort.partition(arr, low, high)
 
             # recursion calls for smaller elements
             # and greater or equals elements
-            self.quickSort(arr, low, pi - 1)
-            self.quickSort(arr, pi + 1, high)
+            QBubbleMergeSort.quickSort(arr, low, pi - 1)
+            QBubbleMergeSort.quickSort(arr, pi + 1, high)
 
-    def bubbleSort(self, arr):
+    @staticmethod
+    def bubbleSort(arr):
         n = len(arr)
 
         # Traverse through all array elements
@@ -53,15 +59,15 @@ class QBubbleMergeSort:
                 # Swap if the element found is greater
                 # than the next element
                 if arr[j] > arr[j + 1]:
-                    self.swap(arr, j, j + 1)
+                    QBubbleMergeSort.swap(arr, j, j + 1)
                     swapped = True
             if swapped:
                 continue
             else:
                 break
 
-
-    def merge(self, arr, left, mid, right):
+    @staticmethod
+    def merge(arr, left, mid, right):
         n1 = mid - left + 1
         n2 = right - mid
 
@@ -104,11 +110,11 @@ class QBubbleMergeSort:
             j += 1
             k += 1
 
-
-    def mergeSort(self, arr, left, right):
+    @staticmethod
+    def mergeSort(arr, left, right):
         if left < right:
             mid = (left + right) // 2
 
-            self.mergeSort(arr, left, mid)
-            self.mergeSort(arr, mid + 1, right)
-            self.merge(arr, left, mid, right)
+            QBubbleMergeSort.mergeSort(arr, left, mid)
+            QBubbleMergeSort.mergeSort(arr, mid + 1, right)
+            QBubbleMergeSort.merge(arr, left, mid, right)
