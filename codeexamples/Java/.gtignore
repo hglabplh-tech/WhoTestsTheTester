@@ -1,4 +1,7 @@
-target
 *.class
 *.txt
 *.aux
+*.log
+*.gz
+*.toc
+*.jar
