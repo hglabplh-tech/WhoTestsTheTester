@@ -8,7 +8,7 @@ public class SortData {
             1,256,2,3,255,254,4,5,8,7,6,250,252,253,248,249,15,12,11,10,13,14,9,16,248,241,245,243,244,247,246,242,240,
             17,24,20,18,19,23,22,21,239,235,237,236,238,233,232,234
             };
-    public static Integer LAST_INDEX;
+    public static int LAST_INDEX;
 
     static {
         LAST_INDEX = SORT_DATA.length - 1;
