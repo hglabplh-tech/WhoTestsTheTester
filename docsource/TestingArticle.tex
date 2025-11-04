@@ -12,6 +12,7 @@
   stringstyle=\color{red},
   basicstyle=\ttfamily,
   moredelim=[il][\textcolor{grey}]{$$},
+  morekeywords=\textcolor{blue}]{yield},  
   moredelim=[is][\textcolor{grey}]{\%\%}{\%\%}}
 \usepackage{ae}
 \usepackage{aeguill}
@@ -471,10 +472,93 @@ And now we can test the thing out of the box for the test is already there.
 The point is that in Test Driven Development we do not think at first about the technical details and afterwords wrap the technical details some kind of interface. No the opposite 
 is the case: We think about which values are passed to a function and how the outcome must look like. Same for the used parameter - data types and the return value(s) datatype(s). We think about datastreams and the steps which work on them and each "worker" has well defined parameters and a well defined outcome for the specific values given as arguments. And NOW 
 we can think about the technical details while we code inside a well defined interface.
-
+\newpage
 \chapter{Deep dive into test automation}
+\section{At First again the testing types and the way of automation for the types}
+\subsection{UNIT Tests}
 \begin{flushleft}
-The automation of Tests can take place on different levels of Test execution. At first take a look on test automation of \abbrhighcol{UNIT Tests}
+The focus of UNIT Tests is on the testing of the code units functions, methods of a class or a functional language in object oriented languages where we have private and public e have to look that we only test the public entries directly and the private entries as far as possible only indirect so that we do not break the language security mechanism of private access. The UNIT tests are written based on the knowledge of implementation details.   
+\end{flushleft}
+\subsection{Functional Tests}
+\begin{flushleft}
+Functional tests have the focus on testing the functionality from outside for example calling services of an application in an application server. These tests MUST not know any implementation details but only in the case of the example the REST Service Interface or the Interface of whatever to test. The functional Tests are best placed in a functional tests project separated from the project where the development takes place. So they are clean separated and there is also not the danger for the one who develops them to have a deep look at the code. 
+\end{flushleft}
+\subsection{Use Case Tests}
+\begin{flushleft}
+The Use case tests are the next abstraction level. The focus is on testing the things in that units the use cases are defined in the projects specification. For example workflow for a banking transaction. These tests are sometimes automated and some projects need to do interactive / GUI tests for that
+\end{flushleft}
+\subsection{FeatureTests}
+\begin{flushleft}
+
+\end{flushleft}
+\subsection{Minor Release / Major Release Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{Upgrade / Migration Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{Performance Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{PenetrationTests / Security Tests - Mostly Service Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{Regression Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{Usability Tests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{AutomatedTests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{InteractiveTests}
+\begin{flushleft}
+\end{flushleft}
+\subsection{AcceptanceTests}
+\begin{flushleft}
+\end{flushleft}
+
+%% Next section
+\section{Look at UNIT testing first}
+\begin{flushleft}
+The automation of Tests can take place on different levels of Test execution. At first take a look on test automation of \abbrhighcol{UNIT Tests}.\footnote{UNIT Tests are normally placed in the same project where the development takes place. The Tests are done on the programming language function level testig functions and / or classes and the implementation from the complete technical point of view}
+The UNIT tests should be written by the developers coding the functions. There are two possibilities. Either the developer coding the function writes the UNIT tests during coding or the UNIT tests are written by the developer who does the code review which I think is very useful. I would prefer to do both things. First coding the function or write the UNIT test and code the function that it fits. After both things are written a code review should take place. Now the reviewer sees if there is something wrong in the code and / or if UNIT tests are missing and he can write further tests. In best case he writes tests which state if the errors he found are fixed. In most cases UNIT tests are per definition White Box Tests.
+Here again our sort example. Atypical simple UNIT test will be in Java with JUNIT:
+\end{flushleft}
+\begin{lstlisting}
+   @Test
+    public void testQuickSortSimple() {
+        Integer[] arrayToSort = newArray();
+        Integer[] arrayToSortComp = newArray();
+        Arrays.<Integer>parallelSort(arrayToSortComp, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        QBubbleMerge.quickSort(arrayToSort, ASC, 0, LAST_INDEX);
+        assertThat(Arrays.compare(arrayToSort, arrayToSortComp), is(0));
+        arrayToSort = newArray();
+        arrayToSortComp = newArray();
+        Arrays.<Integer>parallelSort(arrayToSortComp, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        QBubbleMerge.quickSort(arrayToSort, DESC, 0, LAST_INDEX);
+        assertThat(Arrays.compare(arrayToSort, arrayToSortComp), is(0));
+    }
+\end{lstlisting}
+\section{Functional Tests development in parallel}
+\begin{flushleft}
+Functional Tests are tests not only of one function in the technical sense but are tests to check if for example a defined REST request works in a proper way. The best way to define this tests is to have a separate test project. The functional tests are per definition black box tests. For the functional tests the technical definition of a REST request or client action ore something else is necessary. These tests are a abstraction level between UNIT and Use Case Tests.
+\end{flushleft}
+\section{Tests for Use Cases}
+\begin{flushleft}
+The tests for Use Cases is a test for a system / project / product requirement to check if the requirements defined by the customer are all implemented in a proper way. One example
+will be a store of a document with signature like described above. To check if this works more than one functional tests may be executed in a transaction bracket.  
 \end{flushleft}
 \chapter{Clean code and coding rules}
 \section{A little view at coding styles necessary for testable code a few examples}
