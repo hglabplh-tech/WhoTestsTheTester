@@ -610,6 +610,7 @@ To get automated tests in a structured designed way we have at first to take a l
 \end{flushleft}
 \newpage
 \begin{tikzpicture}
+%nodes
 \node [simple module] (mA) {JIRA - Task and Ticket - System};
 \node [simple module,below=of mA] (mA1) {Development Environment};
 \node [simple module,below=of mA1] (mA2) {Bitbucket - Repository};
@@ -617,7 +618,7 @@ To get automated tests in a structured designed way we have at first to take a l
 \node[simple module,right=of mB](mC){Jenkins - Test Environment}; 
 \node[simple module,below=of mC](mD){Dockers}; 
 \node[simple module,below=of mD](mE){Portainers}; 
-% \foreach \n in {mA,mB,mC}
+%drawings
 \draw[->] (mA.south) -- (mA1.north);
 \draw[->] (mA1.north) -- (mA.south);
 \draw[->] (mA1.south) -- (mA2.north);
