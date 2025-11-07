@@ -2,6 +2,7 @@
 \usepackage{babel}
 \usepackage{listings}
 \lstset{language=Java,
+  language=Python,
   showspaces=false,
   showtabs=false,
   breaklines=true,
@@ -15,6 +16,17 @@
   morekeywords=\textcolor{blue}]{yield},  
   moredelim=[is][\textcolor{grey}]{\%\%}{\%\%}}
 \usepackage{ae}
+\usepackage{tikz}
+\usetikzlibrary{positioning,matrix,shapes.arrows}
+% setup tikz
+\tikzset{
+  modulematrix/.style={draw=blue!50!red,rounded corners,matrix of nodes,row sep=1cm,column sep=1cm,nodes={draw=green!70,align=center,font=\sffamily},inner ysep=0.5cm},
+  module/.style={rounded corners, align=center, font=\sffamily, thick},
+  simple module/.style={module, top color=blue!10, bottom color=blue!35, draw=blue!75, text width=40mm, minimum height=15mm},
+  module down arrow/.style={module arrow, shape border rotate=-90},
+  module right arrow/.style={module arrow},
+module arrow/.style={single arrow, single arrow head extend=2.5mm, draw=gray!75, inner color=gray!20, outer color=gray!35, thick, shape border uses incircle, anchor=tail,minimum height=0.7cm},
+}% end setup tikz
 \usepackage{aeguill}
 \usepackage{shortvrb}
 \usepackage[latin1]{inputenc}
@@ -505,10 +517,11 @@ The focus of performance tests s on how fast a high amount of data or requests c
 \end{flushleft}
 \subsection{PenetrationTests / Security Tests - Mostly Service Tests}
 \begin{flushleft}
+These tests are focused on checking the stability of the project in the way that requests to the software are placed in a way that the application can crash if it is not developed in a clean secure way. One of the possibilities is to send one or more requests which seem to be valid but which attack the application with incorrect data. Another possibility is that we send a mass of requests like in a DDOS Attack. There is no restriction in thinking about ways to put the whole thing out of order. Sometimes you have to think like the evil to get it secure.
 \end{flushleft}
 \subsection{Regression Tests}
 \begin{flushleft}
-
+Regression tests are focused on checking if the functionality of the application works inn the same way after introducing features fixing bugs making changes (add ons) in the configuration and so on.
 \end{flushleft}
 \subsection{Usability Tests}
 \begin{flushleft}
@@ -526,12 +539,16 @@ Interactive tests are defined for using the UI and they are defined to see if th
 \begin{flushleft}
 Acceptance tests are tests to see how good a interface or a UI is accepted by the one who uses it. These tests are partly strict defined and on the other hand there are tests where the user gets a task and can fill out a form with different criteria. These criteria are chosen in a way that we can see how satisfied the user is with the way how he can come to the solution. They are defined in a way that they state if it is easily possible to use the functionality.
 \end{flushleft}
+\subsection{Resume}
+\begin{flushleft}
+In general we can say that all these things have to be tested in different ways and that there is more than one possibility to test all these things. Some of the test scenarios are destined to be tested in a way that most of the parts are automated. This automation can be defined from the time point of check in to the point building a tested delivery. In the following chapters and sections we like to describe a way of automation which covers nearly all parts which has to be tested before delivery. 
+\end{flushleft}
 %% Next section
 \section{Look at UNIT testing first}
 \begin{flushleft}
 The automation of Tests can take place on different levels of Test execution. At first take a look on test automation of \abbrhighcol{UNIT Tests}.\footnote{UNIT Tests are normally placed in the same project where the development takes place. The Tests are done on the programming language function level testig functions and / or classes and the implementation from the complete technical point of view}
 The UNIT tests should be written by the developers coding the functions. There are two possibilities. Either the developer coding the function writes the UNIT tests during coding or the UNIT tests are written by the developer who does the code review which I think is very useful. I would prefer to do both things. First coding the function or write the UNIT test and code the function that it fits. After both things are written a code review should take place. Now the reviewer sees if there is something wrong in the code and / or if UNIT tests are missing and he can write further tests. In best case he writes tests which state if the errors he found are fixed. In most cases UNIT tests are per definition White Box Tests.
-Here again our sort example. Atypical simple UNIT test will be in Java with JUNIT:
+Here again our sort example. A typical simple UNIT test will be in Java with JUNIT:
 \end{flushleft}
 \begin{lstlisting}
    @Test
@@ -558,6 +575,22 @@ Here again our sort example. Atypical simple UNIT test will be in Java with JUNI
         assertThat(Arrays.compare(arrayToSort, arrayToSortComp), is(0));
     }
 \end{lstlisting}
+And in Python with the package unittest which is very similar:
+\begin{lstlisting}
+import unittest
+import copy
+from sort.algorithms.QBubbleMergeSort import QBubbleMergeSort
+from sort.algorithms.SortData import SORT_DATA
+from sort.algorithms.SortData import LAST_INDEX
+
+class QBubbleMergeSortTest(unittest.TestCase):
+    def test_quicksort_simple(self):
+        toSortAsc = copy.deepcopy(SORT_DATA)
+        toSortAsc.sort()
+        toSortAscQuick = copy.deepcopy(SORT_DATA)
+        QBubbleMergeSort.quickSort(toSortAscQuick, 0, LAST_INDEX)
+        self.assertEqual(set(toSortAsc), set(toSortAscQuick))
+\end{lstlisting}
 \section{Functional Tests development in parallel}
 \begin{flushleft}
 Functional Tests are tests not only of one function in the technical sense but are tests to check if for example a defined REST request works in a proper way. The best way to define this tests is to have a separate test project. The functional tests are per definition black box tests. For the functional tests the technical definition of a REST request or client action ore something else is necessary. These tests are a abstraction level between UNIT and Use Case Tests.
@@ -567,7 +600,37 @@ Functional Tests are tests not only of one function in the technical sense but a
 The tests for Use Cases is a test for a system / project / product requirement to check if the requirements defined by the customer are all implemented in a proper way. One example
 will be a store of a document with signature like described above. To check if this works more than one functional tests may be executed in a transaction bracket.  
 \end{flushleft}
-\chapter{Clean code and coding rules}
+\section{Setup / Build automated test environment}
+\begin{flushleft}
+To get automated tests in a structured designed way we have at first to take a look on which tools we need and use for getting the test process chained.
+ Here an example of tools and build automated tests with them this starts with the right ticket and task documentation tool. In our case we use JIRA. 
+\end{flushleft}
+\subsection{Example with tool chain}
+\begin{flushleft}
+\end{flushleft}
+\newpage
+\begin{tikzpicture}
+\node [simple module] (mA) {JIRA - Task and Ticket - System};
+\node [simple module,below=of mA] (mA1) {Development Environment};
+\node [simple module,below=of mA1] (mA2) {Bitbucket - Repository};
+\node[simple module,right=of mA2](mB){Jenkins - Build Environment};
+\node[simple module,right=of mB](mC){Jenkins - Test Environment}; 
+\node[simple module,below=of mC](mD){Dockers}; 
+\node[simple module,below=of mD](mE){Portainers}; 
+% \foreach \n in {mA,mB,mC}
+\draw[->] (mA.south) -- (mA1.north);
+\draw[->] (mA1.north) -- (mA.south);
+\draw[->] (mA1.south) -- (mA2.north);
+\draw[->] (mA2.north) -- (mA1.south);
+\draw[->] (mA2.west) .. controls +(down:11mm) and +(left:11mm) .. (mA.west);
+\draw[->] (mA2.east) -- (mB.west);
+\draw[->] (mB.east) -- (mC.west);
+\draw[->] (mC.south) -- (mD.north);
+\draw[->] (mD.south) -- (mE.north);
+
+ \end{tikzpicture}
+ \newpage
+\chapter{Clean code and coding rules to make testing easier}
 \section{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:

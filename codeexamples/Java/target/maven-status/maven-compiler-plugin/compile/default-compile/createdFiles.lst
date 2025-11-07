@@ -1,7 +1,13 @@
 io/examples/sort/QBubbleMerge$1.class
-io/examples/sort/QBubbleMerge.class
+io/examples/systemsoft/MakeControlFlowCode.class
 io/examples/sort/QBubbleMerge$SortDirection.class
 io/examples/sort/SortData.class
+io/examples/complexcode/AvoidComplexCode$Values.class
 io/examples/pitfalls/SwitchCaseHell.class
 io/examples/pitfalls/SwitchCaseHell$ExecRules.class
+io/examples/complexcode/AvoidComplexCode.class
+io/examples/complexcode/AvoidComplexCode$2.class
+io/examples/sort/QBubbleMerge.class
+io/examples/toofancy/DONOTGetFancy.class
+io/examples/complexcode/AvoidComplexCode$1.class
 io/examples/pitfalls/SwitchCaseHell$1.class
