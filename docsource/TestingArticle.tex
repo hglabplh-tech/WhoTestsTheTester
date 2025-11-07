@@ -485,40 +485,47 @@ Functional tests have the focus on testing the functionality from outside for ex
 \end{flushleft}
 \subsection{Use Case Tests}
 \begin{flushleft}
-The Use case tests are the next abstraction level. The focus is on testing the things in that units the use cases are defined in the projects specification. For example workflow for a banking transaction. These tests are sometimes automated and some projects need to do interactive / GUI tests for that
+The Use case tests are the next abstraction level. The focus is on testing the things in that units the use cases are defined in the projects specification. For example workflow for a banking transaction. These tests are sometimes automated and some projects need to do interactive / UI tests for that
 \end{flushleft}
 \subsection{FeatureTests}
 \begin{flushleft}
-
+Features are new functionalities in a product or project the features can be a technical change with no interface change but they can also change the interfaces. This is the reason to test features in different ways. The one possibility only changes UNIT tests the other also changes for example rest services or the UI. Performance and regression tests have to be performed in both scenarios.A feature is part of a minor or major release. 
 \end{flushleft}
 \subsection{Minor Release / Major Release Tests}
 \begin{flushleft}
+Release Tests are tests where the whole features and Use Cases are done for a release which has to be shipped. This includes Upgrade / Migration Tests, Performance Tests, UNIT Tests, Functional Tests and so on. The focus will be to do as much tests as possible automated so that they all times can be repeated in a safe way and to safe time.  
 \end{flushleft}
 \subsection{Upgrade / Migration Tests}
 \begin{flushleft}
+Some changes have an effect on external programs and data definitions like in a DBMS. These changes have to be upgraded automatically in best case. Here we have to decide if the Upgrade has to be possible from one release back or more releases back. 
 \end{flushleft}
 \subsection{Performance Tests}
 \begin{flushleft}
+The focus of performance tests s on how fast a high amount of data or requests can be processed. To execute performance tests a realistic setup is necessary because if the tests run in a 'bubble' there is no way to distinct how performant the application really works in an environment like it is found at thee customers environment. In the best case all other applications driven by the customer run in parallel as it is in reality.  
 \end{flushleft}
 \subsection{PenetrationTests / Security Tests - Mostly Service Tests}
 \begin{flushleft}
 \end{flushleft}
 \subsection{Regression Tests}
 \begin{flushleft}
+
 \end{flushleft}
 \subsection{Usability Tests}
 \begin{flushleft}
+They are defined in a way that they state if it is easily possible to use the functionality. Usability tests are in the best case not only done for the UI but also for the interfaces used by developers and administrators in this case we see the configuration strictly as part of the interface.
 \end{flushleft}
 \subsection{AutomatedTests}
 \begin{flushleft}
+Automated tests are done for the parts which can be accessed in a programable way there are also tools making it possible to automate some UI tests not only backend functionality. Automated tests are normally embedded in a system which is designed to have all steps from check in to compile and deliver and test.
 \end{flushleft}
 \subsection{InteractiveTests}
 \begin{flushleft}
+Interactive tests are defined for using the UI and they are defined to see if the functionality is completely accessible in a way that all tasks can be done by a user. 
 \end{flushleft}
 \subsection{AcceptanceTests}
 \begin{flushleft}
+Acceptance tests are tests to see how good a interface or a UI is accepted by the one who uses it. These tests are partly strict defined and on the other hand there are tests where the user gets a task and can fill out a form with different criteria. These criteria are chosen in a way that we can see how satisfied the user is with the way how he can come to the solution. They are defined in a way that they state if it is easily possible to use the functionality.
 \end{flushleft}
-
 %% Next section
 \section{Look at UNIT testing first}
 \begin{flushleft}
