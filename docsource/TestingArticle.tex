@@ -419,9 +419,7 @@ Let us take as example step 4 and 5 because testing encryption and. hash values 
 \end{enumerate}}
 \end{itemize}
 And now you see two steps and so much to check. Hope I have not forgot something
-Now you can take this defines steps think about how this steps and actions are triggered in the application and what kind of matcher checks you need to do the test automated 
-
-Thats all for the first lesson. Thank you!
+Now you can take this defines steps think about how this steps and actions are triggered in the application and what kind of matcher checks you need to do the test automated.
   
 
 
@@ -603,12 +601,20 @@ will be a store of a document with signature like described above. To check if t
 \section{Setup / Build automated test environment}
 \begin{flushleft}
 To get automated tests in a structured designed way we have at first to take a look on which tools we need and use for getting the test process chained.
- Here an example of tools and build automated tests with them this starts with the right ticket and task documentation tool. In our case we use JIRA. 
+ Here is an example of tools and build automated tests with them this starts with the right ticket and task documentation tool. In our case we use JIRA. 
 \end{flushleft}
-\subsection{Example with tool chain}
+\subsection{Example with toolchain}
 \begin{flushleft}
+A toolchain is a set of software development tools used to build and otherwise develop software. Often, the tools are executed sequentially and form a pipeline such that the output of one tool is the input for the next. Sometimes the term is used for a set of related tools that are not necessarily executed sequentially. (Wikipedia)\newline
+Our toolchain is a chain of tools we use for defining use cases and requirements which are broken down to tasks and sub-tasks for development. The development is done in an development environment like IntelliJ or Eclipse IDE and after being ready with a step it is committed to a Versioning Control System (VCS) like Bitbucket / GitHub (GIT). If the check in is done a Jenkins Build Job is triggered which builds the project / sub project. After this build the Jenkins in which the tests run is triggered so that the test run follows automatically. After that a deployment can be build. Either submitting the build in the Build Jenkins or we can use the test run afterwork to trigger the build of an assembly.\newline\abbrhighcol{The tools we use :}
 \end{flushleft}
-\newpage
+\begin{enumerate}
+\item{JIRA: This tool is used to define and document the requirements, use cases, tasks , epics, tests, bugs and so on. It is the tool to define the project as well as the ticket system. Also teams and sprints can be defined in JIRA }
+\item{Development Environment: E.G. IntelliJ... Tool for developing the project (Coding). }
+\item{Versioning Control System: E.G. Bitbucket. Tool for versioning code and set up branches and releases -- the control system can be configured with JIRA so that check ins are tracked by task in JIRA }
+\item{Build / Tests Tool: A tool like Jenkins can be used to set up build processes and test processes }
+\item{Docker Containers can be used to set up systems and services for testing. Also the test run itself can be started in a separate docker}
+\end{enumerate}
 \begin{tikzpicture}
 %nodes
 \node [simple module] (mA) {JIRA - Task and Ticket - System};
@@ -629,8 +635,9 @@ To get automated tests in a structured designed way we have at first to take a l
 \draw[->] (mC.south) -- (mD.north);
 \draw[->] (mD.south) -- (mE.north);
 
- \end{tikzpicture}
- \newpage
+\end{tikzpicture}
+\newpage
+\subsection{The automation between the tools and inside the tools}
 \chapter{Clean code and coding rules to make testing easier}
 \section{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
