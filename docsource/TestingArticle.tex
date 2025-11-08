@@ -483,24 +483,61 @@ The point is that in Test Driven Development we do not think at first about the 
 is the case: We think about which values are passed to a function and how the outcome must look like. Same for the used parameter - data types and the return value(s) datatype(s). We think about datastreams and the steps which work on them and each "worker" has well defined parameters and a well defined outcome for the specific values given as arguments. And NOW 
 we can think about the technical details while we code inside a well defined interface.
 \newpage
-\chapter{Deep dive into test automation}
-\section{At First again the testing types and the way of automation for the types}
-\subsection{UNIT Tests}
-\begin{flushleft}
-The focus of UNIT Tests is on the testing of the code units functions, methods of a class or a functional language in object oriented languages where we have private and public e have to look that we only test the public entries directly and the private entries as far as possible only indirect so that we do not break the language security mechanism of private access. The UNIT tests are written based on the knowledge of implementation details.   
-\end{flushleft}
+\chapter{The test types}
+\section{Test types in overview}
+\begin{tikzpicture}
+%% fun tests circle
+\draw  [fill=yellow](0,0) circle  (150pt);
+\draw  [fill=cyan](0,0) circle  (40pt);%the nodes
+\node [fill=red] (funCenter) { \color{white}\abbrhighcol{Functional Test \newline Types}};
+\node [fill=blue,module,left=of funCenter] (funLeft) { \color{green}Black Box Tests};
+\node [fill=blue,right=of funCenter] (funRight) { \color{yellow}White Box Tests};
+\node [fill=green,above=of funCenter] (funAbove) {Grey Box Tests};
+\node [fill=green,below=of funCenter] (funBelow) {UNIT Tests};
+\node [fill=olive,left=of funBelow] (funBelowLeft) {\color{white}Regression Tests};
+\node [fill=olive,right=of funBelow] (funBelowRight) {\color{white}Re-Test Tests};
+\node [fill=cyan,above=of funAbove] (funAboveAbove) {UAT};
+\node [fill=pink,left=of funAbove] (funAboveLeft) {Smoke};
+\node [fill=pink,right=of funAbove] (funAboveRight) {Database};
+\node [fill=purple,right=of funAboveAbove] (funAboveARight) {\color{white}Recovery};
+\node [fill=purple,left=of funAboveAbove] (funAboveALeft) {\color{white}Static};
+\node [fill=cyan,below=of funBelow] (funBelowBelow) {Acceptance};
+\node [fill=magenta,left=of funBelowBelow] (funBelowBLeft) {\color{white}Integration};
+\node [fill=magenta,right=of funBelowBelow] (funBelowBRight) {\color{white}Component};
+\node [fill=black,below=of funBelowBelow] (funBelowBBelow) {\color{green}Ad hoc/Random};
+\node [fill=black,above=of funAboveAbove] (funAboveAAbove) {\color{green}System Testing};
+%drawings of bubbles
+\end{tikzpicture}\newpage
+\section{Test types as description}
 \subsection{Functional Tests}
 \begin{flushleft}
 Functional tests have the focus on testing the functionality from outside for example calling services of an application in an application server. These tests MUST not know any implementation details but only in the case of the example the REST Service Interface or the Interface of whatever to test. The functional Tests are best placed in a functional tests project separated from the project where the development takes place. So they are clean separated and there is also not the danger for the one who develops them to have a deep look at the code. 
 \end{flushleft}
-\subsection{Use Case Tests}
+\begin{enumerate}
+\item{\abbrhighcol{UNIT Tests: }The focus of UNIT Tests is on the testing of the code units functions, methods of a class or a functional language in object oriented languages where we have private and public e have to look that we only test the public entries directly and the private entries as far as possible only indirect so that we do not break the language security mechanism of private access. The UNIT tests are written based on the knowledge of implementation details.}
+\item{\abbrhighcol{Use Case Tests: }
+The Use case tests are the next abstraction level. The focus is on testing the things in that units the use cases are defined in the projects specification. For example workflow for a banking transaction. These tests are sometimes automated and some projects need to do interactive / UI tests for that}
+\item{\abbrhighcol{FeatureTests: }Features are new functionalities in a product or project the features can be a technical change with no interface change but they can also change the interfaces. This is the reason to test features in different ways. The one possibility only changes UNIT tests the other also changes for example rest services or the UI. Performance and regression tests have to be performed in both scenarios.A feature is part of a minor or major release.}
+\item{\abbrhighcol{Black Box Tests: }Black Box Tests are tests of the functionality where the Tester who develops them only knows the interface, no matter if the interface is a library functionality a REST service or a UI interface}
+\item{\abbrhighcol{Grey Box Tests: }Grey Box Tests are between Black Box Tests. The Tester knows some details about the implementation. For example he knows how the entry parameters are checked or he knows details about the structure used (module tree) for implementing a requirement. }
+\item{\abbrhighcol{White Box Tests: }White Box Tests are tests where the Tester knows all the details about the implementation down to the last if condition or while loop.... }
+\item{\abbrhighcol{}}
+\item{\abbrhighcol{}}
+\item{\abbrhighcol{}}
+\end{enumerate}
+\subsection{NON-Functonal Tests}
 \begin{flushleft}
-The Use case tests are the next abstraction level. The focus is on testing the things in that units the use cases are defined in the projects specification. For example workflow for a banking transaction. These tests are sometimes automated and some projects need to do interactive / UI tests for that
 \end{flushleft}
-\subsection{FeatureTests}
-\begin{flushleft}
-Features are new functionalities in a product or project the features can be a technical change with no interface change but they can also change the interfaces. This is the reason to test features in different ways. The one possibility only changes UNIT tests the other also changes for example rest services or the UI. Performance and regression tests have to be performed in both scenarios.A feature is part of a minor or major release. 
-\end{flushleft}
+\begin{enumerate}
+\item{\abbrhighcol{Performance Tests: }The focus of performance tests s on how fast a high amount of data or requests can be processed. To execute performance tests a realistic setup is necessary because if the tests run in a 'bubble' there is no way to distinct how performant the application really works in an environment like it is found at thee customers environment. In the best case all other applications driven by the customer run in parallel as it is in reality.  }
+\item{\abbrhighcol{PenetrationTests / Security Tests - Mostly Service Tests: }These tests are focused on checking the stability of the project in the way that requests to the software are placed in a way that the application can crash if it is not developed in a clean secure way. One of the possibilities is to send one or more requests which seem to be valid but which attack the application with incorrect data. Another possibility is that we send a mass of requests like in a DDOS Attack. There is no restriction in thinking about ways to put the whole thing out of order. Sometimes you have to think like the evil to get it secure.}
+\item{\abbrhighcol{}}
+\item{\abbrhighcol{}}
+\item{\abbrhighcol{}}
+\item{\abbrhighcol{}}
+\end{enumerate}
+
+%%%% TO CHANGE %%%
 \subsection{Minor Release / Major Release Tests}
 \begin{flushleft}
 Release Tests are tests where the whole features and Use Cases are done for a release which has to be shipped. This includes Upgrade / Migration Tests, Performance Tests, UNIT Tests, Functional Tests and so on. The focus will be to do as much tests as possible automated so that they all times can be repeated in a safe way and to safe time.  
@@ -509,13 +546,8 @@ Release Tests are tests where the whole features and Use Cases are done for a re
 \begin{flushleft}
 Some changes have an effect on external programs and data definitions like in a DBMS. These changes have to be upgraded automatically in best case. Here we have to decide if the Upgrade has to be possible from one release back or more releases back. 
 \end{flushleft}
-\subsection{Performance Tests}
-\begin{flushleft}
-The focus of performance tests s on how fast a high amount of data or requests can be processed. To execute performance tests a realistic setup is necessary because if the tests run in a 'bubble' there is no way to distinct how performant the application really works in an environment like it is found at thee customers environment. In the best case all other applications driven by the customer run in parallel as it is in reality.  
-\end{flushleft}
 \subsection{PenetrationTests / Security Tests - Mostly Service Tests}
 \begin{flushleft}
-These tests are focused on checking the stability of the project in the way that requests to the software are placed in a way that the application can crash if it is not developed in a clean secure way. One of the possibilities is to send one or more requests which seem to be valid but which attack the application with incorrect data. Another possibility is that we send a mass of requests like in a DDOS Attack. There is no restriction in thinking about ways to put the whole thing out of order. Sometimes you have to think like the evil to get it secure.
 \end{flushleft}
 \subsection{Regression Tests}
 \begin{flushleft}
@@ -537,10 +569,12 @@ Interactive tests are defined for using the UI and they are defined to see if th
 \begin{flushleft}
 Acceptance tests are tests to see how good a interface or a UI is accepted by the one who uses it. These tests are partly strict defined and on the other hand there are tests where the user gets a task and can fill out a form with different criteria. These criteria are chosen in a way that we can see how satisfied the user is with the way how he can come to the solution. They are defined in a way that they state if it is easily possible to use the functionality.
 \end{flushleft}
+%%%% END TO CHANGE 
 \subsection{Resume}
 \begin{flushleft}
 In general we can say that all these things have to be tested in different ways and that there is more than one possibility to test all these things. Some of the test scenarios are destined to be tested in a way that most of the parts are automated. This automation can be defined from the time point of check in to the point building a tested delivery. In the following chapters and sections we like to describe a way of automation which covers nearly all parts which has to be tested before delivery. 
 \end{flushleft}
+\chapter{Deep dive into test automation}
 %% Next section
 \section{Look at UNIT testing first}
 \begin{flushleft}
@@ -605,6 +639,7 @@ To get automated tests in a structured designed way we have at first to take a l
 \end{flushleft}
 \subsection{Example with toolchain}
 \begin{flushleft}
+% add more footnotes and open a references section
 A toolchain is a set of software development tools used to build and otherwise develop software. Often, the tools are executed sequentially and form a pipeline such that the output of one tool is the input for the next. Sometimes the term is used for a set of related tools that are not necessarily executed sequentially. (Wikipedia)\newline
 Our toolchain is a chain of tools we use for defining use cases and requirements which are broken down to tasks and sub-tasks for development. The development is done in an development environment like IntelliJ or Eclipse IDE and after being ready with a step it is committed to a Versioning Control System (VCS) like Bitbucket / GitHub (GIT). If the check in is done a Jenkins Build Job is triggered which builds the project / sub project. After this build the Jenkins in which the tests run is triggered so that the test run follows automatically. After that a deployment can be build. Either submitting the build in the Build Jenkins or we can use the test run afterwork to trigger the build of an assembly.\newline\abbrhighcol{The tools we use :}
 \end{flushleft}
@@ -615,16 +650,17 @@ Our toolchain is a chain of tools we use for defining use cases and requirements
 \item{Build / Tests Tool: A tool like Jenkins can be used to set up build processes and test processes }
 \item{Docker Containers can be used to set up systems and services for testing. Also the test run itself can be started in a separate docker}
 \end{enumerate}
+\abbrhighcol{OVERVIEW - TOOLCHAIN}\newline\newline
 \begin{tikzpicture}
-%nodes
-\node [simple module] (mA) {JIRA - Task and Ticket - System};
-\node [simple module,below=of mA] (mA1) {Development Environment};
-\node [simple module,below=of mA1] (mA2) {Bitbucket - Repository};
-\node[simple module,right=of mA2](mB){Jenkins - Build Environment};
-\node[simple module,right=of mB](mC){Jenkins - Test Environment}; 
-\node[simple module,below=of mC](mD){Dockers}; 
-\node[simple module,below=of mD](mE){Portainers}; 
-%drawings
+%the nodes
+\node [simple module] (mA) {1. JIRA - Task and Ticket - System};
+\node [simple module,below=of mA] (mA1) {2. Development Environment};
+\node [simple module,below=of mA1] (mA2) {3. Bitbucket - Repository};
+\node[simple module,right=of mA2](mB){4. Jenkins - Build Environment};
+\node[simple module,right=of mB](mC){5. Jenkins - Test Environment}; 
+\node[simple module,below=of mC](mD){5.1 Dockers}; 
+\node[simple module,below=of mD](mE){5.2 Portainers}; 
+%drawings of vectors
 \draw[->] (mA.south) -- (mA1.north);
 \draw[->] (mA1.north) -- (mA.south);
 \draw[->] (mA1.south) -- (mA2.north);
@@ -634,8 +670,72 @@ Our toolchain is a chain of tools we use for defining use cases and requirements
 \draw[->] (mB.east) -- (mC.west);
 \draw[->] (mC.south) -- (mD.north);
 \draw[->] (mD.south) -- (mE.north);
+\end{tikzpicture}\newpage
+\abbrhighcol{1. JIRA-Task and Ticket-System}\newline\newline
+\begin{tikzpicture}
+%the nodes
+\node [simple module] (jA) {Requirement};
+\node [simple module,below=of jA] (jB) {UseCase (1)};
+\node [simple module,right=of jB] (jC) {UseCase (2)};
+\node [simple module,right=of jC] (jD) {UseCase(s) ...};
+\node [simple module,below=of jB] (jE) {Task (1)};
+\node [simple module,right=of jE] (jF) {Task(s)...};
+\node [simple module,right=of jF] (jG) {Task(s)...};
+%drawings of vectors
+\draw[->] (jA.south) -- (jB.north);
+\draw[->] (jB.north) -- (jA.south);
+\draw[->] (jA.south) -- (jC.north);
+\draw[->] (jC.north) -- (jA.south);
+\draw[->] (jA.south) -- (jD.north);
+\draw[->] (jD.north) -- (jA.south);
+\draw[->] (jB.east) -- (jC.west);
+\draw[->] (jC.west) -- (jB.east);
+\draw[->] (jC.east) -- (jD.west);
+\draw[->] (jD.west) -- (jC.east);
+\draw[->] (jB.south) -- (jE.north);
+\draw[->] (jE.north) -- (jB.south);
+\draw[->] (jB.south) -- (jF.north);
+\draw[->] (jF.north) -- (jB.south);
+\draw[->] (jC.south) -- (jF.north);
+\draw[->] (jF.north) -- (jC.south);
+\draw[->] (jC.south) -- (jG.north);
+\draw[->] (jG.north) -- (jC.south);
+\draw[->] (jD.south) -- (jF.north);
+\draw[->] (jF.north) -- (jD.south);
+\draw[->] (jD.south) -- (jG.north);
+\draw[->] (jG.north) -- (jD.south);
+\end{tikzpicture}\newline
+\begin{flushleft}
+We see here that in the end we have nearly something like a spider-net between the tasks and use cases. The reason is that there are many tasks which are the base for tasks which are specialised tasks for the use case xyz. 
+\end{flushleft}
+\abbrhighcol{2. Development Environment}\newline\newline
+\begin{tikzpicture}
+% the nodes
+\node [simple module] (devA) {Development IDE, Language (e.g. IntelliJ, Java)};
+\node [simple  module,below=of devA] (devB) {Task (Store Document with Encryption)};
+\node [simple  module,below=of devB] (devC) {SubTask (Encryption / Write Tests / Code)};
+\node [simple  module,right=of devB] (devD) {SubTask (DatabaseStore / Write Tests / Code)};
+\node [simple  module,right=of devC] (devE) {SubTask (StoreData/Cloud / Write Tests / Code)};
+\node [simple  module,right=of devA] (devF) {BitBucket-Project};
+%drawings of vectors
+\draw[->] (devA.south) -- (devB.west);
+\draw[->] (devA.east) -- (devF.west);
+\draw[->] (devF.west) -- (devA.east);
+\draw[->] (devB.south) -- (devC.north);
+\draw[->] (devC.north) -- (devB.south);
+\draw[->] (devB.south) -- (devE.north);
+\draw[->] (devE.north) -- (devB.south);
+\draw[->] (devB.east) -- (devD.west);
+\draw[->] (devD.west) -- (devB.east);
+\draw[->] (devB.north) -- (devF.south);
+\draw[->] (devF.south) -- (devB.north);
+\end{tikzpicture}\newline
+\begin{flushleft}
 
-\end{tikzpicture}
+\end{flushleft}
+\abbrhighcol{3. Bitbucket-Repository}\newline\newline
+\abbrhighcol{4. Jenkins-Build Environment}\newline\newline
+\abbrhighcol{5. Jenkins-Test Environment}\newline\newline
 \newpage
 \subsection{The automation between the tools and inside the tools}
 \chapter{Clean code and coding rules to make testing easier}
