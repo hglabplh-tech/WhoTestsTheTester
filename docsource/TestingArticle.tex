@@ -123,21 +123,30 @@ pdfauthor={Harald Glab-Plhak (staatl.gepr. Inf) {\textless}hglabplhak@icloud.com
 %2	\subsection{subsection}
 %3	\subsubsection{subsubsection}
 %4	\paragraph{paragraph}
-%5	\subparagraph{subparagraph}\section{Abstract}
+%5	\subparagraph{subparagraph}
+\section{Information}
+\label{sec:information}
+\begin{flushleft}
+This document and the whole project including the source code is licensed under the MIT license. The only restriction is that it MUST not be used commercial. A copy and further enhancements are allowed as long as the license and the copy right is saved. I intended that these test descriptions project is used for educational purposes. I trust in the integrity of those who use or duplicate the project and develop on this project.   
+\end{flushleft}
+\abbrhighcol{\textcopyright Harald Glab-Plhak 2025}
+\section{Abstract}
 \label{sec:abstract}
 \begin{flushleft}
-
+The target of this project is to give an overview of testing and test automation. The project also shows pitfalls and a style of development making testing and automation of tests easier. The project is made to show up how testing can be introduced in a project or product so that there is a common sense in the teams what things and processes can be useful to have a real test culture. In a world there the projects and products get more and more complex in cause of using cloud technologies, machine learning and KI as well as massive parallel execution it is also more and more necessary to develop automated tests and processes which allow us to get the complex things handled. Also the definition of test cases down to the last detail are important as well as a detailed logging of test results. These all is defined more and more detailed and there are many test-theories and project development and integration theories and practises as DevOPS with CI/CD. Here the short descriptions as footnotes taken from the KI of Google. \abbrhighcol{DevOPS}\footnote{\abbrhighcol{DevOPS: }is a set of practices and a culture that combines software Development and IT Operations to shorten the software development lifecycle and provide continuous delivery with high quality. It breaks down the traditional silos between these teams, fostering collaboration and shared responsibility to accelerate the delivery of software while improving reliability. Key practices include automation, continuous integration and delivery (CI/CD), and using tools to streamline the process from planning through deployment and monitoring.} and \abbrhighcol{CI/CD}\footnote{\abbrhighcol{CI/CD: } Continuous integration and continuous delivery (CI/CD) have revolutionized how software teams work together. Gone are the days of code integration headaches and repeated manual processes. CI/CD makes modern software development possible fast, reliable, and automated.}
+. All these things are themselves very complex I try in this document to show up a path through this 'jungle' . 
 \end{flushleft}
 \section{Introduction}
+\label{sec:introduction}
 \subsection{The different Test Methods in Test automation (UNIT -Test , Functional Test, Performance Functional Test)}
 \label{sec:intro}
 \begin{flushleft}
 In order to get the goal of a clean and correct code and functionality we must have a look on the program logic in different views. 
 \end{flushleft}
 \begin{itemize}
-\item{We have a view where we look for a complete well defined transaction in the program and have to check wether input and output is correct. Here we use \abbrhighcol{Functional Tests}. The \footnote{\abbrhighcol{Functional Tests.}: These tests to check a complete request or transaction to an application. They treat the methods called inside and the logic inside the borders of the transaction as a \abbrhighcol{BLACK BOX}. So it does not matter what the different functions classes or whatever process in what place even if the result is correct. }.}
+\item{We have a view where we look for a complete well defined transaction in the program and have to check wether input and output is correct. Here we use \abbrhighcol{Functional Tests}.\footnote{\abbrhighcol{Functional Tests.}: These tests to check a complete request or transaction to an application. They treat the methods called inside and the logic inside the borders of the transaction as a \abbrhighcol{BLACK BOX}. So it does not matter what the different functions classes or whatever process in what place even if the result is correct. }.}
 \item{The other view is more that we look at the atomic functions processing more or less complex logic. Here we also look for input / output of the functionality in that unit but we also keep in mind the internal logic and the functions which are called before / after and / or if third-party functionality is called which can cause that we not really test our own logic / flow of control. These kind of tests are called \abbrhighcol{Unit Tests} \footnote{\abbrhighcol{Unit Tests}: Unit Tests are the tests with which small Units are tested e.g. public functions}} 
-\item{And now to the last view I will mention here where are for sure many more. We have to look how high the throughput of our application must be and if we reach that goal with our logic and the fact how we realised it in detail. These are \abbrhighcol{Performance Tests} \footnote{\abbrhighcol{Performance Tests}: These tests are designed in a way that the performance of Units as well as the performance of requests and transactions or e.g. import / export in bulk can be tested} and. the best is to let them run after each change and prior deployment of each minor and major release}
+\item{And now to the last view I will mention here where are for sure many more. We have to look how high the throughput of our application must be and if we reach that goal with our logic and the fact how we realised it in detail. These are \abbrhighcol{Performance Tests}\footnote{\abbrhighcol{Performance Tests}: These tests are designed in a way that the performance of Units as well as the performance of requests and transactions or e.g. import / export in bulk can be tested} and. the best is to let them run after each change and prior deployment of each minor and major release}
 \end{itemize}
 \subsection{UNIT Testing in an automated environment}
 \begin{flushleft}
@@ -150,8 +159,9 @@ In order to get the goal of a clean and correct code and functionality we must h
  \begin{enumerate}
 \item{The easiest technical difference is:
  \begin{itemize}
- \item|{\abbrhighcol{BLACK BOX Test}: This kind of test only knows about the interface to test that means the defined Input and the awaited Output}
- \item|{\abbrhighcol{WHITE BOX Test}: Here the test also takes care about the way the function is implemented in technical detail}
+ \item{\abbrhighcol{BLACK BOX Test}: This kind of test only knows about the interface to test that means the defined Input and the awaited Output}
+  \item{\abbrhighcol{GREY BOX Test}: This kind of test only knows about the interface to test. and about some inside details that means the defined Input and the awaited Output with the background that some details are known. So it is something between BLACK-(GREY)-WHITE BOX. This kind of test category is found very often in reality.}
+ \item{\abbrhighcol{WHITE BOX Test}: Here the test also takes care about the way the function is implemented in technical detail}
  \end{itemize}}
  \item{UNIT Tests: These Tests check the functionality on a level of for example public functions on an object. Functions where access can be gained only by a hack (private functions) should never be tested directly in the normal case doing this is bad style.}
  \item{Functional Tests: These Tests check the functionality of a greater part of. the application e.g. One specific transaction.}
@@ -485,12 +495,14 @@ we can think about the technical details while we code inside a well defined int
 \newpage
 \chapter{The test types}
 \section{Test types in overview}
+\subsection{Functional test-types in overview}
 \begin{tikzpicture}
 %% fun tests circle
 \draw  [fill=yellow](0,0) circle  (150pt);
-\draw  [fill=cyan](0,0) circle  (40pt);%the nodes
+\draw  [fill=cyan](0,0) circle  (40pt);
+%the nodes
 \node [fill=red] (funCenter) { \color{white}\abbrhighcol{Functional Test \newline Types}};
-\node [fill=blue,module,left=of funCenter] (funLeft) { \color{green}Black Box Tests};
+\node [fill=blue,left=of funCenter] (funLeft) { \color{green}Black Box Tests};
 \node [fill=blue,right=of funCenter] (funRight) { \color{yellow}White Box Tests};
 \node [fill=green,above=of funCenter] (funAbove) {Grey Box Tests};
 \node [fill=green,below=of funCenter] (funBelow) {UNIT Tests};
@@ -506,8 +518,61 @@ we can think about the technical details while we code inside a well defined int
 \node [fill=magenta,right=of funBelowBelow] (funBelowBRight) {\color{white}Component};
 \node [fill=black,below=of funBelowBelow] (funBelowBBelow) {\color{green}Ad hoc/Random};
 \node [fill=black,above=of funAboveAbove] (funAboveAAbove) {\color{green}System Testing};
-%drawings of bubbles
-\end{tikzpicture}\newpage
+%drawings of lines
+\draw[-] (funCenter.south) -- (funBelow.north);
+\draw[-] (funCenter.north) -- (funAbove.south);
+
+\draw[-] (funLeft.east) -- (funCenter.west);
+\draw[-] (funCenter.east) -- (funRight.west);
+
+\draw[-] (funCenter.east) -- (funAboveRight.west);
+\draw[-] (funCenter.west) -- (funAboveLeft.east);
+
+\draw[-] (funBelowLeft.north) -- (funCenter.west);
+\draw[-] (funCenter.east) -- (funBelowRight.north);
+
+\draw[-] (funBelowBelow.north) -- (funBelow.south);
+\draw[-] (funAboveAbove.south) -- (funAbove.north);
+
+\draw[-] (funAboveARight.south) -- (funAboveRight.north);
+\draw[-] (funAboveALeft.south) -- (funAboveLeft.north);
+
+\draw[-] (funBelowBLeft.north) -- (funBelow.west);
+\draw[-] (funBelow.east) -- (funBelowBRight.north);
+
+\draw[-] (funBelowBelow.south) -- (funBelowBBelow.north);
+\draw[-] (funAboveAbove.north) -- (funAboveAAbove.south);
+
+\end{tikzpicture}
+\subsection{NON-Functional test-types in overview}
+\begin{tikzpicture}
+%% fun tests circle
+\draw  [fill=green](0,0) circle  (150pt);
+\draw  [fill=orange](0,0) circle  (40pt);
+%the nodes
+\node [fill=blue] (nfunCenter) { \color{white}\abbrhighcol{NON-Functional Test \newline Types}};
+\node [fill=pink,left=of nfunCenter] (nfunLeft) {Performance Test};
+\node [fill=pink,right=of nfunCenter] (nfunRight) {PenetrationTests / Security Testing};
+\node [fill=magenta,above=of nfunCenter] (nfunAbove) {\color{white}Upgrade / Migration Testing};
+\node [fill=magenta,below=of nfunCenter] (nfunBelow) {\color{white}Reliability Testing};
+\node [fill=orange,above=of nfunAbove] (nfunAboveAbove) {Usability Testing};
+\node [fill=orange,below=of nfunBelow] (nfunBelowBelow) {Recovery Testing};
+\node [fill=cyan,left=of nfunAbove] (nfunAboveLeft) {Compatibility Testing};
+\node [fill=cyan,right=of nfunBelow] (nfunBelowRight) {Stress Testing};
+%drawings of lines
+\draw[-] (nfunCenter.south) -- (nfunBelow.north);
+\draw[-] (nfunCenter.north) -- (nfunAbove.south);
+
+\draw[-] (nfunLeft.east) -- (nfunCenter.west);
+\draw[-] (nfunCenter.east) -- (nfunRight.west);
+
+\draw[-] (nfunCenter.south) -- (nfunBelowRight.north);
+\draw[-] (nfunCenter.north) -- (nfunAboveLeft.south);
+
+\draw[-] (nfunAbove.north) -- (nfunAboveAbove.south);
+\draw[-] (nfunBelow.south) -- (nfunBelowBelow.north);
+\end{tikzpicture}
+\newpage
 \section{Test types as description}
 \subsection{Functional Tests}
 \begin{flushleft}
@@ -521,55 +586,42 @@ The Use case tests are the next abstraction level. The focus is on testing the t
 \item{\abbrhighcol{Black Box Tests: }Black Box Tests are tests of the functionality where the Tester who develops them only knows the interface, no matter if the interface is a library functionality a REST service or a UI interface}
 \item{\abbrhighcol{Grey Box Tests: }Grey Box Tests are between Black Box Tests. The Tester knows some details about the implementation. For example he knows how the entry parameters are checked or he knows details about the structure used (module tree) for implementing a requirement. }
 \item{\abbrhighcol{White Box Tests: }White Box Tests are tests where the Tester knows all the details about the implementation down to the last if condition or while loop.... }
-\item{\abbrhighcol{}}
-\item{\abbrhighcol{}}
-\item{\abbrhighcol{}}
+\item{\abbrhighcol{Static Tests: }Static tests are a software testing practice that examines code and documentation without executing the program to find defects early in the development cycle. This is done by reviewing work products like source code, design documents, and requirements for inconsistencies, typos, security vulnerabilities, and deviations from standards. Static testing helps save time and money by catching and fixing errors before they escalate, improving code quality and maintainability. 
+\begin{itemize}
+\item{\abbrhighcol{What is tested: } Static testing can be applied to various work products, including requirements, design documents, and source code..}
+\item{\abbrhighcol{What is found: } It can identify defects such as:
+Syntax errors, dead code, and unused variables
+Logic flaws and incorrect data/control flows
+Security vulnerabilities like buffer overflows
+Ambiguities, contradictions, and omissions in requirements
+How it's performed: Static testing can be done manually through reviews and walkthroughs or automatically using tools called static analyzers.}
+\end{itemize}}
+\item{\abbrhighcol{System Tests: }A system test is a phase in the software development process where the complete, integrated software is tested to ensure it meets all specified requirements. It evaluates the system as a whole, focusing on how all the individual components work together, rather than testing them in isolation. This type of testing is typically conducted after unit and integration testing, and is often done using black-box testing methods to simulate a user's perspective.  }
+\item{\abbrhighcol{Component Tests: }}
+\item{\abbrhighcol{UAT Tests: }User Acceptance Tests are performed by the Users. The Users check how good a UI and how it is implemented fits their needss and if the look and feel is good. Since the projects and products are for the user these tests count as functional testing type}
+\item{\abbrhighcol{Re-Tests: }Re-Tests are tests which are done if something was developed and tested . Imagine the tests shown up three errors so the tests checking these three conditions are re-executed after some fixes in the code}
+\item{\abbrhighcol{Database Tests:} Database tests are tests for Database Schemas and database data structures e.g. in NoSQL, SQL databases. These data organisations are tested with the view on how good they support the functionality and the enhancements for the functionality.}. 
+\item{\abbrhighcol{Recovery Tests: }Tests for a functional correct data recovery / failover tests are down there in the NON - Functional area.}
+\item{\abbrhighcol{Integration Tests: }Integration tests are done to. see if the product or project is able to be integrated into the target system and its applications and infrastructure.}
+\item{\abbrhighcol{Smoke Tests: }Tests for looking if one of the 'OK' paths is working for a functionality. For getting more complete also Exception tests are needed.}
+\item{\abbrhighcol{Acceptance Tests: }In counter to the UAT these tests check the acceptance of the project or product against the specification of the functionality and if in each case the shortest way to do a task is realized}
+\item{\abbrhighcol{Ad Hoc / Random Tests: } These tests are like the name tells us tests which are not in the usual testing scheme. Sometimes we have scenarios where the test by scheme is not sufficient so it is good to test things which are really unexpected e.g. Crazy inputs like prime numbers for a buffer size}
+\item{\abbrhighcol{Regression Tests: }Regression tests are focused on checking if the functionality of the application works inn the same way after introducing features fixing bugs making changes (add ons) in the configuration and so on.}
 \end{enumerate}
 \subsection{NON-Functonal Tests}
 \begin{flushleft}
 \end{flushleft}
 \begin{enumerate}
-\item{\abbrhighcol{Performance Tests: }The focus of performance tests s on how fast a high amount of data or requests can be processed. To execute performance tests a realistic setup is necessary because if the tests run in a 'bubble' there is no way to distinct how performant the application really works in an environment like it is found at thee customers environment. In the best case all other applications driven by the customer run in parallel as it is in reality.  }
-\item{\abbrhighcol{PenetrationTests / Security Tests - Mostly Service Tests: }These tests are focused on checking the stability of the project in the way that requests to the software are placed in a way that the application can crash if it is not developed in a clean secure way. One of the possibilities is to send one or more requests which seem to be valid but which attack the application with incorrect data. Another possibility is that we send a mass of requests like in a DDOS Attack. There is no restriction in thinking about ways to put the whole thing out of order. Sometimes you have to think like the evil to get it secure.}
-\item{\abbrhighcol{}}
-\item{\abbrhighcol{}}
-\item{\abbrhighcol{}}
-\item{\abbrhighcol{}}
+\item{\abbrhighcol{Performance Testing: }The focus of performance tests s on how fast a high amount of data or requests can be processed. To execute performance tests a realistic setup is necessary because if the tests run in a 'bubble' there is no way to distinct how performant the application really works in an environment like it is found at thee customers environment. In the best case all other applications driven by the customer run in parallel as it is in reality.  }
+\item{\abbrhighcol{PenetrationTesting / Security Tests - Mostly Service Tests: }These tests are focused on checking the stability of the project in the way that requests to the software are placed in a way that the application can crash if it is not developed in a clean secure way. One of the possibilities is to send one or more requests which seem to be valid but which attack the application with incorrect data. Another possibility is that we send a mass of requests like in a DDOS Attack. There is no restriction in thinking about ways to put the whole thing out of order. Sometimes you have to think like the evil to get it secure.}
+\item{\abbrhighcol{Upgrade / Migration Testing: }Some changes have an effect on external programs and data definitions like in a DBMS. These changes have to be upgraded automatically in best case. Here we have to decide if the Upgrade has to be possible from one release back or more releases back. What also needs a upgrade tests with a view on backward compatibility are Configurations either in the database e.g.: as CLOBS or XML, Properties or INI files}
+\item{\abbrhighcol{Reliability Testing: }Checks if the system can perform consistently without failure over a specified period.}
+\item{\abbrhighcol{Usability Testing: }Assesses how easy, efficient, and satisfying the system is for users to operate.They are defined in a way that they state if it is easily possible to use the functionality. Usability tests are in the best case not only done for the UI but also for the interfaces used by developers and administrators in this case we see the configuration strictly as part of the interface.}
+\item{\abbrhighcol{Recovery Testing: }Verifies the system's ability to recover from crashes or failures.}
+\item{\abbrhighcol{Compatibility Testing: }Verifies that the software works across different environments, browsers, or devices.}
+\item{\abbrhighcol{Stress Testing: }Determines the breaking point of the system by overloading it beyond its normal capacity.}
 \end{enumerate}
 
-%%%% TO CHANGE %%%
-\subsection{Minor Release / Major Release Tests}
-\begin{flushleft}
-Release Tests are tests where the whole features and Use Cases are done for a release which has to be shipped. This includes Upgrade / Migration Tests, Performance Tests, UNIT Tests, Functional Tests and so on. The focus will be to do as much tests as possible automated so that they all times can be repeated in a safe way and to safe time.  
-\end{flushleft}
-\subsection{Upgrade / Migration Tests}
-\begin{flushleft}
-Some changes have an effect on external programs and data definitions like in a DBMS. These changes have to be upgraded automatically in best case. Here we have to decide if the Upgrade has to be possible from one release back or more releases back. 
-\end{flushleft}
-\subsection{PenetrationTests / Security Tests - Mostly Service Tests}
-\begin{flushleft}
-\end{flushleft}
-\subsection{Regression Tests}
-\begin{flushleft}
-Regression tests are focused on checking if the functionality of the application works inn the same way after introducing features fixing bugs making changes (add ons) in the configuration and so on.
-\end{flushleft}
-\subsection{Usability Tests}
-\begin{flushleft}
-They are defined in a way that they state if it is easily possible to use the functionality. Usability tests are in the best case not only done for the UI but also for the interfaces used by developers and administrators in this case we see the configuration strictly as part of the interface.
-\end{flushleft}
-\subsection{AutomatedTests}
-\begin{flushleft}
-Automated tests are done for the parts which can be accessed in a programable way there are also tools making it possible to automate some UI tests not only backend functionality. Automated tests are normally embedded in a system which is designed to have all steps from check in to compile and deliver and test.
-\end{flushleft}
-\subsection{InteractiveTests}
-\begin{flushleft}
-Interactive tests are defined for using the UI and they are defined to see if the functionality is completely accessible in a way that all tasks can be done by a user. 
-\end{flushleft}
-\subsection{AcceptanceTests}
-\begin{flushleft}
-Acceptance tests are tests to see how good a interface or a UI is accepted by the one who uses it. These tests are partly strict defined and on the other hand there are tests where the user gets a task and can fill out a form with different criteria. These criteria are chosen in a way that we can see how satisfied the user is with the way how he can come to the solution. They are defined in a way that they state if it is easily possible to use the functionality.
-\end{flushleft}
-%%%% END TO CHANGE 
 \subsection{Resume}
 \begin{flushleft}
 In general we can say that all these things have to be tested in different ways and that there is more than one possibility to test all these things. Some of the test scenarios are destined to be tested in a way that most of the parts are automated. This automation can be defined from the time point of check in to the point building a tested delivery. In the following chapters and sections we like to describe a way of automation which covers nearly all parts which has to be tested before delivery. 
@@ -940,4 +992,7 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
 \end{lstlisting}  
 The output calling it with all parameters will be:\newline
  Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
+ \chapter{Further material}
+ \section{References}
+ \hspace*{1em}-- \href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}\\
  \end{document}
