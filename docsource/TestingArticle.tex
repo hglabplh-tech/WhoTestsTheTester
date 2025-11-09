@@ -40,7 +40,7 @@ module arrow/.style={single arrow, single arrow head extend=2.5mm, draw=gray!75,
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{ifthen}
-\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=cyan]{hyperref}
 \usepackage[DIV12]{typearea}
 %% generator Docutils: http://docutils.sourceforge.net/
 \newlength{\admonitionwidth}
@@ -494,6 +494,7 @@ is the case: We think about which values are passed to a function and how the ou
 we can think about the technical details while we code inside a well defined interface.
 \newpage
 \chapter{The test types}
+For categorising and describing the test types I used also input from \hyperref[ref:funnonfun]{Solutions Hub -- see web link}
 \section{Test types in overview}
 \subsection{Functional test-types in overview}
 \begin{tikzpicture}
@@ -994,5 +995,9 @@ The output calling it with all parameters will be:\newline
  Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
  \chapter{Further material}
  \section{References}
- \hspace*{1em}-- \href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}\\
- \end{document}
+  \label{ref:funnonfun}
+  %make it to a list and change label to be a reference on the section..... and use enumerate so that the whole thing can be referenced through the file 
+  \hspace*{1em}-- \href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}\\
+\hspace*{1em}-- \href{https://solutionshub.epam.com/blog/post/the-difference-between-functional-and-non-functional-testing}{Definition of Functional and NON Functional Testing}\\
+\hspace*{1em}-- \href{https://solutionshub.epam.com/blog/post/regression-testing-test-io}{Regression Testing Tool and Description Regression Test IO}  
+\end{document}
