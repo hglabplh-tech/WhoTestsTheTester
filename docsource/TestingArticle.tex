@@ -488,15 +488,60 @@ public class MyRealApp implements MyAppIfc {
 	}
 }}
 \end{lstlisting}
+\begin{flushleft}
 And now we can test the thing out of the box for the test is already there.
-The point is that in Test Driven Development we do not think at first about the technical details and afterwords wrap the technical details some kind of interface. No the opposite 
-is the case: We think about which values are passed to a function and how the outcome must look like. Same for the used parameter - data types and the return value(s) datatype(s). We think about datastreams and the steps which work on them and each "worker" has well defined parameters and a well defined outcome for the specific values given as arguments. And NOW 
-we can think about the technical details while we code inside a well defined interface.
+\end{flushleft}
+\chapter{Test driven development}
+\section{Short introduction}
+After that we can think about how test driven development can be used to have a well defined interface and to code a application. Test driven development is a kind of development where we define in opposite to the prior example the tests first. Test driven development has the advantage that we see immediately if the function we designed works like it should work because the test shows already up the call and return value of a function how we designed it. Instead of adapting the test to our functionality we write the functionality in the way that we have a test first written according to the requirement.\newline
+\section{Make the proof of concept}
+To show how test driven development can be done in a project we make a tiny project called 'Calculator' this calculator is a calculator for mathematical expressions with a GUI. The project is defined in Java with a numeric tower and SWING as graphical interface. Here first the tests are defined and after that the functions are implemented. After done so there are Functional Tests and defined Interactive Tests.
+    
 \newpage
 \chapter{The test types}
-For categorising and describing the test types I used also input from \hyperref[ref:funnonfun]{Solutions Hub -- see web link}
-\section{Test types in overview}
-\subsection{Functional test-types in overview}
+\begin{flushleft}
+For the test types you will see there are different ways of categorisation. I will show them without telling the one or the other way is better, because in each discipline of data and computer science there are always different ways of thinking. Here is the categorisation we had in my former company:
+\abbrhighcol{Functional Testing} checks if the entire system works as intended, while \abbrhighcol{Unit Testing} ensures individual code components function correctly. Scope: Functional Testing evaluates entire workflows and features, whereas Unit Testing isolates and tests specific functions or code segments.\newline
+\abbrhighcol{REMARK:}\textit{For the other categorising and describing the alternate test types I used also input from} \hyperref[ref:references]{Solutions Hub -- see web link(1.)}
+\end{flushleft}
+\section{Test types in overview often used}
+\begin{flushleft}
+Here at first the part how many companies define the different test:\newline
+There is a separation between the tests in a way that the test types are divided by defining UNIT Testing which is a kind of White Box test designed and executed by the developer. For very important UNIT tests some Jenkins-Test Jobs can be defined. The other Tests are Black Box Tests as Functional Tests, Performance Tests, Stress Tests and so on. For these tests it is good to define Jenkins-Test-Jobs with these defined Jobs also Regression and RE-Testing can be done.
+\end{flushleft}
+\subsection{Functional / Performance / Stress testing as example}
+\begin{tikzpicture}
+%% fun tests circle
+\draw  [fill=blue](0,0) circle  (150pt);
+\draw  [fill=cyan](0,0) circle  (40pt);
+%the nodes
+\node [fill=green] (blackCenter) {\abbrhighcol{Black Box \newline Types}};
+\node [fill=olive,left=of  blackCenter] (blackLeft) { \color{white}Functional Testing};
+\node [fill=olive,right=of blackCenter] (blackRight) {\color{white}Regression Tests};
+\node [fill=olive,above=of  blackCenter] (blackAbove) { \color{white}Performance Testing};
+\node [fill=olive,below=of blackCenter] (blackBelow) {\color{white}Stress Tests};
+%drawings of lines
+\draw[-] (blackCenter.west) -- (blackLeft.east);
+\draw[-] (blackCenter.east) -- (blackRight.west);
+
+\draw[-] (blackCenter.north) -- (blackAbove.south);
+\draw[-] (blackCenter.south) -- (blackBelow.north);
+
+\end{tikzpicture}
+\subsection{UNIT testing}
+\section{Test types description}
+\begin{enumerate}
+\item{Functional / Performance / Stress testing as example for definition}
+\item{UNIT testing definition}
+\item{Interactive testing definition}
+\item{Security testing definition}
+\end{enumerate}
+\section{Alternate way to define and categorise test types in overview }
+\begin{flushleft}
+\end{flushleft}
+\subsection{Functional test-types overview (ALTERNATE)}
+\begin{flushleft}
+\end{flushleft}
 \begin{tikzpicture}
 %% fun tests circle
 \draw  [fill=yellow](0,0) circle  (150pt);
@@ -545,7 +590,9 @@ For categorising and describing the test types I used also input from \hyperref[
 \draw[-] (funAboveAbove.north) -- (funAboveAAbove.south);
 
 \end{tikzpicture}
-\subsection{NON-Functional test-types in overview}
+\subsection{NON-Functional test-types overview (ALTERNATE)}
+\begin{flushleft}
+\end{flushleft}
 \begin{tikzpicture}
 %% fun tests circle
 \draw  [fill=green](0,0) circle  (150pt);
@@ -574,7 +621,7 @@ For categorising and describing the test types I used also input from \hyperref[
 \draw[-] (nfunBelow.south) -- (nfunBelowBelow.north);
 \end{tikzpicture}
 \newpage
-\section{Test types as description}
+\section{Test types description}
 \subsection{Functional Tests}
 \begin{flushleft}
 Functional tests have the focus on testing the functionality from outside for example calling services of an application in an application server. These tests MUST not know any implementation details but only in the case of the example the REST Service Interface or the Interface of whatever to test. The functional Tests are best placed in a functional tests project separated from the project where the development takes place. So they are clean separated and there is also not the danger for the one who develops them to have a deep look at the code. 
@@ -993,11 +1040,12 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
 \end{lstlisting}  
 The output calling it with all parameters will be:\newline
  Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
- \chapter{Further material}
- \section{References}
-  \label{ref:funnonfun}
-  %make it to a list and change label to be a reference on the section..... and use enumerate so that the whole thing can be referenced through the file 
-  \hspace*{1em}-- \href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}\\
-\hspace*{1em}-- \href{https://solutionshub.epam.com/blog/post/the-difference-between-functional-and-non-functional-testing}{Definition of Functional and NON Functional Testing}\\
-\hspace*{1em}-- \href{https://solutionshub.epam.com/blog/post/regression-testing-test-io}{Regression Testing Tool and Description Regression Test IO}  
+\chapter{Further material}
+\section{References}
+\label{ref:references}
+\begin{enumerate}
+\item{\href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}}
+\item{\href{https://solutionshub.epam.com/blog/post/the-difference-between-functional-and-non-functional-testing}{Definition of Functional and NON Functional Testing}}
+\item{\href{https://solutionshub.epam.com/blog/post/regression-testing-test-io}{Regression Testing Tool and Description Regression Test IO}}  
+\end{enumerate}
 \end{document}
