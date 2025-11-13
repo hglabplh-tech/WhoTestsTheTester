@@ -12,4 +12,6 @@ public class NumTowerTest {
         NumTowerIfc tower = new NumTower("");
         CalcResult result = tower.calculate();
     }
+
+
 }

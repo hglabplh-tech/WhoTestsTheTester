@@ -4,7 +4,10 @@
 
     <groupId>io.examples.sort</groupId>
     <artifactId>test-things</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>Calculator</module>
+    </modules>
     <version>0.3-SNAPSHOT</version>
     <name>test-things</name>
 

@@ -1,5 +1,5 @@
 package io.calculator.backend;
 
-public interface NumTowerIfc {
-    CalcResult calculate();
+public interface NumTowerIfc<T> {
+    CalcResult<T> calculate();
 }

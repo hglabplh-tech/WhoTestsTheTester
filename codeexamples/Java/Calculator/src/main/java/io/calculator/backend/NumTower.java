@@ -1,6 +1,6 @@
 package io.calculator.backend;
 
-public class NumTower implements NumTowerIfc {
+public class NumTower<T> implements NumTowerIfc<T> {
 
     public final String formString;
 
@@ -8,7 +8,7 @@ public class NumTower implements NumTowerIfc {
         this.formString = formString;
     }
 
-    public CalcResult calculate() {
+    public CalcResult<T> calculate() {
         return null;
     }
 }
