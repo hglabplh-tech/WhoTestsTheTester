@@ -157,23 +157,23 @@ In order to get the goal of a clean and correct code and functionality we must h
  \subsection{From the technical point of view}
  \begin{flushleft}
  \begin{enumerate}
-\item{The easiest technical difference is:
+\item{\abbrhighcol{Simple technical difference:}
  \begin{itemize}
  \item{\abbrhighcol{BLACK BOX Test}: This kind of test only knows about the interface to test that means the defined Input and the awaited Output}
   \item{\abbrhighcol{GREY BOX Test}: This kind of test only knows about the interface to test. and about some inside details that means the defined Input and the awaited Output with the background that some details are known. So it is something between BLACK-(GREY)-WHITE BOX. This kind of test category is found very often in reality.}
  \item{\abbrhighcol{WHITE BOX Test}: Here the test also takes care about the way the function is implemented in technical detail}
  \end{itemize}}
- \item{UNIT Tests: These Tests check the functionality on a level of for example public functions on an object. Functions where access can be gained only by a hack (private functions) should never be tested directly in the normal case doing this is bad style.}
- \item{Functional Tests: These Tests check the functionality of a greater part of. the application e.g. One specific transaction.}
+ \item{\abbrhighcol{UNIT Tests:} These Tests check the functionality on a level of for example public functions on an object. Functions where access can be gained only by a hack (private functions) should never be tested directly in the normal case doing this is bad style.}
+ \item{\abbrhighcol{Functional Tests:} These Tests check the functionality of a greater part of. the application e.g. One specific transaction.}
  \end{enumerate}
  \end{flushleft}
  \subsection{Another way to make categories is delivery, user and release oriented}
  \begin{flushleft}
  \begin{enumerate}
-\item{Acceptance Test: Here the project or product is tested to be informed about usability and acceptance by the user}
-\item{Regression Test: This test is done always after one or more changes. Either in the service or its environment}
-\item{Release Test: This tests are done for. each major or minor release. Here. the point is that it is tested if the new functionality works and if the existing things also work again. What is also tested is the migration from the old to the new release.}
-\item{Performance Tests: In these tests the overall or partial performance is good and sufficient for the needs of the application and if e.g. a change in a function influences performance negative.}
+\item{\abbrhighcol{Acceptance Test:} Here the project or product is tested to be informed about usability and acceptance by the user}
+\item{\abbrhighcol{Regression Test:} This test is done always after one or more changes. Either in the service or its environment}
+\item{\abbrhighcol{Release Test:} This tests are done for. each major or minor release. Here. the point is that it is tested if the new functionality works and if the existing things also work again. What is also tested is the migration from the old to the new release.}
+\item{\abbrhighcol{Performance Tests:} In these tests the overall or partial performance is good and sufficient for the needs of the application and if e.g. a change in a function influences performance negative.}
 \end{enumerate}
 \end{flushleft}
 \section{A example how to design and realise an automated test}
@@ -313,7 +313,7 @@ public class QBubbleMergeTest {
  \end{lstlisting}
  \subsection{First Resume}
 \begin{flushleft}
-Ok now we have some Tests checking random some aspects. To get a real good coverage when testing a function we first have to know it's specification that means what is the input and what is the output of a function we test. We also have to know what happens in the function when processing the input to get either the valid output or a clear error which really explains what is missing or wrong. The more parameters we have the more the complexity tests for the function grows. If we when have a function with 5 parameters and each parameter has 15 combinations of values (The parameter may be an Object reference) we get a exponential growth of possibilities what would went wrong.\newline\newline The main error by people who have less experience in Testing is to check the parameters compound in one test function. \abbrhighcol{THIS IS A NOT TO DO!!!!} \newline\newline To get the complexity broken down we should make tests where 4 parameters are in a good range and only one is out of range or has a value which does not fit the four others parameters values. So you might argue what is with the combination where two parameters or three parameters have values which do not fit in combination. For this cases we can write some generic tests which walk via recursion through each valid combination. But do not test the case in that way where one or two parameters have a value out of their range which is defined by the functionality and which values and combination of values the function covers. Even if you plan to do test driven development this kind of proceeding gets more important for otherwise you do not know in the end in which case and why the function fails. To be sure all works you have to write \abbrhighcol{UNIT Tests}for each public method in each class. \newline The private methods are tested indirect. A bad style is (with only a very very few exceptions - should never happen) to access private functions for the reason of testing them via privileged access. \newline Ok this works in Java up to 1.8. But one thing has to be clear:\abbrhighcol{For making good functional unit or other testing in a proper way it should never be necessary to use algorithms which break the normal ways of coding. No good developer will design a program and the time he is ready use a function which accesses another function which is e.g. private and the language is not designed to do it in that way.} \newline If you see such code begin looking at the design of this part delete the code and rewrite it completely following the design in a clean way. Why write it completely new. One reason is if you do after these functions are written test driven development for some parts such parts will lead you off the road of a clean design.
+Ok now we have some Tests checking random some aspects. To get a real good coverage when testing a function we first have to know it's specification that means what is the input and what is the output of a function we test. We also have to know what happens in the function when processing the input to get either the valid output or a clear error which really explains what is missing or wrong. The more parameters we have the more the complexity tests for the function grows. If we when have a function with 5 parameters and each parameter has 15 combinations of values (The parameter may be an Object reference) we get a exponential growth of possibilities what would went wrong.\newline\newline The main error by people who have less experience in Testing is to check the parameters together only  in one test function. \abbrhighcol{THIS IS A NOT TO DO!!!!}. A better way is to make a test for each parameter. \newline\newline To get the complexity broken down we should make tests where 4 parameters are in a good range and only one is out of range or has a value which does not fit the four others parameters values. So you might argue what is with the combination where two parameters or three parameters have values which do not fit in combination. For this cases we can write some generic tests which walk via recursion through each valid combination. But do not test the case in that way where one or two parameters have a value out of their range which is defined by the functionality and which values and combination of values the function covers. Even if you plan to do test driven development this kind of proceeding gets more important for otherwise you do not know in the end in which case and why the function fails. To be sure all works you have to write \abbrhighcol{UNIT Tests}for each public method in each class. \newline The private methods are tested indirect. A bad style is (with only a very very few exceptions - should never happen) to access private functions for the reason of testing them via privileged access. \newline Ok this works in Java up to 1.8. But one thing has to be clear:\abbrhighcol{For making good functional unit or other testing in a proper way it should never be necessary to use algorithms which break the normal ways of coding. No good developer will design a program and the time he is ready use a function which accesses another function which is e.g. private and the language is not designed to do it in that way.} \newline If you see such code begin looking at the design of this part delete the code and rewrite it completely following the design in a clean way. Why write it completely new. One reason is if you do after these functions are written test driven development for some parts such parts will lead you off the road of a clean design.
 \end{flushleft}
 \section{How to design Automated Functional Tests}
 \begin{flushleft}
@@ -498,7 +498,7 @@ After that we can think about how test driven development can be used to have a 
 To show how test driven development can be done in a project we make a tiny project called 'Calculator' this calculator is a calculator for mathematical expressions with a GUI. The project is defined in Java with a numeric tower and SWING as graphical interface. Here first the tests are defined and after that the functions are implemented. After done so there are Functional Tests and defined Interactive Tests.
     
 \newpage
-\chapter{The test types}
+\chapter{The test types in detail}
 \begin{flushleft}
 For the test types you will see there are different ways of categorisation. I will show them without telling the one or the other way is better, because in each discipline of data and computer science there are always different ways of thinking. Here is the categorisation we had in my former company:
 \abbrhighcol{Functional Testing} checks if the entire system works as intended, while \abbrhighcol{Unit Testing} ensures individual code components function correctly. Scope: Functional Testing evaluates entire workflows and features, whereas Unit Testing isolates and tests specific functions or code segments.\newline
@@ -509,17 +509,17 @@ For the test types you will see there are different ways of categorisation. I wi
 Here at first the part how many companies define the different test:\newline
 There is a separation between the tests in a way that the test types are divided by defining UNIT Testing which is a kind of White Box test designed and executed by the developer. For very important UNIT tests some Jenkins-Test Jobs can be defined. The other Tests are Black Box Tests as Functional Tests, Performance Tests, Stress Tests and so on. For these tests it is good to define Jenkins-Test-Jobs with these defined Jobs also Regression and RE-Testing can be done.
 \end{flushleft}
-\subsection{Functional / Performance / Stress testing as example}
+\subsection{Black Box testing type}
 \begin{tikzpicture}
 %% fun tests circle
 \draw  [fill=white](0,0) circle  (150pt);
-\draw  [fill=red](0,0) circle  (40pt);
+\draw  [fill=olive](0,0) circle  (40pt);
 %the nodes
 \node [fill=green] (blackCenter) {\abbrhighcol{Black Box \newline Types}};
 \node [fill=blue,left=of  blackCenter] (blackLeft) {\color{white}Functional Testing};
-\node [fill=blue,right=of blackCenter] (blackRight) {\color{white}Regression Tests};
+\node [fill=blue,right=of blackCenter] (blackRight) {\color{white}Regression Testing};
 \node [fill=blue,above=of  blackCenter] (blackAbove) {\color{white}Performance Testing};
-\node [fill=blue,below=of blackCenter] (blackBelow) {\color{white}Stress Tests};
+\node [fill=blue,below=of blackCenter] (blackBelow) {\color{white}Stress Testing};
 %drawings of lines
 \draw[-] (blackCenter.west) -- (blackLeft.east);
 \draw[-] (blackCenter.east) -- (blackRight.west);
@@ -528,13 +528,31 @@ There is a separation between the tests in a way that the test types are divided
 \draw[-] (blackCenter.south) -- (blackBelow.north);
 
 \end{tikzpicture}
-\subsection{UNIT testing}
+\subsection{White box testing type}
+\begin{tikzpicture}
+%% fun tests circle
+\draw  [fill=white](0,0) circle  (150pt);
+\draw  [fill=red](0,0) circle  (40pt);
+%the nodes
+\node [fill=green] (whiteCenter) {\abbrhighcol{White Box \newline Types}};
+\node [fill=brown,left=of  whiteCenter] (whiteLeft) {\color{yellow}UNIT Testing};
+\node [fill=brown,right=of whiteCenter] (whiteRight) {\color{yellow}Database Testing};
+\node [fill=brown,above=of  whiteCenter] (whiteAbove) {\color{yellow}Configuration Testing};
+\node [fill=brown,below=of whiteCenter] (whiteBelow) {\color{yellow}Low Interfaces Testing};
+%drawings of lines
+\draw[-] (whiteCenter.west) -- (whiteLeft.east);
+\draw[-] (whiteCenter.east) -- (whiteRight.west);
+
+\draw[-] (whiteCenter.north) -- (whiteAbove.south);
+\draw[-] (whiteCenter.south) -- (whiteBelow.north);
+
+\end{tikzpicture}
 \section{Test types description}
 \begin{enumerate}
-\item{Functional / Performance / Stress testing as example for definition}
-\item{UNIT testing definition}
-\item{Interactive testing definition}
-\item{Security testing definition}
+\item{\abbrhighcol{Functional / Performance / Stress testing as example for definition} - These test types are defined for checking the correct functionality and to see if the application runs functionally correct, stable and with sufficient performance. Normally these tests are defined with the aspect to ignore the internal way how the application is developed.}
+\item{\abbrhighcol{UNIT testing definition} - These tests are designed to check the functionality of atomic functions inside the project. With full knowledge how the functions work internal.}
+\item{\abbrhighcol{Interactive testing definition} - Interactive testing is the type of testing where we have a detailed test definition without the possibility to automation. The user or a tester has to follow the steps. and write a protocol about the results. Best place for that is a tool like JIRA}
+\item{\abbrhighcol{Security testing definition} - The security tests check the secure data transfer normally according to eIDAS in Europe or e.g.: NIST in USA. And there has to be also a test if changes to the system are tracked correctly so that there is no way to falsify something.}
 \end{enumerate}
 \section{Alternate way to define and categorise test types in overview }
 \begin{flushleft}
@@ -750,6 +768,7 @@ Our toolchain is a chain of tools we use for defining use cases and requirements
 \item{Build / Tests Tool: A tool like Jenkins can be used to set up build processes and test processes }
 \item{Docker Containers can be used to set up systems and services for testing. Also the test run itself can be started in a separate docker}
 \end{enumerate}
+\newpage
 \abbrhighcol{OVERVIEW - TOOLCHAIN}\newline\newline
 \begin{tikzpicture}
 %the nodes
@@ -765,12 +784,16 @@ Our toolchain is a chain of tools we use for defining use cases and requirements
 \draw[->] (mA1.north) -- (mA.south);
 \draw[->] (mA1.south) -- (mA2.north);
 \draw[->] (mA2.north) -- (mA1.south);
-\draw[->] (mA2.west) .. controls +(down:11mm) and +(left:11mm) .. (mA.west);
+\draw[->] (mA2.west) .. controls +(up:20mm) and +(left:17mm) .. (mA.west);
 \draw[->] (mA2.east) -- (mB.west);
 \draw[->] (mB.east) -- (mC.west);
 \draw[->] (mC.south) -- (mD.north);
 \draw[->] (mD.south) -- (mE.north);
-\end{tikzpicture}\newpage
+\end{tikzpicture}
+\begin{flushleft}
+Here we have a short overview on the whole tool-chain. Later after showing the different parts we will look how a typical workflow from Requirement to the Deploy will look like.
+\end{flushleft}
+\newpage
 \abbrhighcol{1. JIRA-Task and Ticket-System}\newline\newline
 \begin{tikzpicture}
 %the nodes
@@ -818,7 +841,7 @@ We see here that in the end we have nearly something like a spider-net between t
 \node [simple  module,right=of devC] (devE) {SubTask (StoreData/Cloud / Write Tests / Code)};
 \node [simple  module,right=of devA] (devF) {BitBucket-Project};
 %drawings of vectors
-\draw[->] (devA.south) -- (devB.west);
+\draw[->] (devA.south) -- (devB.north);
 \draw[->] (devA.east) -- (devF.west);
 \draw[->] (devF.west) -- (devA.east);
 \draw[->] (devB.south) -- (devC.north);
@@ -831,11 +854,35 @@ We see here that in the end we have nearly something like a spider-net between t
 \draw[->] (devF.south) -- (devB.north);
 \end{tikzpicture}\newline
 \begin{flushleft}
+A typical workflow in the development environment will be that the developer gets a task and hast to break down the tasks in classes functions and configurations. The developer will choose one of the development tools which are allowed by the standard of the company or department. In this development environment the code is developed in a sandbox and later on the developer commits the code step by step to the version control system (e.g.: GIT) and then the development of the next function is done. A development environment should be choosed im a way that not only the pure coding is possible and that it supports some goodies e.g. Test Driven Development. In JIRA for example the developer can comment the task if necessary and he sees the output (what checked-in in GIT ) if he uses the feature of JIRA and BitBucket that the commits are grouped by task or defect. Normally a development Tool like IntelliJ supports all these things. 
+\end{flushleft}
+\newpage
+\abbrhighcol{3. Bitbucket-Repository}\newline\newline
+\begin{tikzpicture}
+% the nodes
+\node [simple module] (bbA){Workspaces / Projects};
+\node [simple module,below=of bbA] (bbB){Project A};
+\node [simple  module,right=of bbB] (bbC){Project B};
+\node [simple  module,below=of bbB] (bbD){Main Branch A};
+\node [simple  module,below=of bbC] (bbE){Main Branch B};
+%drawings of vectors
+\draw[->] (bbA.south) -- (bbB.north);
+\draw[->] (bbA.south) -- (bbC.north);
+
+\draw[->] (bbB.south) -- (bbD.north);
+\draw[->] (bbC.south) -- (bbE.north);
+
+\end{tikzpicture}\newline
+\begin{flushleft}
+The Bitbucket System holds GIT repositories. Each repository is a project or a sub-project which also may be dependent from one to the other. The projects can have a main Branch or several other branches which hold a specific step of development which is later on merged to the main branch. It is usual to make a code freeze for a release and after that run the major or minor release tests.
+\end{flushleft}
+\abbrhighcol{4. Jenkins-Build Environment}\newline\newline
+\begin{flushleft}
+
+\end{flushleft}\abbrhighcol{5. Jenkins-Test Environment}\newline\newline
+\begin{flushleft}
 
 \end{flushleft}
-\abbrhighcol{3. Bitbucket-Repository}\newline\newline
-\abbrhighcol{4. Jenkins-Build Environment}\newline\newline
-\abbrhighcol{5. Jenkins-Test Environment}\newline\newline
 \newpage
 \subsection{The automation between the tools and inside the tools}
 \chapter{Clean code and coding rules to make testing easier}
