@@ -512,14 +512,14 @@ There is a separation between the tests in a way that the test types are divided
 \subsection{Functional / Performance / Stress testing as example}
 \begin{tikzpicture}
 %% fun tests circle
-\draw  [fill=blue](0,0) circle  (150pt);
-\draw  [fill=cyan](0,0) circle  (40pt);
+\draw  [fill=white](0,0) circle  (150pt);
+\draw  [fill=red](0,0) circle  (40pt);
 %the nodes
 \node [fill=green] (blackCenter) {\abbrhighcol{Black Box \newline Types}};
-\node [fill=olive,left=of  blackCenter] (blackLeft) { \color{white}Functional Testing};
-\node [fill=olive,right=of blackCenter] (blackRight) {\color{white}Regression Tests};
-\node [fill=olive,above=of  blackCenter] (blackAbove) { \color{white}Performance Testing};
-\node [fill=olive,below=of blackCenter] (blackBelow) {\color{white}Stress Tests};
+\node [fill=blue,left=of  blackCenter] (blackLeft) {\color{white}Functional Testing};
+\node [fill=blue,right=of blackCenter] (blackRight) {\color{white}Regression Tests};
+\node [fill=blue,above=of  blackCenter] (blackAbove) {\color{white}Performance Testing};
+\node [fill=blue,below=of blackCenter] (blackBelow) {\color{white}Stress Tests};
 %drawings of lines
 \draw[-] (blackCenter.west) -- (blackLeft.east);
 \draw[-] (blackCenter.east) -- (blackRight.west);
@@ -544,26 +544,26 @@ There is a separation between the tests in a way that the test types are divided
 \end{flushleft}
 \begin{tikzpicture}
 %% fun tests circle
-\draw  [fill=yellow](0,0) circle  (150pt);
+\draw  [fill=white](0,0) circle  (150pt);
 \draw  [fill=cyan](0,0) circle  (40pt);
 %the nodes
 \node [fill=red] (funCenter) { \color{white}\abbrhighcol{Functional Test \newline Types}};
-\node [fill=blue,left=of funCenter] (funLeft) { \color{green}Black Box Tests};
+\node [fill=blue,left=of funCenter] (funLeft) { \color{yellow}Black Box Tests};
 \node [fill=blue,right=of funCenter] (funRight) { \color{yellow}White Box Tests};
-\node [fill=green,above=of funCenter] (funAbove) {Grey Box Tests};
-\node [fill=green,below=of funCenter] (funBelow) {UNIT Tests};
-\node [fill=olive,left=of funBelow] (funBelowLeft) {\color{white}Regression Tests};
-\node [fill=olive,right=of funBelow] (funBelowRight) {\color{white}Re-Test Tests};
-\node [fill=cyan,above=of funAbove] (funAboveAbove) {UAT};
-\node [fill=pink,left=of funAbove] (funAboveLeft) {Smoke};
-\node [fill=pink,right=of funAbove] (funAboveRight) {Database};
-\node [fill=purple,right=of funAboveAbove] (funAboveARight) {\color{white}Recovery};
-\node [fill=purple,left=of funAboveAbove] (funAboveALeft) {\color{white}Static};
-\node [fill=cyan,below=of funBelow] (funBelowBelow) {Acceptance};
-\node [fill=magenta,left=of funBelowBelow] (funBelowBLeft) {\color{white}Integration};
-\node [fill=magenta,right=of funBelowBelow] (funBelowBRight) {\color{white}Component};
-\node [fill=black,below=of funBelowBelow] (funBelowBBelow) {\color{green}Ad hoc/Random};
-\node [fill=black,above=of funAboveAbove] (funAboveAAbove) {\color{green}System Testing};
+\node [fill=blue,above=of funCenter] (funAbove) { \color{yellow}Grey Box Tests};
+\node [fill=blue,below=of funCenter] (funBelow) { \color{yellow}UNIT Tests};
+\node [fill=blue,left=of funBelow] (funBelowLeft) { \color{yellow}Regression Tests};
+\node [fill=blue,right=of funBelow] (funBelowRight) { \color{yellow}Re-Test Tests};
+\node [fill=blue,above=of funAbove] (funAboveAbove) { \color{yellow}UAT};
+\node [fill=blue,left=of funAbove] (funAboveLeft) { \color{yellow}Smoke};
+\node [fill=blue,right=of funAbove] (funAboveRight) { \color{yellow}Database};
+\node [fill=blue,right=of funAboveAbove] (funAboveARight) {\color{yellow}Recovery};
+\node [fill=blue,left=of funAboveAbove] (funAboveALeft) { \color{yellow}Static};
+\node [fill=blue,below=of funBelow] (funBelowBelow) { \color{yellow}Acceptance};
+\node [fill=blue,left=of funBelowBelow] (funBelowBLeft) { \color{yellow}Integration};
+\node [fill=blue,right=of funBelowBelow] (funBelowBRight) { \color{yellow}Component};
+\node [fill=blue,below=of funBelowBelow] (funBelowBBelow) { \color{yellow}Ad hoc/Random};
+\node [fill=blue,above=of funAboveAbove] (funAboveAAbove) { \color{yellow}System Testing};
 %drawings of lines
 \draw[-] (funCenter.south) -- (funBelow.north);
 \draw[-] (funCenter.north) -- (funAbove.south);
@@ -595,18 +595,18 @@ There is a separation between the tests in a way that the test types are divided
 \end{flushleft}
 \begin{tikzpicture}
 %% fun tests circle
-\draw  [fill=green](0,0) circle  (150pt);
+\draw  [fill=white](0,0) circle  (150pt);
 \draw  [fill=orange](0,0) circle  (40pt);
 %the nodes
 \node [fill=blue] (nfunCenter) { \color{white}\abbrhighcol{NON-Functional Test \newline Types}};
-\node [fill=pink,left=of nfunCenter] (nfunLeft) {Performance Test};
-\node [fill=pink,right=of nfunCenter] (nfunRight) {PenetrationTests / Security Testing};
-\node [fill=magenta,above=of nfunCenter] (nfunAbove) {\color{white}Upgrade / Migration Testing};
-\node [fill=magenta,below=of nfunCenter] (nfunBelow) {\color{white}Reliability Testing};
-\node [fill=orange,above=of nfunAbove] (nfunAboveAbove) {Usability Testing};
-\node [fill=orange,below=of nfunBelow] (nfunBelowBelow) {Recovery Testing};
-\node [fill=cyan,left=of nfunAbove] (nfunAboveLeft) {Compatibility Testing};
-\node [fill=cyan,right=of nfunBelow] (nfunBelowRight) {Stress Testing};
+\node [fill=green,left=of nfunCenter] (nfunLeft) {Performance Test};
+\node [fill=green,right=of nfunCenter] (nfunRight) {PenetrationTests / Security Testing};
+\node [fill=green,above=of nfunCenter] (nfunAbove) {Upgrade / Migration Testing};
+\node [fill=green,below=of nfunCenter] (nfunBelow) {Reliability Testing};
+\node [fill=green,above=of nfunAbove] (nfunAboveAbove) {Usability Testing};
+\node [fill=green,below=of nfunBelow] (nfunBelowBelow) {Recovery Testing};
+\node [fill=green,left=of nfunAbove] (nfunAboveLeft) {Compatibility Testing};
+\node [fill=green,right=of nfunBelow] (nfunBelowRight) {Stress Testing};
 %drawings of lines
 \draw[-] (nfunCenter.south) -- (nfunBelow.north);
 \draw[-] (nfunCenter.north) -- (nfunAbove.south);
