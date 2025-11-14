@@ -504,7 +504,7 @@ To show how test driven development can be done in a project we make a tiny proj
 \end{flushleft}
 \begin{tikzpicture}
 %the nodes of the snake
-\node [fill=green] (start) {\abbrhighcol{Define class in package under /src/main/java}}; 
+\node [fill=green] (start) {\abbrhighcol{define class in package under /src/main/java}}; 
 \node [fill=green,right=of  start] (next1) {\abbrhighcol{define constructor}};
 \node [fill=green,below=of  next1] (next2) {\abbrhighcol{define public stub}};
 \node [fill=green,below=of  next2] (next3) {\abbrhighcol{click right button}};
@@ -514,7 +514,9 @@ To show how test driven development can be done in a project we make a tiny proj
 \node [fill=green,below=of  next6] (next7) {\abbrhighcol{Goto src/main.... Class / Method}};
 \node [fill=green,right=of  next7] (next8) {\abbrhighcol{implement....}};
 \node [fill=green,right=of  next8] (next9) {\abbrhighcol{test....}};
-\node [fill=green,right=of  next9] (next10) {\abbrhighcol{checkin...}};%drawings of lines for the snake
+\node [fill=green,right=of  next9] (next10) {\abbrhighcol{checkin...}};
+\node [fill=green,below=of  next10] (next11) {\abbrhighcol{completed set code freeze}};
+;%drawings of lines for the snake
 \draw[->] (start.east) -- (next1.west);
 
 \draw[->] (next1.south) -- (next2.north);
@@ -533,29 +535,33 @@ To show how test driven development can be done in a project we make a tiny proj
 
 \draw[->] (next8.east) -- (next9.west);
 
-\draw[->] (next8.south) -- (next9.west);
+\draw[->] (next8.south) .. controls +(down:12mm) and +(right:9mm) .. (next9.west);
 
-\draw[->] (next9.north) -- (next8.east);
+\draw[->] (next9.north) .. controls +(up:12mm) and +(left:9mm) .. (next8.east);
 
 \draw[->] (next9.east) -- (next10.west);
+
+\draw[->] (next10.south) -- (next11.north);
+
 \end{tikzpicture}
 
 \subsection{How to do Test Driven Development - Step by Step Description}
 \abbrhighcol{Example with Java and IntelliJ / Maven}
 \begin{enumerate}
-\item{define class with functionality}
-\item{define constructor}
-\item{define public stub}
-\item{click right button}
-\item{click on Generate -> Test...}
-\item{Goto generated Test -> 'name'+Test}
-\item{Fill test method with logic / asserts}
-\item{Goto src/main.... Class / Method}
-\item{implement....}
-\item{test....}
-\item{checkin....}
+\item{\abbrhighcol{define class in package under /src/main/java} -> usually we start with any kind of new code in our case here we define a new class.}
+\item{\abbrhighcol{define constructor} -> technical necessary...}
+\item{\abbrhighcol{define public stub} -> this stub defines the interface with parameters and return value.}
+\item{\abbrhighcol{click right button} -> IntelliJ specific...}
+\item{\abbrhighcol{click on Generate -> Test...} Now a new test class is defined in src/test/java/'package' with the name of the class to test and the suffix test.}
+\item{\abbrhighcol{Goto generated Test -> 'name'+Test} -> now we define tests for our stub according to the requirements.}
+\item{\abbrhighcol{Fill test method with logic / asserts}-> we have to take care that the asserts and the test logic is clean and proper and reflects the requirements 100\%.}
+\item{\abbrhighcol{Goto src/main.... Class / Method}-> now we go back to the implementation}
+\item{\abbrhighcol{implement....} -> implement and go to test.}
+\item{\abbrhighcol{test....} -> test the implementation and if necessary refine the tests. If all is ok go to the next step if not go back.}
+\item{\abbrhighcol{checkin....} -> in this step we checkin the code and the tests. The checkin must be at least compilable.}
+\item{\abbrhighcol{completed set code freeze} -> now we declare the task as ready but if a code review shows errors or unclean code it may be re-opened.}
 \end{enumerate}
-\newpage
+\section{See how this works in our example with the calculator}
 \chapter{The test types in detail}
 \begin{flushleft}
 For the test types you will see there are different ways of categorisation. I will show them without telling the one or the other way is better, because in each discipline of data and computer science there are always different ways of thinking. Here is the categorisation we had in my former company:
