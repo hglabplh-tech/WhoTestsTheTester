@@ -496,7 +496,65 @@ And now we can test the thing out of the box for the test is already there.
 After that we can think about how test driven development can be used to have a well defined interface and to code a application. Test driven development is a kind of development where we define in opposite to the prior example the tests first. Test driven development has the advantage that we see immediately if the function we designed works like it should work because the test shows already up the call and return value of a function how we designed it. Instead of adapting the test to our functionality we write the functionality in the way that we have a test first written according to the requirement.\newline
 \section{Make the proof of concept}
 To show how test driven development can be done in a project we make a tiny project called 'Calculator' this calculator is a calculator for mathematical expressions with a GUI. The project is defined in Java with a numeric tower and SWING as graphical interface. Here first the tests are defined and after that the functions are implemented. After done so there are Functional Tests and defined Interactive Tests.
-    
+\newpage
+\subsection{How to do Test Driven Development - Diagram}
+\abbrhighcol{Example with Java and IntelliJ / Maven}
+\begin{flushleft}
+
+\end{flushleft}
+\begin{tikzpicture}
+%the nodes of the snake
+\node [fill=green] (start) {\abbrhighcol{Define class in package under /src/main/java}}; 
+\node [fill=green,right=of  start] (next1) {\abbrhighcol{define constructor}};
+\node [fill=green,below=of  next1] (next2) {\abbrhighcol{define public stub}};
+\node [fill=green,below=of  next2] (next3) {\abbrhighcol{click right button}};
+\node [fill=green,left=of  next3] (next4) {\abbrhighcol{click on Generate -> Test...}};
+\node [fill=green,left=of  next4] (next5) {\abbrhighcol{Goto generated Test -> 'name'+Test}};
+\node [fill=green,below=of  next5] (next6) {\abbrhighcol{Fill test method with logic / asserts}};
+\node [fill=green,below=of  next6] (next7) {\abbrhighcol{Goto src/main.... Class / Method}};
+\node [fill=green,right=of  next7] (next8) {\abbrhighcol{implement....}};
+\node [fill=green,right=of  next8] (next9) {\abbrhighcol{test....}};
+\node [fill=green,right=of  next9] (next10) {\abbrhighcol{checkin...}};%drawings of lines for the snake
+\draw[->] (start.east) -- (next1.west);
+
+\draw[->] (next1.south) -- (next2.north);
+
+\draw[->] (next2.south) -- (next3.north);
+
+\draw[->] (next3.west) -- (next4.east);
+
+\draw[->] (next4.west) -- (next5.east);
+
+\draw[->] (next5.south) -- (next6.north);
+
+\draw[->] (next6.south) -- (next7.north);
+
+\draw[->] (next7.east) -- (next8.west);
+
+\draw[->] (next8.east) -- (next9.west);
+
+\draw[->] (next8.south) -- (next9.west);
+
+\draw[->] (next9.north) -- (next8.east);
+
+\draw[->] (next9.east) -- (next10.west);
+\end{tikzpicture}
+
+\subsection{How to do Test Driven Development - Step by Step Description}
+\abbrhighcol{Example with Java and IntelliJ / Maven}
+\begin{enumerate}
+\item{define class with functionality}
+\item{define constructor}
+\item{define public stub}
+\item{click right button}
+\item{click on Generate -> Test...}
+\item{Goto generated Test -> 'name'+Test}
+\item{Fill test method with logic / asserts}
+\item{Goto src/main.... Class / Method}
+\item{implement....}
+\item{test....}
+\item{checkin....}
+\end{enumerate}
 \newpage
 \chapter{The test types in detail}
 \begin{flushleft}
@@ -884,7 +942,7 @@ The Bitbucket System holds GIT repositories. Each repository is a project or a s
 
 \end{flushleft}
 \newpage
-\subsection{The automation between the tools and inside the tools}
+\subsection{The workflow in the tool-chain}
 \chapter{Clean code and coding rules to make testing easier}
 \section{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
