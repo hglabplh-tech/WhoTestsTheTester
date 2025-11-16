@@ -1,19 +1,17 @@
 \documentclass[10pt,a4paper,english]{article}
 \usepackage{babel}
 \usepackage{listings}
-\lstset{language=Java,
-  language=Python,
-  showspaces=false,
+ \lstset{showspaces=false,
   showtabs=false,
   breaklines=true,
   showstringspaces=false,
   breakatwhitespace=true,
-  commentstyle=\color{green},
-  keywordstyle=\color{blue},
-  stringstyle=\color{red},
+  commentstyle=\color{blue},
+  keywordstyle=\color{orange},
+  stringstyle=\color{yellow},
   basicstyle=\ttfamily,
   moredelim=[il][\textcolor{grey}]{$$},
-  morekeywords=\textcolor{blue}]{yield},  
+  morekeywords=\textcolor{orange}]{yield},
   moredelim=[is][\textcolor{grey}]{\%\%}{\%\%}}
 \usepackage{ae}
 \usepackage{tikz}
@@ -184,7 +182,7 @@ But I use it because it is a simple example.
 % code highlighting ???? // for different languages
 %
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 public void quickSort(int arr[], int begin,  int end) { 
    if (begin <. end) {
        int partitionIndex = partition(arr, begin, end);       
@@ -203,7 +201,7 @@ test. What we need now is a testing framework containing assertion functions and
 \end{itemize}
 Here first a example of a very tiny test:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 @Test
 public void simpleQSortTest() {
 		Integer[] theArrayToSort = {6, 7, 4, 2, 78, 45 ,1 ,5, 15};
@@ -215,7 +213,7 @@ public void simpleQSortTest() {
 \end{lstlisting}
 Here in this test the easiest case is tested. It is tested if the array given is sorted after quicksort. The other cases like given wrong data by type e.g. Strings instead of Integer are not tested. In our case this won't work because the whole thing won't even compile in that case. So to show how such a Test will work let us elaborate the whole function a bit.
 Here is our new function which is much more flexible :
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 public class QBubbleMerge<T> {
     private QBubbleMerge() {
     }
@@ -270,7 +268,7 @@ public class QBubbleMerge<T> {
 \end{lstlisting}
 \subsection{And here are a few tests for it to see how UNIT Testing works:}
 Here are a scelleton how to test the UNIT with JUNIT in Java (The code will be discussed in the next chapters / sections):
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 package io.examples.sort;
 
 
@@ -440,7 +438,7 @@ Nowadays it is clear that the software gets more and more flexible and complex, 
 And so the Test Driven Development was born.
 \subsection{How to realise this thoughts}
 To realise this thougts we have today test frameworks like **JUNIT** in Java or simply **deftest** in Clojure. Inside the different test methods which we are able to define in **JUNIT** with the **@Test** annotation the logic can be designed and here there are also the asserts if the last call was successful and delivers the correct input for the following task.\subsection{Example of such a test in Java}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 public class ATest extends BaseOfTests {
 
 private Integer derfault = 110;
@@ -460,7 +458,7 @@ public aSpecificTest ()
 \end{lstlisting}
 And out of these tests stubs for the interface are created
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 public interface MyAppIfc {
 
 	public Integer myFirstMethod (Integer input);
@@ -473,7 +471,7 @@ And the class implementing our great highly sophisticated interface ;-) may be l
 as follows
 
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 public class MyRealApp implements MyAppIfc {
 
 	@Override
@@ -764,7 +762,7 @@ The automation of Tests can take place on different levels of Test execution. At
 The UNIT tests should be written by the developers coding the functions. There are two possibilities. Either the developer coding the function writes the UNIT tests during coding or the UNIT tests are written by the developer who does the code review which I think is very useful. I would prefer to do both things. First coding the function or write the UNIT test and code the function that it fits. After both things are written a code review should take place. Now the reviewer sees if there is something wrong in the code and / or if UNIT tests are missing and he can write further tests. In best case he writes tests which state if the errors he found are fixed. In most cases UNIT tests are per definition White Box Tests.
 Here again our sort example. A typical simple UNIT test will be in Java with JUNIT:
 \end{flushleft}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
    @Test
     public void testQuickSortSimple() {
         Integer[] arrayToSort = newArray();
@@ -790,7 +788,7 @@ Here again our sort example. A typical simple UNIT test will be in Java with JUN
     }
 \end{lstlisting}
 And in Python with the package unittest which is very similar:
-\begin{lstlisting}
+\begin{lstlisting}[language=Python]
 import unittest
 import copy
 from sort.algorithms.QBubbleMergeSort import QBubbleMergeSort
@@ -941,24 +939,62 @@ A typical workflow in the development environment will be that the developer get
 The Bitbucket System holds GIT repositories. Each repository is a project or a sub-project which also may be dependent from one to the other. The projects can have a main Branch or several other branches which hold a specific step of development which is later on merged to the main branch. It is usual to make a code freeze for a release and after that run the major or minor release tests.
 \end{flushleft}
 \abbrhighcol{4. Jenkins-Build Environment}\newline\newline
-\begin{flushleft}
+\begin{tikzpicture}
+% the nodes
+\node [simple module] (jbeA){Jenkins Environment};
+\node [simple module,below=of jbeA] (jbeB){Build definition modules};
+\node [simple  module,below=of jbeB] (jbeC){Worker};
+\node [simple  module,right=of jbeC] (jbeD){Build run with parameters};
+\node [simple  module,right=of jbeD] (jbeE){Build run Trigger from BitBucket / Checkin};
+%drawings of vectors
+\draw[->] (jbeA.south) -- (jbeB.north);
+\draw[->] (jbeB.south) -- (jbeC.north);
 
-\end{flushleft}\abbrhighcol{5. Jenkins-Test Environment}\newline\newline
-\begin{flushleft}
+\draw[->] (jbeC.east) -- (jbeD.west);
 
+\draw[->] (jbeE.west) -- (jbeD.east);
+\end{tikzpicture}\newline
+\begin{flushleft}
+The build environment is defined in a Jenkins instance. For each module or project is at least one build for the trunk defined and a release build. The build is triggered by a check in to BitBucket. After the build is successful the Tests in another Jenkins are triggered if defined. 
+\end{flushleft}
+\abbrhighcol{5. Jenkins-Test Environment}\newline\newline
+\begin{tikzpicture}
+% the nodes
+\node [simple module] (jteA){Test Jenkins Environment};
+\node [simple module,below=of jteA] (jteB){Test definition releases / modules / services};
+\node [simple  module,below=of jteB] (jteC){Workers - one or more for each test definition};
+\node [simple  module,right=of jteC] (jteD){Test run with parameters};
+\node [simple  module,right=of jteD] (jteE){Test run Trigger from Build Jenkins - build success};
+%drawings of vectors
+\draw[->] (jteA.south) -- (jteB.north);
+\draw[->] (jteB.south) -- (jteC.north);
+
+\draw[->] (jteC.east) -- (jteD.west);
+
+\draw[->] (jteE.west) -- (jteD.east);
+\end{tikzpicture}\newline
+\begin{flushleft}
+In the test part tests for many different projects or parts of projects are defined as test run. These test run definitions have 1-n workers assigned in these workers docker environments are established to run in Portainers. One of these docker environments is always the test run itself. The other belong to the application or service to be tested.
 \end{flushleft}
 \newpage
 \subsection{The workflow in the tool-chain}
-\chapter{Clean code and coding rules to make testing easier}
-\section{A little view at coding styles necessary for testable code a few examples}
+\chapter{Clean coding and project design as part of quality to make testing easier or possible}
+\section{Rules for a clean project with proper testability}
+\begin{flushleft}
+One important thing to get a clean logic and a good quality is the design o the project in a way that the different parts/components can be tested separately as well as in a way that no mocking inside the project is necessary. Here some design patterns and rules as well as coding rules are very useful. First we like to take a look at the project design. 
+\end{flushleft}
+\subsection{How to design a application for getting a clean testable project}
+\begin{flushleft}
+
+\end{flushleft}
+\subsection{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:
 One important thing is to have a good style of coding doing conditional branches in the code:
 For this have a look at Java\'s different styles of the switch statement:\newline
-\subsection{At first have a look on JAVA}
 The output of the following functions is printed that way :
 The thing is printed by;
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 StringBuffer buffer = new StringBuffer()
                 .append("Normal Simple: " + pureOldSwitchCase(SIMPLE))
                 .append(" ; ").append("Normal Triple: " + pureOldSwitchCase(TRIPLE))
@@ -994,7 +1030,7 @@ StringBuffer buffer = new StringBuffer()
  \end{lstlisting}
 \abbrhighcol{Let us first have a look at an old school nearly clean switch block}
 \end{flushleft}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
  /**
      * In this function the break statements are set correctly and strict. 
      * Except the FALLTHROUGH: case that is no good style but in most cases acceptable.
@@ -1030,7 +1066,7 @@ StringBuffer buffer = new StringBuffer()
 The output calling it with all parameters will be:\newline
 Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 324 ; Normal default: 3\newline\newline
 \abbrhighcol{Let us first have a look at an old school dirty coded switch block}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 /**
      * In this function the break statements are set wild or never. That kind of 
      * coding style leads to the fact that especially beginners cannot change the code so that all things work again.
@@ -1066,7 +1102,7 @@ Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 
 The output calling it with all parameters will be:\newline
 With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap  Fall through: 540 ; With trap  default: 3\newline\newline
 \abbrhighcol{Let us first have a look at an new  clean coded switch block}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
  /**
      * Here we see the 'new' keyword yield with which a result is given back and which also, like break, sets the continuation
      * to go on after the switch. In this case here each branch ends with a yield so we have a clear and clean logic.
@@ -1094,7 +1130,7 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
  The output calling it with all parameters will be:\newline
  Upgraded Simple: 11 ; Upgraded Triple: 7 ; Upgraded Double: 12 ; Upgraded Fall through: 108 ; Upgraded default: 3\newline\newline
 \abbrhighcol{Now let us have a look at an new  tricky  coded switch block}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
  /**
      * Here one fallthrough takes place which is no clean coding since each branch should deliver
      * one defined return via yield
@@ -1125,7 +1161,7 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
  The output calling it with all parameters will be:\newline
  Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
  \abbrhighcol{Now let us see how the switch expression works here the continuations are impliit and so coding wit errors is more difficult}
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
    /**
      * Here we see a switch EXPRESSION instead of a switch statement. All continuations are implicitly set
      * @param rule the switch parameter
