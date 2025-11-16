@@ -974,7 +974,7 @@ The build environment is defined in a Jenkins instance. For each module or proje
 \draw[->] (jteE.west) -- (jteD.east);
 \end{tikzpicture}\newline
 \begin{flushleft}
-In the test part tests for many different projects or parts of projects are defined as test run. These test run definitions have 1-n workers assigned in these workers docker environments are established to run in Portainers. One of these docker environments is always the test run itself. The other belong to the application or service to be tested.
+In the test part tests for many different projects or parts of projects are defined as test run. These test run definitions have 1..n workers assigned in these workers docker environments are established to run in Portainers. One of these docker environments is always the test run itself. The other belong to the application or service to be tested.
 \end{flushleft}
 \newpage
 \subsection{The workflow in the tool-chain}
@@ -985,8 +985,10 @@ One important thing to get a clean logic and a good quality is the design o the 
 \end{flushleft}
 \subsection{How to design a application for getting a clean testable project}
 \begin{flushleft}
-
+\abbrhighcol{There is more than one pattern to get an application clean with proper logic and a good testability:}\newline
+The first pattern we will show is the \abbrhighcol{MVC} Model View Controler. \footnote{\abbrhighcol{MVC: } \abbrhighcol{M}odel \abbrhighcol{V}iew \abbrhighcol{C}ontroler is a model to separate the view (Maybe GUI) from the model which is the data model. And then use the controler to define the logic manipulating the data and build workflows for example} This pattern is very useful for standalone applications like a "big fat client" or something like Thunderbird (A mail program).  For services /  cloud computing the common sense is to think in a way which is a bit different from MVC. Let us have a look:\newline 
 \end{flushleft}
+\newpage
 \subsection{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:
@@ -1160,7 +1162,7 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
 \end{lstlisting}
  The output calling it with all parameters will be:\newline
  Upgraded Simple with traps: 11 ; Upgraded Triple with traps: 7 ; Upgraded Double with traps: 12 ; Upgraded Fall through really fall: 540 ; Upgraded default with traps: 3\newline\newline
- \abbrhighcol{Now let us see how the switch expression works here the continuations are impliit and so coding wit errors is more difficult}
+ \abbrhighcol{Now let us see how the switch expression works here the continuations are implicit and so coding which is too fancy is nearly impossible}
 \begin{lstlisting}[language=Java]
    /**
      * Here we see a switch EXPRESSION instead of a switch statement. All continuations are implicitly set
