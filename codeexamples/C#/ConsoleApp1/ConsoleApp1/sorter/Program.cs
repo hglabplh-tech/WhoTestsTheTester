@@ -10,12 +10,15 @@ public class Program
         int[] arr = { 10, 7, 8, 9, 1, 5 };
         var n = arr.Length;
 
-        QSorter.quickSort(arr, 0, n - 1);
+        QSorter.quickSort(SortOrder.Asc, arr, 0, n - 1);
         foreach (var val in arr)
         {
             Console.Write(val + " ");
-
-
+        }
+        QSorter.quickSort(SortOrder.Desc, arr, 0, n - 1);
+        foreach (var val in arr)
+        {
+            Console.Write(val + " ");
         }
     }
 }
