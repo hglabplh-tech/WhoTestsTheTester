@@ -983,12 +983,148 @@ In the test part tests for many different projects or parts of projects are defi
 \begin{flushleft}
 One important thing to get a clean logic and a good quality is the design o the project in a way that the different parts/components can be tested separately as well as in a way that no mocking inside the project is necessary. Here some design patterns and rules as well as coding rules are very useful. First we like to take a look at the project design. 
 \end{flushleft}
-\subsection{How to design a application for getting a clean testable project}
+\subsection{How to design a application for getting a clean testable project - in overview}
 \begin{flushleft}
 \abbrhighcol{There is more than one pattern to get an application clean with proper logic and a good testability:}\newline
-The first pattern we will show is the \abbrhighcol{MVC} Model View Controler. \footnote{\abbrhighcol{MVC: } \abbrhighcol{M}odel \abbrhighcol{V}iew \abbrhighcol{C}ontroler is a model to separate the view (Maybe GUI) from the model which is the data model. And then use the controler to define the logic manipulating the data and build workflows for example} This pattern is very useful for standalone applications like a "big fat client" or something like Thunderbird (A mail program).  For services /  cloud computing the common sense is to think in a way which is a bit different from MVC. Let us have a look:\newline 
+The first pattern we will show is the \abbrhighcol{MVC} Model View Controler. \footnote{\abbrhighcol{MVC: } \abbrhighcol{M}odel \abbrhighcol{V}iew \abbrhighcol{C}ontroler is a model to separate the view (Maybe GUI) from the model which is the data model. And then use the controler to define the logic manipulating the data and build workflows for example} This pattern is very useful for standalone applications like a "big fat client" or something like Thunderbird (A mail program).  For services /  cloud computing the common sense is to think in a way which is a bit different from MVC. Let us have a look:\newline
+Here we define separate layers in the application. In the following list represented from highest to lowest ->
 \end{flushleft}
+\begin{enumerate}
+\item{\abbrhighcol{Business Logic: }In the business logic the implementation of the business part takes place. The business part ids the part with the logic according to the requirements and the view of the user. We avoid to implement backend things which do not belong to this logic because they are the technical realisation depending on the used systems.}
+\item{\abbrhighcol{Backend: }Here in the technical part we have the view on the technical details dependent from the used products / systems and the internal data model. This part contains e.g. also select statements to access a specific database like MySQL or DB2 or MS Sql-Server.}
+\item{\abbrhighcol{Separation: } The separation between the two parts is done through develop and define a API in form of interfaces which are implemented with several different backend 'processes' and so they decouple the one layer from the other completely.}
+\end{enumerate}
+\begin{flushleft}
+Let us have a closer look on the structure of the backend so that we have a backend layer which allows clean testing.\newline
 \newpage
+\abbrhighcol{The backend itself:}
+\end{flushleft}
+\begin{tikzpicture}
+% the nodes
+\node [fill=green] (backA){\abbrhighcol{Database Layer}};
+\node [fill=green,below=of  backA] (backB){\abbrhighcol{Transport Layer}};
+\node [fill=green,below=of backB] (backC){\abbrhighcol{File System I/O}};
+\node [fill=green,below=of backC] (backD){\abbrhighcol{Transport /Document SecurityLayer}};
+\node [fill=green,below=of backD] (backE){\abbrhighcol{Configuration Layer - The detailed config}};
+%drawings of vectors
+\draw[->] (backA.south) -- (backB.north);
+\draw[->] (backB.south) -- (backC.north);
+
+\draw[->] (backC.south) -- (backD.north);
+
+\draw[->] (backD.south) -- (backE.north);
+\end{tikzpicture}
+\begin{itemize}
+\item{\abbrhighcol{Database Layer: }The database layer is a layer in which the general access to SQL / NoSQL (e.g.) databases is defined. Here the definition which is valid for all databases of a specific kind is done. }
+\item{\abbrhighcol{Transport Layer : }In this layer the definition of the transport of data over different protocols takes place. Not only the mentioned but also cloud connectors and archive backends as a few examples can be implemented.}
+\item{\abbrhighcol{File System I/O: }Here the I/O functionality to access file systems (directories, files) takes place.}
+\item{\abbrhighcol{Transport /Document SecurityLayer: }In this layer the logic for a secure transport of data takes place as well as the logic to protect documents with hashes evidence records and signatures.}
+\item{\abbrhighcol{Configuration Layer - The detailed config: }The config is stored in each project in a defined structure for example XML-BLOBS here in this layer the technical details how to create, update, read and delete the configuration or parts of it is defined and implemented.}
+\end{itemize}
+\newpage
+\begin{flushleft}
+\abbrhighcol{The interface to the backend and interfaces in the backend:}
+\end{flushleft}
+\rubric{\abbrhighcol{database layer}}
+\begin{tikzpicture}
+%% the circle
+\draw  [fill=cyan](0,0) circle  (110pt);
+\draw  [fill=red](0,0) circle  (30pt);
+% the nodes
+\node [fill=green] (backA){Under the database Layer};
+\node [fill=green,above=of backA] (backB){Oracle access};
+\node [fill=green,below=of backA] (backC){DB2 access};
+\node [fill=green,left=of backA] (backD){MySQL access};
+\node [fill=green,right=of backA] (backE){Postgres SQL access};
+%drawings of vectors
+\draw[->] (backA.north) -- (backB.south);
+\draw[->] (backA.south) -- (backC.north);
+
+\draw[->] (backA.west) -- (backD.east);
+\draw[->] (backA.east) -- (backE.west);
+\end{tikzpicture}\newline
+\rubric{\abbrhighcol{transport layer}}
+\begin{tikzpicture}
+%% the circle
+\draw  [fill=cyan](0,0) circle  (110pt);
+\draw  [fill=red](0,0) circle  (30pt);
+% the nodes
+\node [fill=green] (backA){Under the transport Layer};
+\node [fill=green,above=of backA] (backB){HTTP/HTTPS transport};
+\node [fill=green,below=of backA] (backC){SFTP transport};
+\node [fill=green,left=of backA] (backD){Azure Cloud transport};
+\node [fill=green,right=of backA] (backE){Oracle Cloud Transport};
+%drawings of vectors
+\draw[->] (backA.north) -- (backB.south);
+\draw[->] (backA.south) -- (backC.north);
+
+\draw[->] (backA.west) -- (backD.east);
+\draw[->] (backA.east) -- (backE.west);
+\end{tikzpicture}\newline\newpage
+
+\rubric{\abbrhighcol{File system I/O layer}}
+\begin{tikzpicture}
+%% the circle
+\draw  [fill=cyan](0,0) circle  (110pt);
+\draw  [fill=red](0,0) circle  (30pt);
+% the nodes
+\node [fill=green] (backA){Under the File I/O Layer};
+\node [fill=green,above=of backA] (backB){NTFS access};
+\node [fill=green,below=of backA] (backC){Journaled access};
+\node [fill=green,left=of backA] (backD){Parallel NTFS access};
+\node [fill=green,right=of backA] (backE){Parallel Journaled access};
+%drawings of vectors
+\draw[->] (backA.north) -- (backB.south);
+\draw[->] (backA.south) -- (backC.north);
+
+\draw[->] (backA.west) -- (backD.east);
+\draw[->] (backA.east) -- (backE.west);
+\end{tikzpicture}\newline
+
+\rubric{\abbrhighcol{Transport /Document SecurityLayer - Following eIDAS}}
+\begin{tikzpicture}
+%% the circle
+\draw  [fill=cyan](0,0) circle  (110pt);
+\draw  [fill=red](0,0) circle  (30pt);
+% the nodes
+\node [fill=green] (backA){Under the Transport /Document SecurityLayer};
+\node [fill=green,above=of backA] (backB){Secure Basic Auth};
+\node [fill=green,below=of backA] (backC){Kerberos Auth};
+\node [fill=green,left=of backA] (backD){Document Hashing};
+\node [fill=green,right=of backA] (backE){Document Signing};
+%drawings of vectors
+\draw[->] (backA.north) -- (backB.south);
+\draw[->] (backA.south) -- (backC.north);
+
+\draw[->] (backA.west) -- (backD.east);
+\draw[->] (backA.east) -- (backE.west);
+\end{tikzpicture}\newline
+\newpage
+\rubric{\abbrhighcol{Configuration Layer - The detailed config}}
+\begin{tikzpicture}
+%% the circle
+\draw  [fill=cyan](0,0) circle  (110pt);
+\draw  [fill=red](0,0) circle  (30pt);
+% the nodes
+\node [fill=green] (backA){Under the Configuration Layer};
+\node [fill=green,above=of backA] (backB){Config XML writer};
+\node [fill=green,below=of backA] (backC){Config XML reader};
+\node [fill=green,left=of backA] (backD){Config deletion};
+\node [fill=green,right=of backA] (backE){Config XML update writer};
+%drawings of vectors
+\draw[->] (backA.north) -- (backB.south);
+\draw[->] (backA.south) -- (backC.north);
+
+\draw[->] (backA.west) -- (backD.east);
+\draw[->] (backA.east) -- (backE.west);
+\end{tikzpicture}\newline
+\begin{flushleft}
+The shown things are an example for what can be defined in a backend of a service or an application. The example does not show the complete possibilities and not all products which can be used there.  
+\end{flushleft}
+\subsection{How to design a application for getting a clean testable project - in detail (description)}
+\begin{flushleft}
+Now we want to have a deeper look on the components inside the backend and how they are connected to the business logic so that the one who codes the business logic does not have to think about the technical details.
+\end{flushleft}
 \subsection{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:
@@ -1190,7 +1326,12 @@ With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap
 \end{lstlisting}  
 The output calling it with all parameters will be:\newline
 new Simple Expr: 11 ; new Triple Expr: 7 ; new Double Expr: 12 ; new Fall through Expr: 108 ; new default Expr: 3\newline\newline
+\newpage
 \chapter{Further material}
+\section{Code examples and logic}
+\label{ref:codelogic}
+\begin{flushleft}
+\end{flushleft}
 \section{References}
 \label{ref:references}
 \begin{enumerate}
