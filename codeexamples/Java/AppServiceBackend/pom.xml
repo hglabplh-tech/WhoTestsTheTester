@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.examples.sort</groupId>
+        <artifactId>test-things</artifactId>
+        <version>0.3-SNAPSHOT</version>
+    </parent>
+
+    <groupId>io.examples.sort</groupId>
+    <artifactId>AppServiceBackend</artifactId>
+    <version>0.3-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target</outputDirectory>
+        <testOutputDirectory>target/test</testOutputDirectory>
+    </properties>
+    <build>
+        <defaultGoal>compile</defaultGoal>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>target/test</testOutputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <removeOldOutput>true</removeOldOutput>
+                    <strict>true</strict>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                    <removeOldOutput>true</removeOldOutput>
+                    <args>
+                        <arg>-Xcopy</arg>
+                        <arg>-copy.partial=y</arg>
+                        <arg>-copy.generateTools=y</arg>
+                        <arg>-copy.constructor=y</arg>
+                        <arg>-copy.narrow=n</arg>
+                        <arg>-copy.selectorClassName=Selector</arg>
+                        <arg>-copy.rootSelectorClassName=Select</arg>
+                        <arg>-Ximmutable</arg>
+                        <arg>-immutable.fake=n</arg>
+                        <arg>-immutable.overrideCollectionClass=null</arg>
+                        <arg>-immutable.constructorAccess=public</arg>
+                        <arg>-Xfluent-builder</arg>
+                        <arg>-fluent-builder.rootSelectorClassName=Select</arg>
+                        <arg>-fluent-builder.newBuilderMethodName=builder</arg>
+                        <arg>-fluent-builder.newCopyBuilderMethodName=newCopyBuilder</arg>
+                        <arg>-fluent-builder.copyToMethodName=copyTo</arg>
+                        <arg>-fluent-builder.builderFieldSuffix=_Builder</arg>
+                        <arg>-fluent-builder.generateTools=y</arg>
+                        <arg>-fluent-builder.narrow=n</arg>
+                        <arg>-fluent-builder.copyPartial=y</arg>
+                        <arg>-fluent-builder.selectorClassName=Selector</arg>
+                        <arg>-fluent-builder.builderClassName=Builder</arg>
+                        <arg>-fluent-builder.builderInterfaceName=BuildSupport</arg>
+                        <arg>-fluent-builder.copyAlways=n</arg>
+                        <arg>-fluent-builder.buildMethodName=build</arg>
+                        <arg>-fluent-builder.endMethodName=end</arg>
+                        <arg>-fluent-builder.generateJavadocFromAnnotations=n</arg>
+                    </args>
+                    <sources>
+                        <source>src/main/resources/BusinessDoc.xsd</source>
+                        <source>src/main/resources/DatabaseDoc.xsd</source>
+                    </sources>
+                    <outputDirectory>${outputDirectory}/generated-sources</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.codesup.util/jaxb2-rich-contract-plugin -->
+        <dependency>
+            <groupId>net.codesup.util</groupId>
+            <artifactId>jaxb2-rich-contract-plugin</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+    </dependencies>
+
+
+
+</project>
