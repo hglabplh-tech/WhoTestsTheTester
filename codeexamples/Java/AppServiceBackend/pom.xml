@@ -85,6 +85,9 @@
                         <arg>-fluent-builder.endMethodName=end</arg>
                         <arg>-fluent-builder.generateJavadocFromAnnotations=n</arg>
                     </args>
+                    <xjbSources>
+                        <xjbSource>src/main/resources/META-INF/JAXB/DatabaseBusinessDoc.xjb</xjbSource>
+                    </xjbSources>
                     <sources>
                         <source>src/main/resources/BusinessDoc.xsd</source>
                         <source>src/main/resources/DatabaseDoc.xsd</source>

@@ -23,7 +23,7 @@
     </xs:restriction>
     </xs:simpleType>
 
-    <xs:complexType name="document" id="parameter">
+    <xs:complexType name="document" id="doc">
         <xs:sequence>
             <xs:element name="name" type="xs:string" minOccurs="1"/>
             <xs:element name="id" type="xs:integer" minOccurs="1"/>
@@ -36,7 +36,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="doctypestore" id="meths">
+    <xs:complexType name="doctypestore" id="dtstore">
         <xs:sequence>
             <xs:element name="name" type="xs:string" minOccurs="1"/>
             <xs:element name="docStoreType" type="DOCTypes" minOccurs="1" />
