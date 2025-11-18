@@ -986,7 +986,7 @@ One important thing to get a clean logic and a good quality is the design o the 
 \subsection{How to design a application for getting a clean testable project - in overview}
 \begin{flushleft}
 \abbrhighcol{There is more than one pattern to get an application clean with proper logic and a good testability:}\newline
-The first pattern we will show is the \abbrhighcol{MVC} Model View Controler. \footnote{\abbrhighcol{MVC: } \abbrhighcol{M}odel \abbrhighcol{V}iew \abbrhighcol{C}ontroler is a model to separate the view (Maybe GUI) from the model which is the data model. And then use the controler to define the logic manipulating the data and build workflows for example} This pattern is very useful for standalone applications like a "big fat client" or something like Thunderbird (A mail program).  For services /  cloud computing the common sense is to think in a way which is a bit different from MVC. Let us have a look:\newline
+The first pattern we will show is the \abbrhighcol{MVC} Model View Controler. \footnote{\abbrhighcol{MVC: } \abbrhighcol{M}odel \abbrhighcol{V}iew \abbrhighcol{C}ontroler is a model to separate the view (Maybe GUI) from the model which is the data model. And then use the controler to define the logic manipulating the data and build workflows for example} This pattern is very useful for standalone applications like a "big fat client" or something like Thunderbird (A mail program).Here a example:   \hyperref[ref:codelogic]{Model View Controller app example} \newline For services /  cloud computing the common sense is to think in a way which is a bit different from MVC. Let us have a look:\newline
 Here we define separate layers in the application. In the following list represented from highest to lowest ->
 \end{flushleft}
 \begin{enumerate}
@@ -1123,8 +1123,272 @@ The shown things are an example for what can be defined in a backend of a servic
 \end{flushleft}
 \subsection{How to design a application for getting a clean testable project - in detail (description)}
 \begin{flushleft}
-Now we want to have a deeper look on the components inside the backend and how they are connected to the business logic so that the one who codes the business logic does not have to think about the technical details.
+Now we want to have a deeper look on the components inside the backend and how they are connected to the business logic so that the one who codes the business logic does not have to think about the technical details. At first have a look on the way where the logic is separated in business logic and backend logic which are then connected. \newline\newline
+\abbrhighcol{let us have a look at the structure and the code to discuss it. }
+\rubric{The high level project structure}
+
+\begin{tikzpicture}
+% the nodes
+\node [fill=green] (dprA){\abbrhighcol{jsrc/main/ava}};
+\node [fill=green,below=of  dprA] (dprB){\abbrhighcol{business}};
+\node [fill=green,right=of dprB] (dprC){\abbrhighcol{bakend}};
+\node [fill=green,right=of dprC] (dprD){\abbrhighcol{linklayer}};
+\node [fill=green,below=of dprB] (dprE){\abbrhighcol{doc}};
+\node [fill=green,right=of dprE] (dprF){\abbrhighcol{config}};
+\node [fill=green,right=of dprF] (dprG){\abbrhighcol{config}};
+%drawings of vectors
+\draw[->] (dprA.south) -- (dprB.north);
+\draw[->] (dprA.south) -- (dprC.north);
+\draw[->] (dprA.south) -- (dprD.north);
+
+\draw[->] (dprB.south) -- (dprE.north);
+\draw[->] (dprB.south) -- (dprF.north);
+
+\draw[->] (dprC.south) -- (dprG.north);
+\end{tikzpicture}
+
+\newpage
 \end{flushleft}
+\begin{flushleft}
+\rubric{The code stubs for configuration to see the intention}
+\rubric{The code of the interface}
+\begin{lstlisting}[language=Java]
+package io.github.hglabplh_tech.linklayer;
+
+import io.github.hglabplh_tech.DOCTypes;
+
+/**
+ * This interface holds the public functions for the configuration access
+  * @author Harald Glab-Plhak (C) 2025
+ *
+ */
+public interface ConfigurationIfc {   /**
+     * The HTTP / HTTPS port
+     * @return the port number as integer
+     */
+    int getPort();
+
+    /**
+     * The database connect string
+     * @return the database connect parameters as string
+     */
+    String getDBConnectString();
+
+    /**
+     * The default type for import / export / create
+     * @return the default type enum 
+     */
+    DOCTypes getDefaultType();
+} 
+\end{lstlisting}
+\rubric{The code of the config application class}
+\begin{lstlisting}[language=Java]
+package io.github.hglabplh_tech.business.config;
+
+import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.linklayer.ConfigurationIfc;
+
+/**
+ * This class holds the configuration settings for our system in business view
+ * @author Harald Glab-Plhak (C) 2025
+ *
+ */
+public class AppConfig implements ConfigurationIfc {
+
+    /** HTTP port number*/
+    private final int port;
+
+    /**the database connection string*/
+    private final String dbConnectString;
+
+    /**the default document type when storing documents*/
+    private final DOCTypes defaultDocType;
+
+    public AppConfig(int port, String dbConnectString, DOCTypes defaultDocType) {
+        this.port = port;
+        this.dbConnectString = dbConnectString;
+        this.defaultDocType = defaultDocType;
+    }
+
+
+
+    @Override
+    public int getPort() {
+        return this.port;
+    }
+
+    @Override
+    public String getDBConnectString() {
+        return this.dbConnectString;
+    }
+
+    @Override
+    public DOCTypes getDefaultType() {
+        return this.defaultDocType;
+    }
+}
+ \end{lstlisting}
+\rubric{The code of the config backend class}
+\begin{lstlisting}[language=Java]
+package io.github.hglabplh_tech.backend.access;
+
+import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.linklayer.ConfigurationIfc;
+
+/**
+ * This class is between the real configuration definition and the access to the config resource
+ */
+public class Configuration implements ConfigurationIfc, AccessCtxAndConnIfc {
+    /** HTTP port number*/
+    private final int port;
+
+    /**the database connection string*/
+    private final String dbConnectString;
+
+    /**the default document type when storing documents*/
+    private final DOCTypes defaultDocType;
+
+    public Configuration(int port, String dbConnectString, DOCTypes defaultDocType) {
+        this.port = port;
+        this.dbConnectString = dbConnectString;
+        this.defaultDocType = defaultDocType;
+    }
+
+    @Override
+    public int getPort() {
+        return this.port;
+    }
+
+    @Override
+    public String getDBConnectString() {
+        return this.dbConnectString;
+    }
+
+    @Override
+    public DOCTypes getDefaultType() {
+        return this.defaultDocType;
+    }
+
+}
+ \end{lstlisting}
+ \rubric{Generated config XML(JAXB class)}
+\begin{lstlisting}[language=Java]
+
+package io.github.hglabplh_tech.config;
+
+import java.math.BigInteger;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for anonymous complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="port" type="{http://www.w3.org/2001/XMLSchema}integer"/&gt;
+ *         &lt;element name="dbConnectString" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="defaultDocType" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "port",
+    "dbConnectString",
+    "defaultDocType"
+})
+@XmlRootElement(name = "appconfig")
+public class Appconfig {
+
+    protected int port;
+    @XmlElement(required = true)
+    protected String dbConnectString;
+    @XmlElement(required = true)
+    protected String defaultDocType;
+
+    /**
+     * Gets the value of the port property.
+     * 
+     */
+    public int getPort() {
+        return port;
+    }
+
+    /**
+     * Sets the value of the port property.
+     * 
+     */
+    public void setPort(int value) {
+        this.port = value;
+    }
+
+    /**
+     * Gets the value of the dbConnectString property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDbConnectString() {
+        return dbConnectString;
+    }
+
+    /**
+     * Sets the value of the dbConnectString property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDbConnectString(String value) {
+        this.dbConnectString = value;
+    }
+
+    /**
+     * Gets the value of the defaultDocType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDefaultDocType() {
+        return defaultDocType;
+    }
+
+    /**
+     * Sets the value of the defaultDocType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDefaultDocType(String value) {
+        this.defaultDocType = value;
+    }
+
+}
+\end{lstlisting}
+\end{flushleft}
+ 
+ \newpage
 \subsection{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:
@@ -1330,6 +1594,15 @@ new Simple Expr: 11 ; new Triple Expr: 7 ; new Double Expr: 12 ; new Fall throug
 \chapter{Further material}
 \section{Code examples and logic}
 \label{ref:codelogic}
+\begin{flushleft}
+In this part some code snippets and explanations take place which were only mentioned in the article.
+Here the list:
+\begin{enumerate}
+\item{The Model View Controller Architecture}
+\end{enumerate}
+\end{flushleft}
+\subsection{The MVC Model as clean separation of functionality}
+\label{ref:mvc}
 \begin{flushleft}
 \end{flushleft}
 \section{References}
