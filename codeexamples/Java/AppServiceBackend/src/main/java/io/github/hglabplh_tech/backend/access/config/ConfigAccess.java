@@ -1,13 +1,15 @@
 package io.github.hglabplh_tech.backend.access.config;
 
-import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.dastabase.DOCTypes;
 import io.github.hglabplh_tech.backend.access.AccessCtxAndConnIfc;
 import io.github.hglabplh_tech.linklayer.ConfigurationIfc;
 import io.github.hglabplh_tech.linklayer.AccessorIfc;
 
+import java.lang.annotation.Inherited;
+
 /**
  * This class holds the configuration settings for our system backend writes
- * to the database
+ * to the database or to another data source which is defined for the Accessor.
  * @author Harald Glab-Plhak (C) 2025
  *
  */
@@ -26,6 +28,7 @@ public class ConfigAccess implements ConfigurationIfc, AccessorIfc {
         this.dbConnectString = dbConnectString;
         this.defaultDocType = defaultDocType;
     }
+
 
     @Override
     public int getPort() {

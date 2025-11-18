@@ -59,6 +59,8 @@
                     <sources>
                         <source>src/main/resources/BusinessDoc.xsd</source>
                         <source>src/main/resources/DatabaseDoc.xsd</source>
+                        <source>src/main/resources/ConfigurationBean.xsd</source>
+                        <source>src/main/resources/DBAccessorConf.xsd</source>
                     </sources>
                     <outputDirectory>${outputDirectory}/generated-sources</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>

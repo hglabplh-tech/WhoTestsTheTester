@@ -1,6 +1,6 @@
 package io.github.hglabplh_tech.business.config;
 
-import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.dastabase.DOCTypes;
 import io.github.hglabplh_tech.linklayer.ConfigurationIfc;
 
 /**

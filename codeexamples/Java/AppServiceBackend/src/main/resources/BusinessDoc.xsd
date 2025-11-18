@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://hglabplh-tech.github.io"
+           xmlns:business="hglabplh-tech.github.io/business"
+           targetNamespace="hglabplh-tech.github.io/business"
            xmlns="http://hglabplh-tech.github.io"
            elementFormDefault="qualified">
 
     <xs:element name="hardwarestore">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="store" type="documentspool" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="store" type="business:documentspool" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <xs:simpleType name="BusinessDOCTypes">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="BILL"/>
-            <xs:enumeration value="USERREC"/>
-            <xs:enumeration value="ORDER"/>
-            <xs:enumeration value="ADRESS"/>
-            <xs:enumeration value="CUSTOMER"/>
-            <xs:enumeration value="HARDWARE"/>
-            <xs:enumeration value="SERVICE"/>
+            <xs:enumeration value="BBILL"/>
+            <xs:enumeration value="BUSERREC"/>
+            <xs:enumeration value="BORDER"/>
+            <xs:enumeration value="BADRRESS"/>
+            <xs:enumeration value="BCUSTOMER"/>
+            <xs:enumeration value="BHARDWARE"/>
+            <xs:enumeration value="BSERVICE"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="documentspool" id="docp">
         <xs:sequence>
-            <xs:element name="billdocs" type="billdoc" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="billdocs" type="business:billdoc" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="billdoc">
         <xs:sequence>
             <xs:element name="total" type="xs:double"/>
+            <xs:element name="docType" type="business:BusinessDOCTypes"/>
             <xs:sequence minOccurs="1" maxOccurs="unbounded">
                 <xs:element name="prodname" type="xs:string"/>
                 <xs:element name="prodnum" type="xs:integer"/>

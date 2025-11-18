@@ -1,6 +1,6 @@
 package io.github.hglabplh_tech.linklayer;
 
-import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.dastabase.DOCTypes;
 /**
  * This interface holds the public functions for the configuration access
   * @author Harald Glab-Plhak (C) 2025

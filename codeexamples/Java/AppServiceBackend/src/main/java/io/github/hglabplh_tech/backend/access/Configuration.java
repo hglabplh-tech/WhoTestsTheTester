@@ -1,6 +1,6 @@
 package io.github.hglabplh_tech.backend.access;
 
-import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.dastabase.DOCTypes;
 import io.github.hglabplh_tech.linklayer.AccessorIfc;
 import io.github.hglabplh_tech.linklayer.ConfigurationIfc;
 
