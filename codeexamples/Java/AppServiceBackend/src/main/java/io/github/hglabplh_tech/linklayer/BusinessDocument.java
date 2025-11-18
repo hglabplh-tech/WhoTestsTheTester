@@ -1,4 +1,4 @@
 package io.github.hglabplh_tech.linklayer;
 
-public class DBDocument {
+public class BusinessDocument {
 }

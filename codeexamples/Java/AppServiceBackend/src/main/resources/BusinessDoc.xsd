@@ -3,4 +3,48 @@
            targetNamespace="http://hglabplh-tech.github.io"
            xmlns="http://hglabplh-tech.github.io"
            elementFormDefault="qualified">
+
+    <xs:element name="hardwarestore">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="store" type="documentspool" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="BusinessDOCTypes">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BILL"/>
+            <xs:enumeration value="USERREC"/>
+            <xs:enumeration value="ORDER"/>
+            <xs:enumeration value="ADRESS"/>
+            <xs:enumeration value="CUSTOMER"/>
+            <xs:enumeration value="HARDWARE"/>
+            <xs:enumeration value="SERVICE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="documentspool" id="docp">
+        <xs:sequence>
+            <xs:element name="billdocs" type="billdoc" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="billdoc">
+        <xs:sequence>
+            <xs:element name="total" type="xs:double"/>
+            <xs:sequence minOccurs="1" maxOccurs="unbounded">
+                <xs:element name="prodname" type="xs:string"/>
+                <xs:element name="prodnum" type="xs:integer"/>
+                <xs:element name="price" type="xs:double"/>
+                <xs:element name="count" type="xs:integer"/>
+                <xs:element name="total" type="xs:double"/>
+            </xs:sequence>
+        </xs:sequence>
+        <xs:attribute name="address" type="xs:string"/>
+        <xs:attribute name="billnum" type="xs:integer"/>
+        <xs:attribute name="billing_date" type="xs:dateTime"/>
+    </xs:complexType>
+
+
 </xs:schema>
