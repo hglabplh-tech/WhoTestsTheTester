@@ -1,8 +1,10 @@
-package io.github.hglabplh_tech.backend.access;
+package io.github.hglabplh_tech.business.config;
 
 import io.github.hglabplh_tech.DOCTypes;
+import io.github.hglabplh_tech.backend.access.ConfigurationIfc;
 
-public class Configuration implements ConfigurationIfc {
+public class AppConfig implements ConfigurationIfc {
+
     @Override
     public int getPort() {
         return 8080;
