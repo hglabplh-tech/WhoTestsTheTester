@@ -1502,7 +1502,38 @@ One solution here can be:
         verify(mockedVersion, times(countLines + 1)).readOneLine(any());
     }
  \end{lstlisting}
- Here we introduce a variable for the count initialized by getting the list size. But sometimes we do not have this information in access easily so be careful which method calls you really count.
+ \begin{flushleft}
+ Here we introduce a variable for the count initialised by getting the list size. But sometimes we do not have this information in access easily so be careful which method calls you really count. These things can also happen with other logic used when mocking objects or methods. The most mocking frameworks have many objects and mockito for example has an integrated test runner. So the mocking frameworks themselves are very complex and there are many ways to fall in a pit. This is one of the reasons you should not count completely on mocking to solve problems but it should be seen as one tool for testing. Do not mock because mocking is cool but because in one place it is really needed. And here is the general advice: Keep the code as simple as possible. 
+ Here one example about really mock because the count example is some kind of observation:
+ \end{flushleft}
+\begin{lstlisting}[language=Java]
+@Test
+public void testThrowException() {
+    Object o = Mockito.mock(Object.class);
+    Mockito.when(o.toString()).thenThrow(RuntimeException.class);
+                              .thenThrow(IllegalArgumentException.class);
+
+
+    assertThatThrownBy(() -> o.toString()).isInstanceOf(RuntimeException.class);
+    assertThatThrownBy(() -> o.toString()).isInstanceOf(IllegalArgumentException.class);
+}
+
+
+public void testMyFunction() throws Exception {
+    MyInterface mock = mock(MyInterface.class);
+    when(mock.myFunction(anyString())).thenAnswer(new Answer<String>() {
+    @Override
+    public String answer(InvocationOnMock invocation) throws Throwable {
+        Object[] args = invocation.getArguments();
+        return (String) args[0];
+    }
+    });
+
+    assertEquals("someString",mock.myFunction("someString"));
+    assertEquals("anotherString",mock.myFunction("anotherString"));
+}
+ \end{lstlisting}
+ Examples from stackoverflow and github free to copy
  \rubric{\abbrhighcol{'Fake' Components}}
 \begin{flushleft}
 \end{flushleft}
