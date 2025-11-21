@@ -9,8 +9,7 @@ public class NumTowerTest {
 
     @Test
     public void testSimpleForm () {
-        NumTowerIfc tower = new NumTower("");
-        CalcResult result = tower.calculate();
+
     }
 
 

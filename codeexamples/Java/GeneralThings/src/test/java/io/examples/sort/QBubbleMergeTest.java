@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.function.IntFunction;
 
 import static io.examples.sort.QBubbleMerge.SortDirection.ASC;
 import static io.examples.sort.QBubbleMerge.SortDirection.DESC;

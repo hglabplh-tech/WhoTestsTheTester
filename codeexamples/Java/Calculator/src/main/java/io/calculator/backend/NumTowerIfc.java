@@ -1,5 +1,5 @@
 package io.calculator.backend;
 
 public interface NumTowerIfc<T> {
-    CalcResult<T> calculate();
+    Float calculate (Float op1, Float op2, String in);
 }

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ApplicationMVC" />
         <module name="AppServiceBackend" />
+        <module name="GeneralThings" />
         <module name="Calculator" />
       </profile>
     </annotationProcessing>
