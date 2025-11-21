@@ -1387,8 +1387,130 @@ public class Appconfig {
 }
 \end{lstlisting}
 \end{flushleft}
- 
- \newpage
+
+\rubric{\abbrhighcol{The reasons of such a separation}}
+\begin{flushleft}
+The reason for making this separation is that the tests for separated components (separated by functionality) makes the different components better testable because the tests can be keeped simple in the way that we do not have to know in a test for a business object how the archive connector works and on the other side the archive connector is independent from the logic above.In this example we see that also Mocking Methods can be avoid better. It is a target to avoid mocking as far as ever possible although many people in our world tell we really need much mocking. Mocking a function is only ONE of MANY ways to solve a dependency problem and it does not make it really every time easier. I will take a deeper look on it. 
+\end{flushleft}
+\begin{flushleft}
+The other important point is that the use of a new database or service is easier because there is only the last step which has to be implemented for that way with base functions which are defined in an interface. This way reduces errors and makes a great part of the software system independent. The advantage is that if you have a new Storage or Transmission with system dependencies you have only to test the implementation of the transport or storage interface and it is nearly all times the case that the rest of the product works well with it in cause of the strict separation via using a interface. Examples for this way are in Java the Collection and Stream and especially the InputStream / OutputStream and Reader / Writer interfaces.  
+\end{flushleft}
+\subsection{More about Mocking and 'Fake' Libraries / Services}
+\rubric{\abbrhighcol{Mocking with Mockito or other mocking frameworks}}
+\begin{flushleft}
+Mockito is a mocking Framework for Java normally used together with JUNIT. The mocks of Mockito give us several possibilities to say how the mocked functions have to react dependent on the way they are called.One of the other possibilities is to count the method calls to specific methods of the mocked object. This sounds good for many developers because there is a way to get rid of function calls to resources or other external things which need a long time and often you hear the argument that in case of mocking only the function logic is tested and not the logic of external components. But this is only one side of the medal. On the other hand the mock logic is dependent from the internal implementation of the function that means all times the function changes significant the places where it is mocked have also to be changed. \newline\newline
+One other argument against mocking is that the system behaviour is changed if functions are mocked. Not only in case of calling a mock function but also in case of counting calls to functions etc. the behaviour is changed "You change the system functionality and behaviour even by observation". Here an example for method counting and its pitfalls:
+\end{flushleft}
+\rubric{\abbrhighcol{And here one thing that does not work without rewriting so that it can be mocked}}
+\rubric{The app code}
+\begin{lstlisting}[language=Java]
+
+
+public File getTempFile() {
+        return this.tempFile;
+    }
+
+
+    public List<String> getContent() {
+        return Collections.unmodifiableList(this.content);
+    }
+      public List<String> readTempTestTextfile() {
+        return this.readTestTextFileCorrectFMock(this.getTempFile());
+    }
+
+    public boolean writeTempTestTextfile() {
+        return this.writeTestTextFile(this.getTempFile(), this.getContent());
+    }        
+\end{lstlisting}
+\rubric{The test code}
+\begin{lstlisting}[language=Java]
+@BeforeEach
+    public  void beforeEach() {
+        mockedVersion = Mockito.mock(MockedSample.class, Mockito.CALLS_REAL_METHODS);
+    }
+  @Test
+    public void writeTestTextFile() throws IOException{
+        boolean ok = mockedVersion.writeTempTestTextfile();
+        List<String> result =  mockedVersion.readTempTestTextfile();
+        result.forEach(e -> System.out.println(e));
+        int countRead = result.size() + 1; // now we are all times ok with it
+        verify(mockedVersion, times(countRead)).readOneLine(any());
+    }
+\end{lstlisting}
+\begin{flushleft}
+\abbrhighcol{And calling this test leads with Java 17 leads to the following error message}
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended\newline
+
+java.lang.NullPointerException: Cannot invoke "Object.getClass()" because "list" is null\newline
+It seems that calling a function within a mock which accesses private members fails.\newline
+\end{flushleft}
+\begin{flushleft}
+Another problem is the count of calling methods inside a function of the application which is mocked. The count can be affected by e.g. someone changes the incoming data.
+Here an example in which the check which can be broken very easy. Here an example:
+ \rubric{The app code}
+\begin{lstlisting}[language=Java]
+ public List<String> readTestTextFileCorrectFMock(File inFile) {
+        List<String> fileCollection = new ArrayList<>();
+        try {
+            BufferedReader reader;
+            if (inFile != null) {
+                reader = this.getFileInStream(inFile);
+            } else {
+                reader = this.getTempFileInStream();
+            }
+            String line = this.readOneLine(reader);
+            while (line != null) {
+                fileCollection.add(line);
+                line = this.readOneLine(reader);
+            }
+        } catch (IOException ex) {
+            throw new IllegalStateException("error", ex);
+        }
+        return fileCollection;
+    }
+ \end{lstlisting}
+ \rubric{The test code}
+\begin{lstlisting}[language=Java]
+ @Test
+    public void readTestTextFileDataDep() throws URISyntaxException, IOException {
+        MockedSample mockedVersion2 = Mockito.mock(MockedSample.class, Mockito.CALLS_REAL_METHODS);
+        URL inputURL = this.getClass().getResource("/test.txt");
+        File in = new File(inputURL.toURI());
+        List<String> result = mockedVersion.readTestTextFileCorrectFMock(in);
+        verify(mockedVersion, times(1)).getFileInStream(any());
+        verify(mockedVersion, times(5)).readOneLine(any());
+
+        inputURL = this.getClass().getResource("/testTwo.txt");
+        in = new File(inputURL.toURI());
+        result = mockedVersion2.readTestTextFileCorrectFMock(in);
+        verify(mockedVersion2, times(1)).getFileInStream(any());
+        verify(mockedVersion2, times(9)).readOneLine(any());
+    }
+\end{lstlisting}
+\end{flushleft}
+In the test code we see that the different count of the read functions has its reason in two different files. But the point is that there maybe the problem that anyone changes the test file without think about that a few lines more or less changes the outcome of the test.
+One solution here can be:
+ \begin{lstlisting}[language=Java]
+   @Test
+    public void writeTestTextFileAndRead() throws IOException{
+        boolean ok = mockedVersion.writeTestTextFile(this.tempFile,
+                this.content);
+        List<String> result =  mockedVersion.readTestTextFileCorrectFMock(this.tempFile);
+        result.forEach(System.out::println);
+        int countLines = this.content.size(); // now we are all times ok with it
+        verify(mockedVersion, times(countLines)).writeOneLine(any(), any());
+        verify(mockedVersion, times(countLines + 1)).readOneLine(any());
+    }
+ \end{lstlisting}
+ Here we introduce a variable for the count initialized by getting the list size. But sometimes we do not have this information in access easily so be careful which method calls you really count.
+ \rubric{\abbrhighcol{'Fake' Components}}
+\begin{flushleft}
+\end{flushleft}
+
+\subsection{The top 10 NOT TODO's in tests}
+\begin{flushleft}
+\end{flushleft}
+\newpage
 \subsection{A little view at coding styles necessary for testable code a few examples}
 \begin{flushleft}
 Here a little excursion regarding the coding style and how it can make testing of the code nearly impossible:
@@ -1611,5 +1733,6 @@ Here the list:
 \item{\href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}}
 \item{\href{https://solutionshub.epam.com/blog/post/the-difference-between-functional-and-non-functional-testing}{Definition of Functional and NON Functional Testing}}
 \item{\href{https://solutionshub.epam.com/blog/post/regression-testing-test-io}{Regression Testing Tool and Description Regression Test IO}}  
+\item{\href{https://ryanclements.dev/posts/you-probably-dont-need-mocking}{A interesting article about mocking.... Is it really useful to mock all ??? ;-)}}  
 \end{enumerate}
 \end{document}
