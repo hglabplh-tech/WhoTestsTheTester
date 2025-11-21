@@ -1533,12 +1533,18 @@ public void testMyFunction() throws Exception {
     assertEquals("anotherString",mock.myFunction("anotherString"));
 }
  \end{lstlisting}
- Examples from stackoverflow and github free to copy
- \rubric{\abbrhighcol{'Fake' Components}}
-\begin{flushleft}
+ \abbrhighcol{Examples from stackoverflow and GitHub free to copy}
+ \begin{flushleft}
+ In this example we can see a glance of the complexity this mocking frameworks have. You can spend time writing whole 'mocking' programs ;-). This is a problematic thing because if the tests are too complex there is the danger that we test the test in the end not the application because the test logic has always to be adapted to the logic of the application in if this test logic is complex the adaptation is complex and time wasting and can have errors in the test we do not recover. 
 \end{flushleft}
-
-\subsection{The top 10 NOT TODO's in tests}
+ \rubric{\abbrhighcol{'Fake' components}}
+\begin{flushleft}
+Fake components are components which have the same interface as the real component but do anything but returning values which are the right values to test the functionality. In the project / product I worked on the last years there was a component which was to expensive to buy it for tests only so we written a fake of the library doing reverse engineering and the component library we wrote was configurable for the parameters the return values and what should happen e.g. throw Exception XYZ. 
+Let us use a InputStream and OutputStream as interface. The Input / OutputStream do something special and so we use a fake for it. Do not think about a deeper sense I will only show the concept with this example.
+\end{flushleft}
+ \rubric{The real component}
+ \rubric{The  component with the same interface ad returns for test reasons only} 
+ \subsection{The top 10 NOT TODO's in tests}
 \begin{flushleft}
 \end{flushleft}
 \newpage
