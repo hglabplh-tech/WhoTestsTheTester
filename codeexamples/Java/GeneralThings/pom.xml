@@ -15,12 +15,21 @@
 
     <artifactId>GeneralThings</artifactId>
 
+
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target</outputDirectory>
+        <testOutputDirectory>target/test</testOutputDirectory>
     </properties>
     <build>
+        <defaultGoal>compile</defaultGoal>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>target/test</testOutputDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -28,10 +37,48 @@
                 <configuration>
                     <source>22</source>
                     <target>22</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <verbose>true</verbose>
+                    <xjbSources>
+                        <!--xjbSource>${outputDirectory}/META-INF/JAXB/DatabaseBusinessDoc.xjb</xjbSource -->
+                    </xjbSources>
+                    <sources>
+                        <source>src/main/resources/csv/schema/CSVRowKeyVal.xsd</source>
+                    </sources>
+                    <outputDirectory>${outputDirectory}/generated-sources</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.codesup.util/jaxb2-rich-contract-plugin -->
+        <dependency>
+            <groupId>net.codesup.util</groupId>
+            <artifactId>jaxb2-rich-contract-plugin</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+    </dependencies>
 </project>
