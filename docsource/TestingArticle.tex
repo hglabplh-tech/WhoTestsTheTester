@@ -1540,12 +1540,26 @@ public void testMyFunction() throws Exception {
  \rubric{\abbrhighcol{'Fake' components}}
 \begin{flushleft}
 Fake components are components which have the same interface as the real component but do anything but returning values which are the right values to test the functionality. In the project / product I worked on the last years there was a component which was to expensive to buy it for tests only so we written a fake of the library doing reverse engineering and the component library we wrote was configurable for the parameters the return values and what should happen e.g. throw Exception XYZ. 
-Let us use a InputStream and OutputStream as interface. The Input / OutputStream do something special and so we use a fake for it. Do not think about a deeper sense I will only show the concept with this example.
+Let us use a interface working with Key Value Pairs and CSV. We have a 'Real World ' Implementation. In this example the advantages and disadvantages will be shown. Our tiny application has a 'library' part which is 'mocked away'.
+
 \end{flushleft}
  \rubric{The real component}
  \rubric{The  component with the same interface ad returns for test reasons only} 
  \subsection{The top 10 NOT TODO's in tests}
 \begin{flushleft}
+In this place I will show some things which should never happen or never being done writing and designing tests. It is important that tests as well as the target of a test is always clear, clean and strictly described and implemented. 
+\begin{itemize}
+\item{Don't test against a only partly- or unknown target}
+\item{Don't get too fancy when implementing a test keep the test simple}
+\item{Do not check more than one aspect (parameter with different values, transaction with different kinds of input and result, ....) otherwise you do not know why exactly the test is failing }
+\item{Don't use too much mocking if it is not necessary}
+\item{Don't use a test description before you have double checked it if the description is not complete and proper the result cannot be good}
+\item{Don't make tests which have no description at all}
+\item{Don't be worried about ask the architect or developer questions about the functionality if you are not sure}
+\item{A not to do is testing only the values like a developer would set them e.g. buffer-sizes for file transfer}
+\item{Do not forget to test what happens if some things are not initialised correctly}
+\item{Do not test like it is all times good weather and don't test in a nutshell (a unrealistic environment)}
+\end{itemize}
 \end{flushleft}
 \newpage
 \subsection{A little view at coding styles necessary for testable code a few examples}
