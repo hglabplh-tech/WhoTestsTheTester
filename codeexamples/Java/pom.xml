@@ -7,10 +7,11 @@
     <artifactId>test-things</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>Calculator</module>
+        <module>Minesweeper</module>
         <module>AppServiceBackend</module>
         <module>ApplicationMVC</module>
         <module>GeneralThings</module>
+        <module>Minesweeper</module>
     </modules>
     <version>0.3-SNAPSHOT</version>
     <name>test-things</name>

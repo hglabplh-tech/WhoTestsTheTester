@@ -9,7 +9,7 @@ class QBubbleMergeSortTest(unittest.TestCase):
         toSortAsc = copy.deepcopy(SORT_DATA)
         toSortAsc.sort()
         toSortAscQuick = copy.deepcopy(SORT_DATA)
-        QBubbleMergeSort.quickSort(toSortAscQuick, 0, LAST_INDEX)
+        QBubbleMergeSort.quickSort(QBubbleMergeSort.SortOrder.ASC,toSortAscQuick, 0, LAST_INDEX)
         self.assertEqual(set(toSortAsc), set(toSortAscQuick))
 
         # add assertion here
@@ -19,14 +19,14 @@ class QBubbleMergeSortTest(unittest.TestCase):
         toSortAsc.sort()
         toSortAscBubble = copy.deepcopy(SORT_DATA)
 
-        QBubbleMergeSort.bubbleSort(toSortAscBubble)
+        QBubbleMergeSort.bubbleSort(QBubbleMergeSort.SortOrder.ASC, toSortAscBubble)
         self.assertEqual(set(toSortAsc), set(toSortAscBubble))
 
     def test_mergesort_simple(self):
         toSortAsc = copy.deepcopy(SORT_DATA)
         toSortAsc.sort()
         toSortAscMerge = copy.deepcopy(SORT_DATA)
-        QBubbleMergeSort.quickSort(toSortAscMerge, 0, LAST_INDEX)
+        QBubbleMergeSort.mergeSort(toSortAscMerge, 0, LAST_INDEX)
         self.assertEqual(set(toSortAsc), set(toSortAscMerge))
 
 

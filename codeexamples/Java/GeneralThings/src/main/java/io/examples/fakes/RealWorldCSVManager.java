@@ -4,7 +4,9 @@ package io.examples.fakes;
  * Copyright (c)
  */
 
-import javax.activation.UnsupportedDataTypeException;
+import jakarta.activation.UnsupportedDataTypeException;
+
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
