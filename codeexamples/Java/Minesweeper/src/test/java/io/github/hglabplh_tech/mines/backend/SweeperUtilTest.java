@@ -1,5 +1,5 @@
 /*
- * Copyright (c)
+ * Copyright (c) Harald Glab-Plhak 2025
  */
 
 package io.github.hglabplh_tech.mines.backend;
@@ -14,13 +14,24 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Class to test the backend of the Minesweeper
+ */
 class SweeperUtilTest {
 
     private SweeperUtil util;
+
+    /**
+     * Before each tesst we createe a new instance of the util
+     */
     @BeforeEach
     public void before() {
         util= new SweeperUtil(20,20,15);
     }
+
+    /**
+     * Here the random calculation of the mines placement is tested
+     */
     @Test
     void calculateMines() {
         List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
@@ -32,6 +43,9 @@ class SweeperUtilTest {
         assertThat("Arrays are equal allthough random filled", equal, is(false));
     }
 
+    /**
+     * Test the generation of the button name out of position and true / false is a mine
+     */
     @Test
     void makeButtonName() {
         String name = this.util.makeButtonName(5,7, true);
@@ -44,6 +58,9 @@ class SweeperUtilTest {
         assertThat("value isMine not ok", isMine, is(true));
     }
 
+    /**
+     * test the hit function which is chwcking if a button is a mine by his name
+     */
     @Test
     void isMineHit() {
         List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
@@ -53,6 +70,10 @@ class SweeperUtilTest {
         assertThat("there should be NO hit", util.isMineHit(name), is(false));
     }
 
+    /**
+     * test if the check for a positive end works. This is done by simulating the right count of positive
+     * hits without hitting a mine field
+     */
     @Test
     void isPositiveEnd() {
         List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
