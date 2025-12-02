@@ -54,11 +54,13 @@ public class Sweeper extends JPanel
                         implements ActionListener {
     private final SweeperUtil util;
     private final ImageIcon mineIcon;
+    private final ImageIcon bangIcon;
     private final ImageIcon waterIcon;
     private final ImageIcon questionIcon;
     private final List<JButton> buttonList = new ArrayList<>();
     public Sweeper() {
         this.mineIcon = createIcon("mine.png");
+        this.bangIcon = createIcon("bang.gif");
         this.questionIcon = createIcon("question.jpeg");
         this.waterIcon = createIcon("water.png");
         this.util = new SweeperUtil(15, 15, 30);
@@ -76,12 +78,18 @@ public class Sweeper extends JPanel
 
     }
 
-    private void negativeEnd() {
+    private void negativeEnd(String origName) {
+        String[] origValues = origName.split("#");
+
         this.buttonList.forEach(butt -> {
             String theName = butt.getName();
             String[] values = theName.split("#");
             if (Boolean.valueOf(values[2])) {
-                butt.setIcon(this.mineIcon);
+                if (util.compNamesXY(theName, origName)) {
+                    butt.setIcon(this.bangIcon);
+                } else {
+                    butt.setIcon(this.mineIcon);
+                }
             } else {
                 butt.setIcon(this.waterIcon);
             }
@@ -92,7 +100,7 @@ public class Sweeper extends JPanel
     private void positiveEnd() {
         this.buttonList.forEach(butt ->
                 butt.setIcon(this.waterIcon));
-
+        playSound("winning-bell.wav");
     }
 
     /**
@@ -117,7 +125,7 @@ public class Sweeper extends JPanel
     private static void createAndShowGUI() {
 
         //Create and set up the window.
-        JFrame frame = new JFrame("ButtonDemo");
+        JFrame frame = new JFrame("Mine Sweeper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 800);
 
@@ -176,7 +184,7 @@ public class Sweeper extends JPanel
         //source.setEnabled(false);
         if (this.util.isMineHit(name)) {
             source.setIcon(this.mineIcon);
-            negativeEnd();
+            negativeEnd(source.getName());
         } else {
             source.setIcon(this.waterIcon);
             playSound("the-bell.wav");

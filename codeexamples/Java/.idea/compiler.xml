@@ -9,8 +9,11 @@
         <module name="ApplicationMVC" />
         <module name="AppServiceBackend" />
         <module name="GeneralThings" />
-        <module name="Calculator" />
+        <module name="Minesweeper" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Calculator" target="22" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.10)  17 NOV 2025 17:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.10.10)  2 DEC 2025 03:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1000,6 +1000,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 494--495
  []
 
 
+Overfull \hbox (3.67336pt too wide) in paragraph at lines 496--497
+\T1/aer/m/n/10 To show how test driven de-vel-op-ment can be done in a project 
+we make a tiny project called 'Minesweeper'
+ []
+
+
 
 [13]
 Missing character: There is no ; in font nullfont!
@@ -1009,19 +1015,15 @@ Overfull \hbox (48.74757pt too wide) in paragraph at lines 544--545
  []
 
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 563.
-
-
 
 [14]
 
 [15]
 
 [16]
-Overfull \hbox (13.82755pt too wide) in paragraph at lines 702--703
-[] 
- []
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 709.
 
 
 
@@ -1030,195 +1032,231 @@ Overfull \hbox (13.82755pt too wide) in paragraph at lines 702--703
 [18]
 
 [19]
-
-[20]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 757.
-
-
-
-[21] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-
-[22]
-
-[23]
-LaTeX Font Info:    Trying to load font information for T1+aess on input line 8
-37.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/ae/t1aess.fd
-File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 834--855
-
- []
-
-
-Overfull \hbox (21.17505pt too wide) in paragraph at lines 834--855
+Overfull \hbox (13.82755pt too wide) in paragraph at lines 848--849
 [] 
  []
 
 
 
-[24]
-Underfull \hbox (badness 10000) in paragraph at lines 859--893
+[20]
 
- []
+[21]
 
+[22]
 
-Underfull \hbox (badness 10000) in paragraph at lines 859--893
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 896--918
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 896--918
-
- []
-
-
-
-[25]
-Underfull \hbox (badness 10000) in paragraph at lines 922--938
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 922--938
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 941--957
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 941--957
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 960--976
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 960--976
-
- []
-
-
-
-[26]
-
-[27]
+[23]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 981.
+(hyperref)                removing `\@ifnextchar' on input line 903.
 
 
-Overfull \hbox (169.9364pt too wide) in paragraph at lines 981--982
-$[]$
+
+[24] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+
+[25]
+
+[26]
+LaTeX Font Info:    Trying to load font information for T1+aess on input line 9
+83.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/ae/t1aess.fd
+File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
+)
+Underfull \hbox (badness 10000) in paragraph at lines 980--1001
+
+ []
+
+
+Overfull \hbox (21.17505pt too wide) in paragraph at lines 980--1001
+[] 
+ []
+
+
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1005--1039
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1005--1039
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1042--1064
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1042--1064
+
  []
 
 
 
 [28]
+Underfull \hbox (badness 10000) in paragraph at lines 1068--1084
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1068--1084
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1087--1103
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1087--1103
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1106--1122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1106--1122
+
+ []
+
+
 
 [29]
-LaTeX Font Info:    Font shape `T1/aer/b/it' in size <12> not available
-(Font)              Font shape `T1/aer/bx/it' tried instead on input line 1028.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1045--1046
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1063--1063
-
- []
-
-
 
 [30]
-Underfull \hbox (badness 10000) in paragraph at lines 1082--1083
 
- []
-
-
-Overfull \hbox (0.59775pt too wide) in paragraph at lines 1101--1102
-[] 
- []
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@ifnextchar' on input line 1127.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1101--1102
-
+Overfull \hbox (169.9364pt too wide) in paragraph at lines 1127--1128
+$[]$
  []
 
 
 
 [31]
-Underfull \hbox (badness 10000) in paragraph at lines 1120--1121
+
+[32]
+LaTeX Font Info:    Font shape `T1/aer/b/it' in size <12> not available
+(Font)              Font shape `T1/aer/bx/it' tried instead on input line 1174.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1191--1192
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1209--1209
 
  []
 
 
 
-[32]
-
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 1204--1207
+Underfull \hbox (badness 10000) in paragraph at lines 1228--1229
+
+ []
+
+
+Overfull \hbox (0.59775pt too wide) in paragraph at lines 1247--1248
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1247--1248
 
  []
 
 
 
 [34]
-Underfull \hbox (badness 10000) in paragraph at lines 1240--1243
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1268--1271
+Underfull \hbox (badness 10000) in paragraph at lines 1266--1267
 
  []
 
 
 
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 1299--1302
-
- []
-
-
 
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 1327--1329
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1327--1329
-
- []
-
-
 
 [37]
 
+[38]
+
+[39]
+
+[40]
+
+[41]
+
+[42]
+Overfull \hbox (11.33374pt too wide) in paragraph at lines 1660--1663
+[][][][][][][][][][][][][][]  
+ []
+
+
+
+[43]
+
+[44]
+
+[45]
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 1787--1790
+
+ []
+
+
+
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 1823--1826
+
+ []
+
+
+
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 1851--1854
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1882--1885
+
+ []
+
+
+
+[49]
+Underfull \hbox (badness 10000) in paragraph at lines 1910--1912
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1910--1912
+
+ []
+
+
+
+[50]
+
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\@ifnextchar' on input line 1330.
+(hyperref)                removing `\@ifnextchar' on input line 1913.
 
 
 
-[38] (./TestingArticle.aux)
+[51] (./TestingArticle.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1228,16 +1266,16 @@ L3 programming layer <2025-01-18>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `TestingArticle.out' has not changed.
-(rerunfilecheck)             Checksum: A01404AEDD7EDBF15CE4CD61A6DDF2BE;15005.
+(rerunfilecheck)             Checksum: A9E836D560F7844C380EF98B24F183CF;15906.
  ) 
 Here is how much of TeX's memory you used:
- 26080 strings out of 473190
- 474241 string characters out of 5715799
- 1184040 words of memory out of 5000000
- 48315 multiletter control sequences out of 15000+600000
- 605007 words of font info for 114 fonts, out of 8000000 for 9000
+ 26770 strings out of 473190
+ 484657 string characters out of 5715799
+ 1181146 words of memory out of 5000000
+ 48529 multiletter control sequences out of 15000+600000
+ 605706 words of font info for 116 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 108i,8n,107p,2850b,2050s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 108i,8n,107p,2850b,2118s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmb10.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
@@ -1251,12 +1289,13 @@ l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/t
 exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texl
 ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texli
 ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
-e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive
-/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on TestingArticle.pdf (38 pages, 327638 bytes).
+e/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on TestingArticle.pdf (51 pages, 388712 bytes).
 PDF statistics:
- 1128 PDF objects out of 1200 (max. 8388607)
- 1046 compressed objects within 11 object streams
- 548 named destinations out of 1000 (max. 500000)
- 483 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1762 PDF objects out of 2073 (max. 8388607)
+ 1659 compressed objects within 17 object streams
+ 1022 named destinations out of 1200 (max. 500000)
+ 507 words of extra memory for PDF output out of 10000 (max. 10000000)
 
