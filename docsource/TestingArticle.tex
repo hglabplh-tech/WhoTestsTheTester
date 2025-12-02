@@ -491,9 +491,9 @@ And now we can test the thing out of the box for the test is already there.
 \end{flushleft}
 \chapter{Test driven development}
 \section{Short introduction}
-After that we can think about how test driven development can be used to have a well defined interface and to code a application. Test driven development is a kind of development where we define in opposite to the prior example the tests first. Test driven development has the advantage that we see immediately if the function we designed works like it should work because the test shows already up the call and return value of a function how we designed it. Instead of adapting the test to our functionality we write the functionality in the way that we have a test first written according to the requirement.\newline
+After that we can think about how test driven development can be used to have a well defined interface and to code an application. Test driven development is a kind of development where we define in opposite to the prior example the tests first. Test driven development has the advantage that we see immediately if the function we designed works like it should work because the test shows already up the call and return value of a function how we designed it. Instead of adapting the test to our functionality we write the functionality in the way that we have a test first written according to the requirement.\newline
 \section{Make the proof of concept}
-To show how test driven development can be done in a project we make a tiny project called 'Calculator' this calculator is a calculator for mathematical expressions with a GUI. The project is defined in Java with a numeric tower and SWING as graphical interface. Here first the tests are defined and after that the functions are implemented. After done so there are Functional Tests and defined Interactive Tests.
+To show how test driven development can be done in a project we make a tiny project called 'Minesweeper' this game is calculating random mines which are placed in the field and if the user clicks a button assigned to have a mine the game is over. The project is defined in Java with a logic of a two dimensional array  and SWING as graphical interface. Here first the tests are defined and after that the functions are implemented. After done so there are Functional Tests and defined Interactive Tests.
 \newpage
 \subsection{How to do Test Driven Development - Diagram}
 \abbrhighcol{Example with Java and IntelliJ / Maven}
@@ -559,7 +559,153 @@ To show how test driven development can be done in a project we make a tiny proj
 \item{\abbrhighcol{checkin....} -> in this step we checkin the code and the tests. The checkin must be at least compilable.}
 \item{\abbrhighcol{completed set code freeze} -> now we declare the task as ready but if a code review shows errors or unclean code it may be re-opened.}
 \end{enumerate}
-\subsection{See how this works in our example with the calculator}
+\subsection{See how this works in our example with the mine-sweeper}
+\begin{flushleft}
+At first we need some utility functions containing the pure logic of the game. And in this place we first write a test which is written like the implementation of the class interface is already there. After doing so we make the real implementation.\newline Here at first the implemented test for the utility in the backend: 
+\end{flushleft}
+\begin{lstlisting}[language=Java]
+   /**
+     * Before each tesst we createe a new instance of the util
+     */
+    @BeforeEach
+    public void before() {
+        util= new SweeperUtil(20,20,15);
+    }
+\end{lstlisting}
+\begin{flushleft}
+The first test is the test for the method which places the mines in the field via a random algorithm. Here we test if the algorithm is really random and if the field is properly initialised.
+\end{flushleft}
+\begin{lstlisting}[language=Java]
+ /**
+     * Here the random calculation of the mines placement is tested
+     */
+    @Test
+    void calculateMines() {
+        List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
+        Boolean[] shadow = util.getShadowArray();
+        SweeperUtil util2 = new SweeperUtil(20,20,15);
+        List<List<SweeperUtil.ButtDescr>> thisList2 = util2.calculateMines();
+        Boolean[] shadow2 = util2.getShadowArray();
+        Boolean equal = (Arrays.compare(shadow2, shadow) == 0);
+        assertThat("Arrays are equal allthough random filled", equal, is(false));
+    }
+\end{lstlisting}
+\begin{flushleft}
+The next test is the test for the method which builds a name of a button in the mine field. The point is that the name is used for saving coordinates and more. 
+\end{flushleft}
+\begin{lstlisting}[language=Java]
+  /**
+     * Test the generation of the button name out of position and true / false is a mine
+     */
+    @Test
+    void makeButtonName() {
+        String name = this.util.makeButtonName(5,7, true);
+        String[] values = name.split("#");
+        Integer x = Integer.valueOf(values[0]);
+        Integer y = Integer.valueOf(values[1]);
+        Boolean isMine = Boolean.valueOf(values[2]);
+        assertThat("value x not ok", x, is(5));
+        assertThat("value y not ok", y, is(7));
+        assertThat("value isMine not ok", isMine, is(true));
+    }
+\end{lstlisting}
+
+\begin{flushleft}
+The next test is the test for the method which checks if a mine is hit by the button click 
+\end{flushleft}
+\begin{lstlisting}[language=Java]
+ /**
+     * test the hit function which is chwcking if a button is a mine by his name
+     */
+    @Test
+    void isMineHit() {
+        List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
+        String name = this.util.makeButtonName(5,7, true);
+        assertThat("there should be a hit", util.isMineHit(name), is(true));
+        name = this.util.makeButtonName(5,7, false);
+        assertThat("there should be NO hit", util.isMineHit(name), is(false));
+    }
+\end{lstlisting}
+
+\begin{flushleft}
+The last test we show here is the test for the method which checks if the game end conditions for a positive end is done in the right way: 
+\end{flushleft}
+\begin{lstlisting}[language=Java]
+/**
+     * test if the check for a positive end works. This is done by simulating the right count of positive
+     * hits without hitting a mine field
+     */
+    @Test
+    void isPositiveEnd() {
+        List<List<SweeperUtil.ButtDescr>> thisList = util.calculateMines();
+
+        int x = 0;
+        int y = 0;
+        for (int index = 0; index < (util.getNumFields() - this.util.getNumMines() ); index++) {
+            String name = this.util.makeButtonName(x,y , false);
+            util.isMineHit(name);
+            if (x >= (this.util.getCx() - 1)) {
+                if (y < this.util.getCy() -1) {
+                    y++;
+                }
+                x = 0;
+            } else {
+                x++;
+            }
+        }
+        assertThat("waited for positive end", util.isPositiveEnd(), is(true));
+
+    }
+\end{lstlisting}
+% now we go to the implementation of the functionality of the logic we have tests for:
+\begin{flushleft}
+After writing the tests for the public methods or interfaces we go ahead to implement the things for which we have written tests. To hold this example short I will show this for one method -> \abbrhighcol{THE PUBLIC METHOD FOR CALCULATE THE MINES IN THE FIELD}
+\end{flushleft}
+
+\begin{lstlisting}[language=Java]
+  public List<List<ButtDescr>> calculateMines() {
+  // first create the randomiser
+  
+        Random rand = new Random();
+        int arrIndex = 0;
+        
+        // now we create the array with the dimensions set 
+        for (int cyInd = 0; cyInd < this.cy; cyInd++) {
+            this.fieldsList.add(new ArrayList<>());
+            for (int cxInd = 0; cxInd < this.cx; cxInd++) {
+                this.fieldsList.get(cyInd).add(cxInd, new ButtDescr(Boolean.FALSE, Boolean.FALSE));
+                this.shadowArray[arrIndex] = Boolean.FALSE;
+                arrIndex++;
+            }
+        }
+        
+        // now we set the mines at first in the shadow array for plcing the values in the fields after that
+        for (int index = 0; index < this.numMines; index++) {
+            Integer mineIndex = rand.nextInt(this.numFields - 1);
+            this.shadowArray[mineIndex] = Boolean.TRUE;
+        }
+
+       // place the shadow array values in the fields array
+        arrIndex = 0;
+        for (int cyInd = 0; cyInd < this.cy; cyInd++) {
+            for (int cxInd = 0; cxInd < this.cx; cxInd++) {
+                Boolean temp = this.shadowArray[arrIndex];
+                this.fieldsList.get(cyInd).add(cxInd, new ButtDescr(Boolean.FALSE, temp));
+                arrIndex++;
+            }
+        }
+        return getFieldsList();
+    }
+\end{lstlisting}
+
+\begin{flushleft}
+In the example you see how the array is first created. After the creation we use a shadow array which is flattened to set the positions were mines are placed. This positions are after that placed in the fields array.\newline
+This functionality can now be used by the GUI to build a mine field with mines which are placed random in the field. The other functions we shown in the test are after that used in the further logic.
+\end{flushleft}
+
+
+% Next chapter about test types and the categories
+
 \chapter{The test types in detail}
 \begin{flushleft}
 For the test types you will see there are different ways of categorisation. I will show them without telling the one or the other way is better, because in each discipline of data and computer science there are always different ways of thinking. Here is the categorisation we had in my former company:
@@ -916,7 +1062,7 @@ We see here that in the end we have nearly something like a spider-net between t
 \draw[->] (devF.south) -- (devB.north);
 \end{tikzpicture}\newline
 \begin{flushleft}
-A typical workflow in the development environment will be that the developer gets a task and hast to break down the tasks in classes functions and configurations. The developer will choose one of the development tools which are allowed by the standard of the company or department. In this development environment the code is developed in a sandbox and later on the developer commits the code step by step to the version control system (e.g.: GIT) and then the development of the next function is done. A development environment should be choosed im a way that not only the pure coding is possible and that it supports some goodies e.g. Test Driven Development. In JIRA for example the developer can comment the task if necessary and he sees the output (what checked-in in GIT ) if he uses the feature of JIRA and BitBucket that the commits are grouped by task or defect. Normally a development Tool like IntelliJ supports all these things. 
+A typical workflow in the development environment will be that the developer gets a task and hast to break down the tasks in classes functions and configurations. The developer will choose one of the development tools which are allowed by the standard of the company or department. In this development environment the code is developed in a sandbox and later on the developer commits the code step by step to the version control system (e.g.: GIT) and then the development of the next function is done. A development environment should be chosen in a way that not only the pure coding is possible and that it supports some goodies e.g. Test Driven Development. In JIRA for example the developer can comment the task if necessary and he sees the output (what checked-in in GIT ) if he uses the feature of JIRA and BitBucket that the commits are grouped by task or defect. Normally a development Tool like IntelliJ supports all these things. 
 \end{flushleft}
 \newpage
 \abbrhighcol{3. Bitbucket-Repository}\newline\newline
@@ -1640,7 +1786,7 @@ StringBuffer buffer = new StringBuffer()
 
 The output calling it with all parameters will be:\newline
 Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 324 ; Normal default: 3\newline\newline
-\abbrhighcol{Let us first have a look at an old school dirty coded switch block}
+\abbrhighcol{Now let us have a look at an old school dirty coded switch block}
 \begin{lstlisting}[language=Java]
 /**
      * In this function the break statements are set wild or never. That kind of 
@@ -1676,7 +1822,7 @@ Normal Simple: 11; Normal Triple: 7 ; Normal Double: 12 ; Normal Fall through : 
 
 The output calling it with all parameters will be:\newline
 With trap Simple: 562 ; With trap Triple: 10 ; With trap  Double: 12 ; With trap  Fall through: 540 ; With trap  default: 3\newline\newline
-\abbrhighcol{Let us first have a look at an new  clean coded switch block}
+\abbrhighcol{Now let us  have a look at an new  clean coded switch block}
 \begin{lstlisting}[language=Java]
  /**
      * Here we see the 'new' keyword yield with which a result is given back and which also, like break, sets the continuation
