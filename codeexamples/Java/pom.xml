@@ -12,6 +12,7 @@
         <module>ApplicationMVC</module>
         <module>GeneralThings</module>
         <module>Minesweeper</module>
+        <module>ExoticDataTypesAndTests</module>
     </modules>
     <version>0.3-SNAPSHOT</version>
     <name>test-things</name>
