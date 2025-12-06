@@ -96,13 +96,13 @@ module arrow/.style={single arrow, single arrow head extend=2.5mm, draw=gray!75,
 	
 \newcommand{\titlereference}[1]{\textsl{#1}}
 % end of "some commands"
-\title{Testing is a MUST \newline Version 0.8}
+\title{About Testing, Automation and Project Management for High Quality Projects \newline Version 0.8}
 
 \author{Harald Glab-Plhak{\textless}\href{mailto:hglabplhak@icloud.com}{hglabplhak@icloud.com}{\textgreater}}
 \date{\today{}}
 %______________________________________________________________________________________
 \hypersetup{
-pdftitle={Testing is a MUST Version 0.8}, 
+pdftitle={About Testing, Automation and Project Management for High Quality Projects Version 0.8}, 
 pdfauthor={Harald Glab-Plhak (staatl.gepr. Inf) {\textless}hglabplhak@icloud.com{\textgreater}}%;Mike Sperber (CEO Active Group Tübingen) {\textless}michael.sperber@active-group.de{\textgreater}}
 }
 
@@ -111,7 +111,7 @@ pdfauthor={Harald Glab-Plhak (staatl.gepr. Inf) {\textless}hglabplhak@icloud.com
 %______________________________________________________________________________________
 
 \maketitle
-\subtitle{About automated test methods and more.....}
+\subtitle{Experiences / Theories and practical tips and models for High Quality Projects....}
 \tableofcontents
 
 %______________________________________________________________________________________
@@ -1941,7 +1941,7 @@ At this point we cannot look at all the tools supporting this. There are many we
 To introduce these standards to a project also the organisation of a project is very important. We cannot get standards alive in a project without planning and without having people like we say in German "wearing the hat" who decide if we use green as the colour for that specific point of logic or violet which are pictures for the fact that often neither the one nor the other opinion is the right way. There are many points where either the one or the other is ok. But there are also many points like code indention where the decision is a point which can be discussed for months or one makes the decision and it is ok no matter how the decision is.\newline
 To make it short we need one or two persons who decide the things which will be otherwise points of discussions for a long time. So we need one who decides which way we choose and we need people who look that the coders developers ad the one who makes other parts of design and documentation and so on follows these decisions consequently.\newline Code review and the principal of four eyes have the same importance. \newline In that place let us construct an example:    
 \end{flushleft}
-\rubric{An example of planning and living these quality standards which help to better testing}
+\subsection{An example of planning and living these quality standards which help to better testing}
 \begin{flushleft}
 We have a project where we have to store CAD data for the construction of an airplane. This CAD data are processed via a C/C++ module to get them graphical  visible and this with the possibility to edit them. In addition to the CAD data we have a catalog of materials and parts we can use to construct the parts of the airplane like they are designed in the CAD. Now after that there is a workflow where a copy of the data is sent to thee responsible engineers and one copy of them is stored in parallel in an archive backend with a DMS / ECM written as a service in Java, JavaScript, Python and Scala.\newline
 Since we have to manage the whole project we have to decide the coding standards for each language (Java, C/C+ ,Perl which is used for the batch generation, Scala, JavaScript,Python, and last but not least for the application service war ear and other packages.
@@ -1979,11 +1979,34 @@ Since we have to manage the whole project we have to decide the coding standards
 \node [fill=green,below=of tD] (tG){\abbrhighcol{Project Board}};
 %drawings of vectors
 \draw[->] (tA.south) -- (tB.north);
-
 \draw[->] (tA.south) -- (tC.north);
 \draw[->] (tA.south) -- (tD.north);
-%\draw[->] (tB.south) -- (tE.north);
+
+\draw[->] (tB.east) -- (tC.west);
+\draw[->] (tC.west) -- (tB.east);
+
+\draw[->] (tC.east) -- (tD.west);
+\draw[->] (tD.west) -- (tC.east);
+
+\draw[->] (tB.south) -- (tE.north);
+\draw[->] (tC.south) -- (tE.north);
+\draw[->] (tD.south) -- (tE.north);
+
+\draw[->] (tB.south) -- (tF.north);
+\draw[->] (tC.south) -- (tF.north);
+\draw[->] (tD.south) -- (tF.north);
+
+\draw[->] (tB.south) -- (tG.north);
+\draw[->] (tC.south) -- (tG.north);
+\draw[->] (tD.south) -- (tG.north);
 \end{tikzpicture}
+
+%Comment
+\begin{flushleft}
+As you see in the graphical view the organisation of the first structure looks very static and hierarchical as it was long times in former times.\newline The new agile organisation looks, except the team lead who has here a more and more pure personal responsibility, like a net which is a more dynamic structure and formation. This leads to a flexible structure of \abbrhighcol{SCRUM Teams} and out of the Scrum teams there are some people, in most cases the Scrum Masters, who have the one or other steering and design function. This is interesting for Quality and testing because the exchange of information is much higher.\newline But you see also that there is a test team outside the hierarchy. It is outside because it needs to be independent. This fact that the test team is not responsible against the project lead or any others leads to better testing and higher quality.   
+\end{flushleft}
+
+
 %% New part and chapture
 \newpage
 \chapter{Further material}
