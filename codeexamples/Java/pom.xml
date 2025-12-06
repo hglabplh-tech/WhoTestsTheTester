@@ -7,7 +7,6 @@
     <artifactId>test-things</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>Minesweeper</module>
         <module>AppServiceBackend</module>
         <module>ApplicationMVC</module>
         <module>GeneralThings</module>

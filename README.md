@@ -5,6 +5,7 @@ The article here is not complete and since it gets more and more complex I will 
 The examples for coding remain here and will grow 
 
 ### Next todo's
+*  Working on experimental datatypes
 *  Building an example MVC App.
 *  How to sign documents (Bouncy Castle and Java RT) because this is free software.
 *  How to handle EU trust lists and work with eIDAS as well as with BSI standards

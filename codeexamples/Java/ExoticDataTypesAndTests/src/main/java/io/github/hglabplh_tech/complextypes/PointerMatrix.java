@@ -235,43 +235,49 @@ public class PointerMatrix<T,V> {
 
             }
 
-            public ElementBuilder elementValue(V value) {
+            public ElementBuilder<T, V> elementValue(V value) {
                 theElement.elementValue = value;
                 return this;
             }
 
-            public ElementBuilder upPointer(Pointer<T> upPointer) {
+            public ElementBuilder<T, V> upPointer(Pointer<T> upPointer) {
                 theElement.upPointer = upPointer;
                 return this;
             }
 
-            public ElementBuilder downPointer(Pointer<T> downPointer) {
+            public ElementBuilder<T, V> downPointer(Pointer<T> downPointer) {
                 theElement.downPointer = downPointer;
                 return this;
             }
 
-            public Pointer<T> getLeftPointer() {
-                return leftPointer;
+            public ElementBuilder<T, V> leftPointer(Pointer<T> leftPointer) {
+                theElement.leftPointer = leftPointer;
+                return this;
             }
 
-            public Pointer<T> getRightPointer() {
-                return rightPointer;
+            public ElementBuilder<T, V> rightPointer(Pointer<T> rightPointer) {
+                theElement.rightPointer = rightPointer;
+                return this;
             }
 
-            public Pointer<T> getUpLeftPointer() {
-                return upLeftPointer;
+            public ElementBuilder<T, V> upLeftPointer(Pointer<T> upLeftPointer) {
+                theElement.upLeftPointer = upLeftPointer;
+                return this;
             }
 
-            public Pointer<T> getDownRightPointer() {
-                return downRightPointer;
+            public ElementBuilder<T, V> downRightPointer(Pointer<T> downRightPointer) {
+                theElement.downRightPointer = downRightPointer;
+                return this;
             }
 
-            public Pointer<T> getDownLeftPointer() {
-                return downLeftPointer;
+            public ElementBuilder<T, V> downLeftPointer(Pointer<T> downLeftPointer) {
+                theElement.downLeftPointer = downLeftPointer;
+                return this;
             }
 
-            public Pointer<T> getUpRightPointer() {
-                return upRightPointer;
+            public ElementBuilder<T, V> upRightPointer(Pointer<T> upRightPointer ) {
+                theElement.upRightPointer = upRightPointer;
+                return this;
             }
         }
     }
