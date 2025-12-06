@@ -1911,8 +1911,80 @@ The output calling it with all parameters will be:\newline
 new Simple Expr: 11 ; new Triple Expr: 7 ; new Double Expr: 12 ; new Fall through Expr: 108 ; new default Expr: 3\newline\newline
 %% next section
 \subsection{Why the codestyle and coding rules and documentation standards support quality}
+\begin{flushleft}
 Not only the way a logic is developed gives a tribute to good quality but also the code style the coding rules and a check of unnecessary statements missing initialisations which can lead to unwanted effects are valuable for getting a good quality and good testable code.\newline
 Imagine a team of ten developers. Each of the developers is new to the project. Before developing in that project each of the developers had a complete different history of projects with different formatting and coding rules and different ways of managing to get a good developed project. Now if all of these developers go on working as before you have completely different code styles in the project. And if the team gets bigger there are more and more different ways. Each way for itself will lead to a good result. But if you mix up all of them in one project any of the developers which is new to the project will face the problem to understand the logic and so on because he must spend much of the time he has to understand the different ways of development.\newline So if you start a project it is a good thing and a good way to define rules and a homogenous coding and development style and to set up development tools to support the defined rules. In case it is done in that way the project will be easier to understand by each one who is new to the project. Not also in coding but also in the documentation such standard definitions are very useful. \newline In the most cases there is no right and no wrong way except the technical needs of clean coding like initialise variables proper and active. So each project can have rules which differ slightly. But the main thing is to have these rules. This makes also documentation and code easier to read after a short time being in the project. And easier to read means better understanding and a consequence of that is normally a higher quality and a better testability.   
+\end{flushleft}
+\rubric{Tasks for aiming the goal}
+\begin{itemize}
+\item{Comment code - for publics in Java with Javadoc and in other languages with the best comment format}
+\item{Format the code for each part in the same way. Here most Development tools have the possibility to store the formatting as settings and after they are stored you can do a reformat code.}
+\item{Profile the code. Static code check e.g. via SonarCube which checks the code for unclean parts and also for ways of optimisation. This can also be processed during the build or in most Development Environments via plugin.}
+\item{For the documentation the same tool like Word and there must be a standard how to write documentation for the different cases in the same way.}
+\item{Also the way of defining the builds (e.g. with maven / the pom can be set up in different ways) and the modules has to be standardised.}
+\end{itemize}
+\begin{flushleft}
+\rubric{Supporting tools}
+Here some tools will be mentioned which help and support you doing development this way.\newline
+At this point we cannot look at all the tools supporting this. There are many well known tools but also solutions for some things on GitHub and at GitHub they are available in source code. It is like with the test-frameworks like Cucumber which is available as source on GitHub. One source for the tools is the Wikipedia description of static code analysis. See \hyperref[ref:references]{The references Top 3.}
+\end{flushleft}
+\begin{itemize}
+\item{\abbrhighcol{SonarCube:} Tool for static code analysis and to detect potential places for optimisation.here are many languages supported : C, C\#, C++, Objective-C, Kotlin, Java, Scala, JavaScript, TypeScript, VB.NET, Python, Cobol, PL/1, HTML to mention some of them}
+\item{\abbrhighcol{CLang:} Code analysis for C / C++ / Objective-C}
+\item{\abbrhighcol{Code Dx (Defunct 2021):} Code analysis for C, C++, C\#, Java JSP, Scala, Python}
+\item{\abbrhighcol{ECLAIRE:} Code analysis C/ C++}
+\item{\abbrhighcol{Fluid Attacks} Code analysis for C\#, Java, Kotlin and more}
+\item{\abbrhighcol{GCC:} Code analysis for C complete analysis also for optimisation}
+\end{itemize}
+\rubric{Planning - Doing of Standards}
+\begin{flushleft}
+To introduce these standards to a project also the organisation of a project is very important. We cannot get standards alive in a project without planning and without having people like we say in German "wearing the hat" who decide if we use green as the colour for that specific point of logic or violet which are pictures for the fact that often neither the one nor the other opinion is the right way. There are many points where either the one or the other is ok. But there are also many points like code indention where the decision is a point which can be discussed for months or one makes the decision and it is ok no matter how the decision is.\newline
+To make it short we need one or two persons who decide the things which will be otherwise points of discussions for a long time. So we need one who decides which way we choose and we need people who look that the coders developers ad the one who makes other parts of design and documentation and so on follows these decisions consequently.\newline Code review and the principal of four eyes have the same importance. \newline In that place let us construct an example:    
+\end{flushleft}
+\rubric{An example of planning and living these quality standards which help to better testing}
+\begin{flushleft}
+We have a project where we have to store CAD data for the construction of an airplane. This CAD data are processed via a C/C++ module to get them graphical  visible and this with the possibility to edit them. In addition to the CAD data we have a catalog of materials and parts we can use to construct the parts of the airplane like they are designed in the CAD. Now after that there is a workflow where a copy of the data is sent to thee responsible engineers and one copy of them is stored in parallel in an archive backend with a DMS / ECM written as a service in Java, JavaScript, Python and Scala.\newline
+Since we have to manage the whole project we have to decide the coding standards for each language (Java, C/C+ ,Perl which is used for the batch generation, Scala, JavaScript,Python, and last but not least for the application service war ear and other packages.
+\end{flushleft}
+\rubric{Team structure top down non dynamic }
+\begin{flushleft}
+\end{flushleft}
+\begin{tikzpicture}
+% the nodes
+\node [fill=green] (tA){\abbrhighcol{jTeam Lead / Personal Responsible}};
+\node [fill=green,below=of  tA] (tB){\abbrhighcol{Project Architecture Board}};
+\node [fill=green,below=of tB] (tC){\abbrhighcol{Development Team}};
+\node [fill=green,right=of tC] (tD){\abbrhighcol{Test Team}};
+\node [fill=green,right=of tD] (tE){\abbrhighcol{Delivery Support Team}};
+%drawings of vectors
+\draw[->] (tA.south) -- (tB.north);
+
+\draw[->] (tB.south) -- (tC.north);
+\draw[->] (tB.south) -- (tD.north);
+\draw[->] (tB.south) -- (tE.north);
+\end{tikzpicture}
+\begin{flushleft}
+\end{flushleft}
+\rubric{Team structure dynamic nearly like Scrum}
+\begin{flushleft}
+\end{flushleft}
+\begin{tikzpicture}
+% the nodes
+\node [fill=green] (tA){\abbrhighcol{jTeam Lead / Personal responsible}};
+\node [fill=green,below=of  tA] (tB){\abbrhighcol{Development One}};
+\node [fill=green,right=of tB] (tC){\abbrhighcol{Development Two}};
+\node [fill=green,right=of tC] (tD){\abbrhighcol{Development Three}};
+\node [fill=green,below=of tB] (tE){\abbrhighcol{Architecture Board}};
+\node [fill=green,below=of tC] (tF){\abbrhighcol{Test Board}};
+\node [fill=green,below=of tD] (tG){\abbrhighcol{Project Board}};
+%drawings of vectors
+\draw[->] (tA.south) -- (tB.north);
+
+\draw[->] (tA.south) -- (tC.north);
+\draw[->] (tA.south) -- (tD.north);
+%\draw[->] (tB.south) -- (tE.north);
+\end{tikzpicture}
+%% New part and chapture
 \newpage
 \chapter{Further material}
 \section{Code examples and logic}
@@ -1933,6 +2005,7 @@ Here the list:
 \begin{enumerate}
 \item{\href{https://about.gitlab.com/ebook-ultimate-guide-ci-cd/variant/?utm_medium=cpc&utm_source=google&utm_campaign=eg_emea_dmp_x_x_en_gitlab_search_nb_singleappci-usecase_emea_broad&utm_content=eg_global_cmp_gated-content_depflex_en_guidecicd_x_x&&utm_term=cicd&_bt=740261293420&_bk=cicd&_bm=b&_bn=g&_bg=145507599496&gad_source=1&gad_campaignid=18463394777&gbraid=0AAAAADcJCbdc_52VE3ELeOTJbyqTR_PEd&gclid=CjwKCAiAlMHIBhAcEiwAZhZBUuxNCoQbO-WCuXyx0-26PE-PWqhcrsxolCDW-4gZq7TBt2eGK9hbvBoCgaYQAvD_BwE}{GITLAB CD/CI Guide and descriptions}}
 \item{\href{https://solutionshub.epam.com/blog/post/the-difference-between-functional-and-non-functional-testing}{Definition of Functional and NON Functional Testing}}
+\item{\href{https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis}{Static code analysis description Wikipedia - Tools - Table}}
 \item{\href{https://solutionshub.epam.com/blog/post/regression-testing-test-io}{Regression Testing Tool and Description Regression Test IO}}  
 \item{\href{https://ryanclements.dev/posts/you-probably-dont-need-mocking}{A interesting article about mocking.... Is it really useful to mock all ??? ;-)}}  
 \end{enumerate}
